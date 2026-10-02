@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genco-verify"
+version = "1.0.0"
+description = "Verified N-k contingency screening with GENCO: Newton-Raphson decides, every case ends verified safe, verified violation or unresolved."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Alireza Shooshtari", email = "a.shooshtari1996@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.optional-dependencies]
+fast = ["lightsim2grid>=1.1"]
+data = ["pandas>=2.0", "pyarrow>=14"]
+analysis = ["pandas>=2.0", "matplotlib>=3.8", "scikit-learn>=1.4", "networkx>=3.0"]
+test = ["pytest>=7"]
+
+[project.urls]
+Repository = "https://github.com/Alirezashooshtari/genco-trust-but-verify"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

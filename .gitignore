@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+build/
+dist/
+# notebook outputs downloaded from Colab before they are moved into results/
+/step*_outputs/
+/step*_outputs.zip
+*.pt
+*.npz
+!results/**/*.npz
