@@ -1,0 +1,20 @@
+{
+ "config": {
+  "N_NORMAL": 100,
+  "N_BASE": 60,
+  "STORM_TOTALS": [
+   10,
+   20
+  ],
+  "TOL_SCREEN": 0.01,
+  "SEED": 0
+ },
+ "gpu": "cuda",
+ "compiled": true,
+ "lightsim2grid": true,
+ "genco_ms": {
+  "fp32": 42.189267171875024,
+  "fp16c": 12.787963947916628
+ },
+ "torch_scatter_replacement": true
+}
