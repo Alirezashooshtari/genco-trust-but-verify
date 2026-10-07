@@ -1,0 +1,57 @@
+{
+ "config": {
+  "N_BASE": 120,
+  "STORM_TOTAL": 20,
+  "LAM_STEP": 0.02,
+  "LAM_WIDTH": 0.0025,
+  "GRID_STEP": 0.01,
+  "GRID_HALF": 15,
+  "LAM_CAP": 2.0,
+  "TOL": 1e-08,
+  "TOL_SCREEN": 0.01,
+  "MAX_NR": 6,
+  "SEED": 0,
+  "LINE_MARGIN": 0.0454,
+  "DC_LINE_MARGIN": 0.137
+ },
+ "n_cases": 120,
+ "n_unsolvable_at_actual_load": 33,
+ "n_with_nose": 119,
+ "verdict": {
+  "NOSE_IS_GENUINE": false,
+  "GENCO_SHOWS_NO_NOSE": true,
+  "GENCO_ALONE_BLIND": false,
+  "DC_ALONE_BLIND": false,
+  "CHECK_CATCHES_IT": true,
+  "CHECK_PASSES_BUT_FLAGS": false,
+  "FULL_NEWTON_FROM_GENCO_CATCHES_IT": true,
+  "RESIDUAL_KNOWS": false
+ },
+ "signals": {
+  "resP_p99_MW": {
+   "auroc_beyond_vs_margin5": 0.6058560490789602,
+   "auroc_unsolvable_vs_solvable_at_actual_load": 0.6920933472657611
+  },
+  "resP_max_MW": {
+   "auroc_beyond_vs_margin5": 0.6287323157110946,
+   "auroc_unsolvable_vs_solvable_at_actual_load": 0.7467781260884709
+  },
+  "mismatch_pu": {
+   "auroc_beyond_vs_margin5": 0.6083363009485577,
+   "auroc_unsolvable_vs_solvable_at_actual_load": 0.6523859282479972
+  },
+  "minus_min_vm": {
+   "auroc_beyond_vs_margin5": 0.6923706659328563,
+   "auroc_unsolvable_vs_solvable_at_actual_load": 0.7279693486590039
+  },
+  "n_low_v": {
+   "auroc_beyond_vs_margin5": 0.6546397989575578,
+   "auroc_unsolvable_vs_solvable_at_actual_load": 0.6799024730059213
+  }
+ },
+ "gpu": "cuda",
+ "lightsim2grid": true,
+ "forward_ms_incl_loading": 46.522899483333426,
+ "torch_scatter_replacement": true,
+ "platform": "Linux-6.6.122+-x86_64-with-glibc2.39"
+}

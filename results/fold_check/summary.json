@@ -1,0 +1,29 @@
+{
+ "config": {
+  "LAM_STEP": 0.02,
+  "LAM_WIDTH": 0.0025,
+  "START_BELOW": 0.05,
+  "H0": 0.02,
+  "H_MIN": 0.0002,
+  "H_MAX": 0.05,
+  "MAX_STEPS": 400,
+  "SIGMA_OFFSETS": [
+   0.0025,
+   0.005,
+   0.01,
+   0.02,
+   0.04
+  ],
+  "TOL": 1e-08,
+  "SEED": 0
+ },
+ "n_storms": 120,
+ "n_fold": 118,
+ "verdict": {
+  "FOLD_FOUND_FOR_MOST": true,
+  "PLAIN_NEWTON_NOSE_IS_THE_FOLD": true,
+  "SIGMA_CONFIRMS_FOLD": false
+ },
+ "lightsim2grid": true,
+ "platform": "Linux-6.6.122+-x86_64-with-glibc2.39"
+}
