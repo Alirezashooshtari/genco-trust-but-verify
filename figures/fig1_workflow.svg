@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="288pt" viewBox="0 0 720 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-09T00:44:13.528839</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 720 288 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 32.3712 204.72 
+L 127.7568 204.72 
+Q 138.816 204.72 138.816 197.424 
+L 138.816 88.896 
+Q 138.816 81.6 127.7568 81.6 
+L 32.3712 81.6 
+Q 21.312 81.6 21.312 88.896 
+L 21.312 197.424 
+Q 21.312 204.72 32.3712 204.72 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 177.5232 204.72 
+L 307.4688 204.72 
+Q 318.528 204.72 318.528 197.424 
+L 318.528 88.896 
+Q 318.528 81.6 307.4688 81.6 
+L 177.5232 81.6 
+Q 166.464 81.6 166.464 88.896 
+L 166.464 197.424 
+Q 166.464 204.72 177.5232 204.72 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 357.2352 204.72 
+L 501.0048 204.72 
+Q 512.064 204.72 512.064 197.424 
+L 512.064 88.896 
+Q 512.064 81.6 501.0048 81.6 
+L 357.2352 81.6 
+Q 346.176 81.6 346.176 88.896 
+L 346.176 197.424 
+Q 346.176 204.72 357.2352 204.72 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 176.1408 275.4 
+L 308.8512 275.4 
+Q 318.528 275.4 318.528 269.016 
+L 318.528 231.624 
+Q 318.528 225.24 308.8512 225.24 
+L 176.1408 225.24 
+Q 166.464 225.24 166.464 231.624 
+L 166.464 269.016 
+Q 166.464 275.4 176.1408 275.4 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #eef4fc; stroke: #b7d3f6; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 138.816 143.16 
+Q 152.64 143.16 164.898752 143.16 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 159.298752 140.36 
+L 164.898752 143.16 
+L 159.298752 145.96 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #57564f; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 318.528 143.16 
+Q 332.352 143.16 344.610752 143.16 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 339.010752 140.36 
+L 344.610752 143.16 
+L 339.010752 145.96 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #57564f; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 242.496 204.72 
+Q 242.496 214.98 242.496 223.674752 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 245.296 218.074752 
+L 242.496 223.674752 
+L 239.696 218.074752 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #57564f; stroke: #57564f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 549.3888 127.2 
+L 689.0112 127.2 
+Q 698.688 127.2 698.688 120.816 
+L 698.688 87.984 
+Q 698.688 81.6 689.0112 81.6 
+L 549.3888 81.6 
+Q 539.712 81.6 539.712 87.984 
+L 539.712 120.816 
+Q 539.712 127.2 549.3888 127.2 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 512.064 143.16 
+Q 525.888 123.78 538.80304 105.674281 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 533.271541 108.607287 
+L 538.80304 105.674281 
+L 537.830546 111.859283 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #8d8c86; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 549.3888 184.2 
+L 689.0112 184.2 
+Q 698.688 184.2 698.688 177.816 
+L 698.688 144.984 
+Q 698.688 138.6 689.0112 138.6 
+L 549.3888 138.6 
+Q 539.712 138.6 539.712 144.984 
+L 539.712 177.816 
+Q 539.712 184.2 549.3888 184.2 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 512.064 143.16 
+Q 525.888 152.28 538.405463 160.538048 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 535.272959 155.117032 
+L 538.405463 160.538048 
+L 532.189147 159.791441 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #8d8c86; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 549.3888 241.2 
+L 689.0112 241.2 
+Q 698.688 241.2 698.688 234.816 
+L 698.688 201.984 
+Q 698.688 195.6 689.0112 195.6 
+L 549.3888 195.6 
+Q 539.712 195.6 539.712 201.984 
+L 539.712 234.816 
+Q 539.712 241.2 549.3888 241.2 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #ffffff; stroke: #bdbcb4; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 512.064 143.16 
+Q 525.888 180.78 539.172124 216.930805 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 539.868779 210.708694 
+L 539.172124 216.930805 
+L 534.612428 212.640214 
+z
+" clip-path="url(#pf96a226bfe)" style="fill: #8d8c86; stroke: #8d8c86; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 178.9056 81.6 
+L 306.0864 81.6 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #2a78d6; stroke-width: 5"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 358.6176 81.6 
+L 499.6224 81.6 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #1f1f1d; stroke-width: 5"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 540.7488 120.816 
+L 540.7488 87.984 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #0ca30c; stroke-width: 6"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 540.7488 177.816 
+L 540.7488 144.984 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #fab219; stroke-width: 6"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 540.7488 234.816 
+L 540.7488 201.984 
+" clip-path="url(#pf96a226bfe)" style="fill: none; stroke: #d03b3b; stroke-width: 6"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="36.5184" y="109.896094" transform="rotate(-0 36.5184 109.896094)">Contingency</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="36.5184" y="134.731664" transform="rotate(-0 36.5184 134.731664)">operating point</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="36.5184" y="156.63" transform="rotate(-0 36.5184 156.63)">with 2 to 20</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="36.5184" y="178.518" transform="rotate(-0 36.5184 178.518)">lines out</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="181.6704" y="109.916" transform="rotate(-0 181.6704 109.916)">GENCO</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="181.6704" y="134.731664" transform="rotate(-0 181.6704 134.731664)">one forward pass:</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="181.6704" y="156.619664" transform="rotate(-0 181.6704 156.619664)">every voltage and</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="181.6704" y="178.507664" transform="rotate(-0 181.6704 178.507664)">angle in ~70 ms</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="361.3824" y="109.903203" transform="rotate(-0 361.3824 109.903203)">Newton-Raphson</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="361.3824" y="134.742" transform="rotate(-0 361.3824 134.742)">from GENCO's state,</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="361.3824" y="156.63" transform="rotate(-0 361.3824 156.63)">then 3 classical starts;</text>
+   </g>
+   <g id="text_12">
+    <!-- mismatch below $10^{-8}$ p.u. -->
+    <g style="fill: #57564f" transform="translate(361.3824 178.9485)">
+     <text>
+      <tspan x="0" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">m</tspan>
+      <tspan x="8.74646" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">i</tspan>
+      <tspan x="11.077454" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">s</tspan>
+      <tspan x="16.327438" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">m</tspan>
+      <tspan x="25.073898" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">a</tspan>
+      <tspan x="30.91188" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">t</tspan>
+      <tspan x="33.830872" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">c</tspan>
+      <tspan x="39.080856" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">h</tspan>
+      <tspan x="44.918839" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+      <tspan x="47.83783" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">b</tspan>
+      <tspan x="53.675812" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">e</tspan>
+      <tspan x="59.513794" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">l</tspan>
+      <tspan x="61.844788" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">o</tspan>
+      <tspan x="67.68277" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">w</tspan>
+      <tspan x="75.263733" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+      <tspan x="78.182724" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">1</tspan>
+      <tspan x="84.020706" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">0</tspan>
+      <tspan x="98.608907" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+      <tspan x="101.527898" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">p</tspan>
+      <tspan x="107.36588" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">.</tspan>
+      <tspan x="110.284872" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">u</tspan>
+      <tspan x="116.122854" y="-0.94375" style="font-size: 10.5px; font-family: 'TeX Gyre Heros'; fill: #57564f">.</tspan>
+      <tspan x="89.954938" y="-4.79375" style="font-size: 7.35px; font-family: 'TeX Gyre Heros'; fill: #57564f">−</tspan>
+      <tspan x="94.24732" y="-4.79375" style="font-size: 7.35px; font-family: 'TeX Gyre Heros'; fill: #57564f">8</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="181.6704" y="244.627664" transform="rotate(-0 181.6704 244.627664)">Warning head</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="181.6704" y="263.040648" transform="rotate(-0 181.6704 263.040648)">“likely unresolved” score</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="556.3008" y="99.458" transform="rotate(-0 556.3008 99.458)">Verified safe</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="556.3008" y="117.13" transform="rotate(-0 556.3008 117.13)">AC solution, no limit violated</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="556.3008" y="156.458" transform="rotate(-0 556.3008 156.458)">Verified violation</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="556.3008" y="174.13" transform="rotate(-0 556.3008 174.13)">AC solution, a limit violated</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="556.3008" y="213.458" transform="rotate(-0 556.3008 213.458)">Unresolved</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="556.3008" y="231.120648" transform="rotate(-0 556.3008 231.120648)">no start converges: alarm</text>
+   </g>
+   <g id="text_21">
+    <text style="font-style: italic; font-size: 10px; font-family: 'TeX Gyre Heros'; fill: #8d8c86" transform="translate(346.176 244.685313)">GENCO alone has no third outcome:</text>
+    <text style="font-style: italic; font-size: 10px; font-family: 'TeX Gyre Heros'; fill: #8d8c86" transform="translate(346.176 257.610313)">it returns a plausible grid for every case.</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-weight: 700; font-size: 17px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="25.2" y="20.528" transform="rotate(-0 25.2 20.528)">GENCO proposes, the solver decides</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #57564f" x="25.2" y="39.518359" transform="rotate(-0 25.2 39.518359)">Every contingency ends in one of three outcomes. A case the solver cannot resolve is an alarm, never a pass.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf96a226bfe">
+   <rect x="14.4" y="63.36" width="691.2" height="218.88"/>
+  </clipPath>
+ </defs>
+</svg>

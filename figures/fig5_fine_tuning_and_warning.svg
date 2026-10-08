@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="381.6pt" viewBox="0 0 720 381.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-09T00:44:15.812878</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 381.6 
+L 720 381.6 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 50.4 316.728 
+L 245.540625 316.728 
+L 245.540625 122.112 
+L 50.4 122.112 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1"/>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="83.22558" y="330.176" transform="rotate(-0 83.22558 330.176)">clustered</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2"/>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(130.810195 331.126)">held-out</text>
+      <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(122.388594 342.526)">construction</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3"/>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="212.715045" y="330.176" transform="rotate(-0 212.715045 330.176)">random</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_4">
+      <path d="M 50.4 316.728 
+L 245.540625 316.728 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_5"/>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="320.648" transform="rotate(-0 44.4 320.648)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_6">
+      <path d="M 50.4 290.428541 
+L 245.540625 290.428541 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_7"/>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="294.348541" transform="rotate(-0 44.4 294.348541)">1</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_8">
+      <path d="M 50.4 264.129081 
+L 245.540625 264.129081 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_9"/>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="268.049081" transform="rotate(-0 44.4 268.049081)">2</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_10">
+      <path d="M 50.4 237.829622 
+L 245.540625 237.829622 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_11"/>
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="241.749622" transform="rotate(-0 44.4 241.749622)">3</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <path d="M 50.4 211.530162 
+L 245.540625 211.530162 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_13"/>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="215.450162" transform="rotate(-0 44.4 215.450162)">4</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_14">
+      <path d="M 50.4 185.230703 
+L 245.540625 185.230703 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_15"/>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="189.150703" transform="rotate(-0 44.4 189.150703)">5</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_16">
+      <path d="M 50.4 158.931243 
+L 245.540625 158.931243 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_17"/>
+     <g id="text_10">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="162.851243" transform="rotate(-0 44.4 162.851243)">6</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_18">
+      <path d="M 50.4 132.631784 
+L 245.540625 132.631784 
+" clip-path="url(#pa236eacc78)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_19"/>
+     <g id="text_11">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="44.4" y="136.551784" transform="rotate(-0 44.4 136.551784)">7</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 11px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="32.442969" y="219.42" transform="rotate(-90 32.442969 219.42)">Decisions missed per case</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 59.270028 316.728 
+L 82.578132 316.728 
+L 82.578132 155.455255 
+L 59.270028 155.455255 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 124.014761 316.728 
+L 147.322865 316.728 
+L 147.322865 263.957189 
+L 124.014761 263.957189 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 188.759494 316.728 
+L 212.067598 316.728 
+L 212.067598 313.090034 
+L 188.759494 313.090034 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 83.873027 316.728 
+L 107.181131 316.728 
+L 107.181131 193.16645 
+L 83.873027 193.16645 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 148.61776 316.728 
+L 171.925864 316.728 
+L 171.925864 275.302054 
+L 148.61776 275.302054 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 213.362493 316.728 
+L 236.670597 316.728 
+L 236.670597 311.95317 
+L 213.362493 311.95317 
+z
+" clip-path="url(#pa236eacc78)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 50.4 316.728 
+L 50.4 122.112 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 50.4 316.728 
+L 245.540625 316.728 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #1f1f1d" x="83.22558" y="147.401374" transform="rotate(-0 83.22558 147.401374)">-1.43</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #1f1f1d" x="147.970312" y="255.903308" transform="rotate(-0 147.970312 255.903308)">-0.43</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #1f1f1d" x="212.715045" y="303.899289" transform="rotate(-0 212.715045 303.899289)">+0.04</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="50.4" y="110.112" transform="rotate(-0 50.4 110.112)">a   Unseen hard cases</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_11">
+     <path d="M 173.075 138.952 
+L 187.075 138.952 
+L 187.075 131.952 
+L 173.075 131.952 
+z
+" style="fill: #2a78d6"/>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="192.075" y="138.952" transform="rotate(-0 192.075 138.952)">released</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 173.075 153.952 
+L 187.075 153.952 
+L 187.075 146.952 
+L 173.075 146.952 
+z
+" style="fill: #4a3aa7"/>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="192.075" y="153.952" transform="rotate(-0 192.075 153.952)">fine-tuned</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_13">
+    <path d="M 316.809375 316.728 
+L 461.04375 316.728 
+L 461.04375 122.112 
+L 316.809375 122.112 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_4">
+     <g id="line2d_20"/>
+     <g id="text_19">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="341.07176" y="330.568" transform="rotate(-0 341.07176 330.568)">N-2</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_21"/>
+     <g id="text_20">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="388.926563" y="330.568" transform="rotate(-0 388.926563 330.568)">N-10</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_22"/>
+     <g id="text_21">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="436.781365" y="330.568" transform="rotate(-0 436.781365 330.568)">N-20</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_9">
+     <g id="line2d_23">
+      <path d="M 316.809375 316.728 
+L 461.04375 316.728 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_24"/>
+     <g id="text_22">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="320.648" transform="rotate(-0 310.809375 320.648)">0</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_25">
+      <path d="M 316.809375 290.428541 
+L 461.04375 290.428541 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_26"/>
+     <g id="text_23">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="294.348541" transform="rotate(-0 310.809375 294.348541)">1</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_27">
+      <path d="M 316.809375 264.129081 
+L 461.04375 264.129081 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_28"/>
+     <g id="text_24">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="268.049081" transform="rotate(-0 310.809375 268.049081)">2</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_29">
+      <path d="M 316.809375 237.829622 
+L 461.04375 237.829622 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_30"/>
+     <g id="text_25">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="241.749622" transform="rotate(-0 310.809375 241.749622)">3</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_31">
+      <path d="M 316.809375 211.530162 
+L 461.04375 211.530162 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_32"/>
+     <g id="text_26">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="215.450162" transform="rotate(-0 310.809375 215.450162)">4</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_33">
+      <path d="M 316.809375 185.230703 
+L 461.04375 185.230703 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_34"/>
+     <g id="text_27">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="189.150703" transform="rotate(-0 310.809375 189.150703)">5</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_35">
+      <path d="M 316.809375 158.931243 
+L 461.04375 158.931243 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_36"/>
+     <g id="text_28">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="162.851243" transform="rotate(-0 310.809375 162.851243)">6</text>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_37">
+      <path d="M 316.809375 132.631784 
+L 461.04375 132.631784 
+" clip-path="url(#p788e99dd01)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_38"/>
+     <g id="text_29">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="136.551784" transform="rotate(-0 310.809375 136.551784)">7</text>
+     </g>
+    </g>
+    <g id="text_30">
+     <!-- Median worst-bus error ($10^{-3}$ p.u.) -->
+     <g style="fill: #57564f" transform="translate(298.83 302.58) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">M</tspan>
+       <tspan x="9.162933" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">e</tspan>
+       <tspan x="15.278885" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">d</tspan>
+       <tspan x="21.394836" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">i</tspan>
+       <tspan x="23.836823" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">a</tspan>
+       <tspan x="29.952774" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">n</tspan>
+       <tspan x="36.068726" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+       <tspan x="39.126709" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">w</tspan>
+       <tspan x="47.068649" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">o</tspan>
+       <tspan x="53.184601" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">r</tspan>
+       <tspan x="56.84758" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">s</tspan>
+       <tspan x="62.347534" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">t</tspan>
+       <tspan x="65.405518" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">-</tspan>
+       <tspan x="69.068497" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">b</tspan>
+       <tspan x="75.184448" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">u</tspan>
+       <tspan x="81.3004" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">s</tspan>
+       <tspan x="86.800354" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+       <tspan x="89.858337" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">e</tspan>
+       <tspan x="95.974289" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">r</tspan>
+       <tspan x="99.637268" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">r</tspan>
+       <tspan x="103.300247" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">o</tspan>
+       <tspan x="109.416199" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">r</tspan>
+       <tspan x="113.079178" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+       <tspan x="116.137161" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">(</tspan>
+       <tspan x="119.80014" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">1</tspan>
+       <tspan x="125.916092" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">0</tspan>
+       <tspan x="141.199154" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f"> </tspan>
+       <tspan x="144.257138" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">p</tspan>
+       <tspan x="150.373089" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">.</tspan>
+       <tspan x="153.431073" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">u</tspan>
+       <tspan x="159.547024" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">.</tspan>
+       <tspan x="162.605008" y="-0.50625" style="font-size: 11px; font-family: 'TeX Gyre Heros'; fill: #57564f">)</tspan>
+       <tspan x="132.132942" y="-4.542188" style="font-size: 7.7px; font-family: 'TeX Gyre Heros'; fill: #57564f">−</tspan>
+       <tspan x="136.629707" y="-4.542188" style="font-size: 7.7px; font-family: 'TeX Gyre Heros'; fill: #57564f">3</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 323.365483 316.728 
+L 340.593212 316.728 
+L 340.593212 283.110985 
+L 323.365483 283.110985 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 371.220286 316.728 
+L 388.448014 316.728 
+L 388.448014 265.656169 
+L 371.220286 265.656169 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 419.075088 316.728 
+L 436.302817 316.728 
+L 436.302817 245.236741 
+L 419.075088 245.236741 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 341.550308 316.728 
+L 358.778037 316.728 
+L 358.778037 225.922517 
+L 341.550308 225.922517 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 389.405111 316.728 
+L 406.632839 316.728 
+L 406.632839 183.97562 
+L 389.405111 183.97562 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 437.259913 316.728 
+L 454.487642 316.728 
+L 454.487642 162.854768 
+L 437.259913 162.854768 
+z
+" clip-path="url(#p788e99dd01)" style="fill: #4a3aa7"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 316.809375 316.728 
+L 316.809375 122.112 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 316.809375 316.728 
+L 461.04375 316.728 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="316.809375" y="110.112" transform="rotate(-0 316.809375 110.112)">b   The price</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_22">
+    <path d="M 532.3125 316.728 
+L 702 316.728 
+L 702 122.112 
+L 532.3125 122.112 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_5">
+    <g id="xtick_7">
+     <g id="line2d_39">
+      <path d="M 532.3125 316.728 
+L 532.3125 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_40"/>
+     <g id="text_32">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="532.3125" y="330.568" transform="rotate(-0 532.3125 330.568)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_41">
+      <path d="M 566.25 316.728 
+L 566.25 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_42"/>
+     <g id="text_33">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="566.25" y="330.568" transform="rotate(-0 566.25 330.568)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_43">
+      <path d="M 600.1875 316.728 
+L 600.1875 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_44"/>
+     <g id="text_34">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="600.1875" y="330.568" transform="rotate(-0 600.1875 330.568)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_45">
+      <path d="M 634.125 316.728 
+L 634.125 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_46"/>
+     <g id="text_35">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="634.125" y="330.568" transform="rotate(-0 634.125 330.568)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_47">
+      <path d="M 668.0625 316.728 
+L 668.0625 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_48"/>
+     <g id="text_36">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="668.0625" y="330.568" transform="rotate(-0 668.0625 330.568)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_49">
+      <path d="M 702 316.728 
+L 702 122.112 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_50"/>
+     <g id="text_37">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="702" y="330.568" transform="rotate(-0 702 330.568)">1.0</text>
+     </g>
+    </g>
+    <g id="text_38">
+     <text style="font-size: 11px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="617.15625" y="345.352" transform="rotate(-0 617.15625 345.352)">False-alarm rate</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_17">
+     <g id="line2d_51">
+      <path d="M 532.3125 316.728 
+L 702 316.728 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_52"/>
+     <g id="text_39">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="320.648" transform="rotate(-0 526.3125 320.648)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_53">
+      <path d="M 532.3125 278.568 
+L 702 278.568 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_54"/>
+     <g id="text_40">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="282.488" transform="rotate(-0 526.3125 282.488)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_55">
+      <path d="M 532.3125 240.408 
+L 702 240.408 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_56"/>
+     <g id="text_41">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="244.328" transform="rotate(-0 526.3125 244.328)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_57">
+      <path d="M 532.3125 202.248 
+L 702 202.248 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_58"/>
+     <g id="text_42">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="206.168" transform="rotate(-0 526.3125 206.168)">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_59">
+      <path d="M 532.3125 164.088 
+L 702 164.088 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_60"/>
+     <g id="text_43">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="168.008" transform="rotate(-0 526.3125 168.008)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_61">
+      <path d="M 532.3125 125.928 
+L 702 125.928 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_62"/>
+     <g id="text_44">
+      <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="129.848" transform="rotate(-0 526.3125 129.848)">1.0</text>
+     </g>
+    </g>
+    <g id="text_45">
+     <text style="font-size: 11px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="506.016406" y="219.42" transform="rotate(-90 506.016406 219.42)">Unresolved cases caught</text>
+    </g>
+   </g>
+   <g id="line2d_63">
+    <path d="M 532.3125 316.728 
+L 532.3125 315.164066 
+L 532.3125 288.57718 
+L 532.539355 288.57718 
+L 532.539355 285.449311 
+L 532.76621 285.449311 
+L 532.76621 271.373902 
+L 532.993065 271.373902 
+L 532.993065 235.40341 
+L 533.21992 235.40341 
+L 533.21992 219.764066 
+L 534.354195 219.764066 
+L 534.354195 202.560787 
+L 534.581049 202.560787 
+L 534.581049 194.741115 
+L 534.807904 194.741115 
+L 534.807904 193.17718 
+L 535.034759 193.17718 
+L 535.034759 188.485377 
+L 535.488469 188.485377 
+L 535.488469 186.921443 
+L 535.715324 186.921443 
+L 535.715324 183.793574 
+L 535.942179 183.793574 
+L 535.942179 180.665705 
+L 536.622744 180.665705 
+L 536.622744 179.10177 
+L 537.303309 179.10177 
+L 537.303309 174.409967 
+L 537.757019 174.409967 
+L 537.757019 171.282098 
+L 537.983874 171.282098 
+L 537.983874 166.590295 
+L 538.437584 166.590295 
+L 538.437584 165.026361 
+L 539.118148 165.026361 
+L 539.118148 163.462426 
+L 539.345003 163.462426 
+L 539.345003 161.898492 
+L 540.025568 161.898492 
+L 540.025568 160.334557 
+L 540.479278 160.334557 
+L 540.479278 158.770623 
+L 540.706133 158.770623 
+L 540.706133 157.206689 
+L 541.386698 157.206689 
+L 541.386698 154.07882 
+L 542.520973 154.07882 
+L 542.520973 150.950951 
+L 542.747828 150.950951 
+L 542.747828 149.387016 
+L 543.201537 149.387016 
+L 543.201537 146.259148 
+L 545.696942 146.259148 
+L 545.696942 144.695213 
+L 549.780331 144.695213 
+L 549.780331 143.131279 
+L 550.007186 143.131279 
+L 550.007186 141.567344 
+L 550.460896 141.567344 
+L 550.460896 140.00341 
+L 550.687751 140.00341 
+L 550.687751 138.439475 
+L 551.822025 138.439475 
+L 551.822025 136.875541 
+L 554.090575 136.875541 
+L 554.090575 135.311607 
+L 571.331551 135.311607 
+L 571.331551 133.747672 
+L 576.77607 133.747672 
+L 576.77607 132.183738 
+L 590.614221 132.183738 
+L 590.614221 130.619803 
+L 594.017045 130.619803 
+L 594.017045 129.055869 
+L 605.813503 129.055869 
+L 605.813503 127.491934 
+L 656.402156 127.491934 
+L 656.402156 125.928 
+L 702 125.928 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #2a78d6; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_64">
+    <path d="M 532.3125 316.728 
+L 532.3125 296.396852 
+L 532.539355 296.396852 
+L 532.539355 294.832918 
+L 532.76621 294.832918 
+L 532.76621 291.705049 
+L 532.993065 291.705049 
+L 533.21992 290.141115 
+L 533.21992 287.013246 
+L 533.446775 287.013246 
+L 533.67363 285.449311 
+L 533.67363 280.757508 
+L 533.900485 280.757508 
+L 533.900485 276.065705 
+L 534.12734 276.065705 
+L 534.12734 274.50177 
+L 534.354195 274.50177 
+L 534.354195 272.937836 
+L 534.581049 271.373902 
+L 534.807904 271.373902 
+L 534.807904 260.426361 
+L 535.034759 260.426361 
+L 535.034759 258.862426 
+L 535.261614 258.862426 
+L 535.261614 255.734557 
+L 535.488469 254.170623 
+L 536.622744 254.170623 
+L 536.622744 244.787016 
+L 536.849599 244.787016 
+L 536.849599 235.40341 
+L 537.076454 235.40341 
+L 537.076454 233.839475 
+L 537.303309 233.839475 
+L 537.303309 232.275541 
+L 537.530164 232.275541 
+L 537.530164 227.583738 
+L 537.757019 227.583738 
+L 537.757019 226.019803 
+L 538.437584 226.019803 
+L 538.437584 224.455869 
+L 538.664439 224.455869 
+L 538.664439 222.891934 
+L 540.025568 222.891934 
+L 540.025568 211.944393 
+L 541.159843 211.944393 
+L 541.159843 210.380459 
+L 542.520973 210.380459 
+L 542.747828 207.25259 
+L 542.974682 207.25259 
+L 542.974682 205.688656 
+L 543.201537 204.124721 
+L 544.108957 204.124721 
+L 544.108957 202.560787 
+L 544.335812 202.560787 
+L 544.335812 199.432918 
+L 545.016377 199.432918 
+L 545.016377 197.868984 
+L 545.470087 197.868984 
+L 545.470087 194.741115 
+L 546.150652 194.741115 
+L 546.150652 193.17718 
+L 547.965491 193.17718 
+L 547.965491 191.613246 
+L 548.192346 190.049311 
+L 548.646056 190.049311 
+L 548.646056 188.485377 
+L 548.872911 188.485377 
+L 548.872911 186.921443 
+L 549.099766 186.921443 
+L 549.099766 185.357508 
+L 550.007186 185.357508 
+L 550.007186 183.793574 
+L 550.234041 183.793574 
+L 550.234041 182.229639 
+L 550.687751 182.229639 
+L 550.687751 179.10177 
+L 552.04888 179.10177 
+L 552.04888 177.537836 
+L 552.729445 177.537836 
+L 552.729445 175.973902 
+L 554.544285 175.973902 
+L 554.544285 174.409967 
+L 555.905414 174.409967 
+L 555.905414 172.846033 
+L 556.585979 172.846033 
+L 556.585979 171.282098 
+L 556.812834 171.282098 
+L 556.812834 165.026361 
+L 558.400819 165.026361 
+L 558.400819 163.462426 
+L 560.442513 163.462426 
+L 560.442513 161.898492 
+L 562.937918 161.898492 
+L 562.937918 160.334557 
+L 563.845338 160.334557 
+L 564.072193 158.770623 
+L 567.928727 158.770623 
+L 567.928727 157.206689 
+L 568.836146 157.206689 
+L 568.836146 155.642754 
+L 575.41494 155.642754 
+L 576.095505 149.387016 
+L 576.095505 147.823082 
+L 576.32236 147.823082 
+L 576.32236 146.259148 
+L 577.002924 146.259148 
+L 577.002924 144.695213 
+L 580.405749 144.695213 
+L 580.405749 140.00341 
+L 583.354863 140.00341 
+L 583.354863 138.439475 
+L 586.757687 138.439475 
+L 586.757687 136.875541 
+L 592.202206 136.875541 
+L 592.202206 135.311607 
+L 592.882771 135.311607 
+L 592.882771 133.747672 
+L 593.790191 133.747672 
+L 593.790191 132.183738 
+L 600.142129 132.183738 
+L 600.142129 130.619803 
+L 611.938586 130.619803 
+L 611.938586 129.055869 
+L 630.086982 129.055869 
+L 630.086982 127.491934 
+L 650.957637 127.491934 
+L 650.957637 125.928 
+L 702 125.928 
+L 702 125.928 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #a9a8a1; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_65">
+    <path d="M 532.3125 316.728 
+L 535.488469 316.728 
+L 535.488469 313.600131 
+L 535.715324 313.600131 
+L 535.715324 312.036197 
+L 536.169034 312.036197 
+L 536.169034 310.472262 
+L 536.395889 310.472262 
+L 536.395889 307.344393 
+L 536.622744 307.344393 
+L 536.622744 305.780459 
+L 537.076454 305.780459 
+L 537.076454 304.216525 
+L 537.303309 304.216525 
+L 537.303309 299.524721 
+L 537.757019 299.524721 
+L 537.757019 294.832918 
+L 537.983874 294.832918 
+L 537.983874 293.268984 
+L 538.437584 293.268984 
+L 538.437584 291.705049 
+L 540.479278 291.705049 
+L 540.479278 290.141115 
+L 540.932988 290.141115 
+L 540.932988 288.57718 
+L 541.613553 288.57718 
+L 541.613553 285.449311 
+L 542.067263 285.449311 
+L 542.067263 283.885377 
+L 542.974682 283.885377 
+L 542.974682 279.193574 
+L 543.201537 279.193574 
+L 543.201537 277.629639 
+L 543.428392 277.629639 
+L 543.428392 274.50177 
+L 544.108957 274.50177 
+L 544.108957 271.373902 
+L 545.923797 271.373902 
+L 545.923797 269.809967 
+L 546.377507 269.809967 
+L 546.377507 268.246033 
+L 546.604362 268.246033 
+L 546.604362 266.682098 
+L 547.738636 266.682098 
+L 547.738636 265.118164 
+L 547.965491 265.118164 
+L 547.965491 261.990295 
+L 548.192346 261.990295 
+L 548.192346 260.426361 
+L 548.419201 260.426361 
+L 548.419201 257.298492 
+L 548.646056 257.298492 
+L 548.646056 255.734557 
+L 549.553476 255.734557 
+L 549.553476 254.170623 
+L 549.780331 254.170623 
+L 549.780331 252.606689 
+L 550.914606 252.606689 
+L 550.914606 244.787016 
+L 551.822025 244.787016 
+L 551.822025 241.659148 
+L 552.275735 241.659148 
+L 552.275735 238.531279 
+L 552.729445 238.531279 
+L 552.729445 236.967344 
+L 552.9563 236.967344 
+L 552.9563 235.40341 
+L 554.090575 235.40341 
+L 554.090575 233.839475 
+L 554.544285 233.839475 
+L 554.544285 232.275541 
+L 554.77114 232.275541 
+L 554.77114 230.711607 
+L 555.451705 230.711607 
+L 555.451705 229.147672 
+L 555.678559 229.147672 
+L 555.678559 227.583738 
+L 556.132269 227.583738 
+L 556.132269 226.019803 
+L 558.627674 226.019803 
+L 558.627674 224.455869 
+L 559.081384 224.455869 
+L 559.081384 222.891934 
+L 559.308239 222.891934 
+L 559.308239 221.328 
+L 562.257353 221.328 
+L 562.257353 216.636197 
+L 562.711063 216.636197 
+L 562.711063 215.072262 
+L 562.937918 215.072262 
+L 562.937918 213.508328 
+L 563.391628 213.508328 
+L 563.391628 210.380459 
+L 563.618483 210.380459 
+L 563.618483 208.816525 
+L 563.845338 208.816525 
+L 563.845338 207.25259 
+L 564.525902 207.25259 
+L 564.525902 205.688656 
+L 564.752757 205.688656 
+L 564.752757 204.124721 
+L 566.113887 204.124721 
+L 566.113887 202.560787 
+L 566.340742 202.560787 
+L 566.340742 199.432918 
+L 569.516711 199.432918 
+L 569.516711 197.868984 
+L 569.743566 197.868984 
+L 569.743566 194.741115 
+L 572.012116 194.741115 
+L 572.012116 193.17718 
+L 572.465826 193.17718 
+L 572.465826 191.613246 
+L 572.919535 191.613246 
+L 572.919535 190.049311 
+L 573.14639 190.049311 
+L 573.14639 188.485377 
+L 573.373245 188.485377 
+L 573.373245 186.921443 
+L 573.6001 186.921443 
+L 573.6001 185.357508 
+L 574.96123 185.357508 
+L 574.96123 177.537836 
+L 575.86865 177.537836 
+L 575.86865 171.282098 
+L 576.32236 171.282098 
+L 576.32236 169.718164 
+L 576.77607 169.718164 
+L 576.77607 168.15423 
+L 577.002924 168.15423 
+L 577.002924 166.590295 
+L 577.910344 166.590295 
+L 577.910344 163.462426 
+L 579.498329 163.462426 
+L 579.498329 161.898492 
+L 580.405749 161.898492 
+L 580.405749 158.770623 
+L 581.766878 158.770623 
+L 581.766878 157.206689 
+L 583.808573 157.206689 
+L 583.808573 155.642754 
+L 584.489138 155.642754 
+L 584.489138 154.07882 
+L 585.169703 154.07882 
+L 585.169703 152.514885 
+L 586.530832 152.514885 
+L 586.530832 150.950951 
+L 587.438252 150.950951 
+L 587.438252 149.387016 
+L 587.665107 149.387016 
+L 587.665107 147.823082 
+L 590.387366 147.823082 
+L 590.387366 146.259148 
+L 601.276404 146.259148 
+L 601.276404 144.695213 
+L 602.410678 144.695213 
+L 602.410678 143.131279 
+L 603.544953 143.131279 
+L 603.544953 141.567344 
+L 603.998663 141.567344 
+L 603.998663 140.00341 
+L 604.225518 140.00341 
+L 604.225518 138.439475 
+L 606.494068 138.439475 
+L 606.494068 136.875541 
+L 611.938586 136.875541 
+L 611.938586 135.311607 
+L 615.79512 135.311607 
+L 615.79512 133.747672 
+L 618.51738 133.747672 
+L 618.51738 132.183738 
+L 626.457303 132.183738 
+L 626.457303 130.619803 
+L 637.80005 130.619803 
+L 637.80005 129.055869 
+L 638.480615 129.055869 
+L 638.480615 127.491934 
+L 649.369652 127.491934 
+L 649.369652 125.928 
+L 702 125.928 
+L 702 125.928 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke-dasharray: 3.2,3.2; stroke-dashoffset: 0; stroke: #8d8c86; stroke-width: 1.6"/>
+   </g>
+   <g id="line2d_66">
+    <path d="M 532.3125 316.728 
+L 702 125.928 
+" clip-path="url(#p219f18cd67)" style="fill: none; stroke: #ebeae5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 532.3125 316.728 
+L 532.3125 122.112 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 532.3125 316.728 
+L 702 316.728 
+" style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_46">
+    <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="532.3125" y="110.112" transform="rotate(-0 532.3125 110.112)">c   Warning, frozen test</text>
+   </g>
+   <g id="legend_2">
+    <g id="text_47">
+     <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="661.850156" y="266.148562" transform="rotate(-0 661.850156 266.148562)">AUROC</text>
+    </g>
+    <g id="line2d_67">
+     <path d="M 568.873125 276.498562 
+L 575.173125 276.498562 
+L 581.473125 276.498562 
+" style="fill: none; stroke: #2a78d6; stroke-width: 2; stroke-linecap: round"/>
+    </g>
+    <g id="text_48">
+     <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="279.648562" transform="rotate(-0 585.973125 279.648562)">GENCO warning   0.96</text>
+    </g>
+    <g id="line2d_68">
+     <path d="M 568.873125 290.016281 
+L 575.173125 290.016281 
+L 581.473125 290.016281 
+" style="fill: none; stroke: #a9a8a1; stroke-width: 2; stroke-linecap: round"/>
+    </g>
+    <g id="text_49">
+     <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="293.166281" transform="rotate(-0 585.973125 293.166281)">outage topology only   0.90</text>
+    </g>
+    <g id="line2d_69">
+     <path d="M 568.873125 303.534 
+L 575.173125 303.534 
+L 581.473125 303.534 
+" style="fill: none; stroke-dasharray: 3.2,3.2; stroke-dashoffset: 0; stroke: #8d8c86; stroke-width: 1.6"/>
+    </g>
+    <g id="text_50">
+     <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="306.684" transform="rotate(-0 585.973125 306.684)">GENCO residual   0.81</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_51">
+   <text style="font-weight: 700; font-size: 17px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="25.2" y="22.868" transform="rotate(-0 25.2 22.868)">Teaching GENCO where it fails, and to warn when the solver will</text>
+  </g>
+  <g id="text_52">
+   <text style="font-size: 11.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(25.2 48.964609)">Fine-tuned on 6,737 solver-labelled contingencies, mostly clustered or stressed, GENCO misses fewer decisions on</text>
+   <text style="font-size: 11.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(25.2 64.403359)">cases it never saw, at a price on ordinary ones. A small head on its embeddings flags cases the solver will not resolve.</text>
+  </g>
+  <g id="text_53">
+   <text style="font-size: 8.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #8d8c86" x="25.2" y="374.404866" transform="rotate(-0 25.2 374.404866)">Notebooks `finetune` and `evaluate_finetuned`, paired on the same cases. a: 401 clustered, 153 held-out, 347 random cases. b: released test scenarios. c: the 870 frozen-test cases.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa236eacc78">
+   <rect x="50.4" y="122.112" width="195.140625" height="194.616"/>
+  </clipPath>
+  <clipPath id="p788e99dd01">
+   <rect x="316.809375" y="122.112" width="144.234375" height="194.616"/>
+  </clipPath>
+  <clipPath id="p219f18cd67">
+   <rect x="532.3125" y="122.112" width="169.6875" height="194.616"/>
+  </clipPath>
+ </defs>
+</svg>
