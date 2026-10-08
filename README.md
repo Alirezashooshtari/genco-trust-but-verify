@@ -1,4 +1,86 @@
 # Trust, but verify: making GENCO safe for N-k contingency screening
 
-Work in progress for the GENCO Challenge (GridFM Porto 2026): when can GENCO's power-flow predictions be trusted for N-k
-contingency screening, and what should a screen do when they cannot?
+[![ci](https://github.com/Alirezashooshtari/genco-trust-but-verify/actions/workflows/ci.yml/badge.svg)](https://github.com/Alirezashooshtari/genco-trust-but-verify/actions/workflows/ci.yml)
+
+Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC) · a.shooshtari1996@gmail.com
+
+Entry to the [GENCO Challenge](https://huggingface.co/spaces/gridfm/genco-challenge) (GridFM Porto 2026).
+
+
+GENCO predicts the AC power flow of a contingency in one forward pass. This repository asks when that answer can be trusted
+for N-k screening on the released Texas 2,000-bus grid, and what to do when it cannot.
+
+- **Where GENCO fails.** Under clustered outages its voltage errors grow 4 to 17 times. On 33 of 120 storms that push the
+  grid past voltage collapse no Newton start converges, yet GENCO returns an ordinary-looking grid.
+- **A workflow with three outcomes.** GENCO proposes a state and Newton-Raphson decides: *verified safe*, *verified
+  violation* or *unresolved* (an alarm, never a pass). On a frozen test of 870 unseen contingencies it gives an AC decision
+  for all 748 solvable cases and an alarm for all 122 others; GENCO alone would have been wrong in 260.
+- **Extending GENCO.** Fine-tuning on solver-labelled contingencies cuts missed decisions on unseen clustered outages by
+  23 %. A warning head on GENCO's embeddings predicts unresolved cases with AUROC 0.96.
+
+![The verified workflow](figures/fig1_workflow.png)
+
+## Quick start
+
+```bash
+git clone https://github.com/Alirezashooshtari/genco-trust-but-verify.git
+cd genco-trust-but-verify
+pip install -r requirements.txt && pip install -e .
+
+pytest                                # tests of the verification module (no data needed)
+python scripts/headline_numbers.py    # every number in the write-up, recomputed from results/
+python scripts/make_figures.py        # the five figures
+```
+
+`headline_numbers.py` writes `results/headline_numbers.csv`, one row per claim with the file it comes from. CI recomputes
+it on every push and fails if any value changes.
+
+## Using the verification module
+
+```python
+from genco_verify import Verifier, case_from_tables
+
+case = case_from_tables(bus, branch, removed_idx=lines_out)     # one scenario of the released tables, lines removed
+result = Verifier(case).run(genco_vm=vm, genco_va_deg=va)        # vm, va: GENCO's predicted state
+
+result.status             # "verified_safe" | "verified_violation" | "unresolved"
+result.limits             # overloaded lines and voltage violations of the AC state
+result.unresolved_reason  # why no start converged, when unresolved
+result.history            # every start tried: iterations, mismatch, time
+```
+
+`Verifier(case, {"enforce_q_limits": True})` enforces generator reactive limits (pass the generator table to
+`case_from_tables`), and `{"branch_check": True}` runs every start and reports when they reach different AC solutions.
+`policy_name="classical"` runs the same check without GENCO. Newton-Raphson uses lightsim2grid when it is installed
+(`pip install -e ".[fast]"`) and a SciPy implementation otherwise.
+
+## Layout
+
+```
+src/genco_verify/   the verification workflow (numpy, scipy; lightsim2grid optional)
+tests/              tests of every outcome and option on a three-bus grid
+notebooks/          the Colab notebooks that produced the results (see notebooks/README.md)
+results/            their outputs, one folder per notebook, plus the analyses in results/analysis/
+scripts/            headline numbers, figures, warning ablation
+figures/            the five figures of the write-up (PNG and SVG)
+environment/        Colab setup, pinned upstream revisions, data and checkpoint hashes
+```
+
+## Reproducing from scratch
+
+Each notebook runs on a fresh Colab runtime from the public data and checkpoint, with gridfm-graphkit pinned to commit
+`95b90ee` and `gridfm/genco-pf-contingency` to revision `5c625b0`. `environment/colab.md` describes the setup and what
+reproduces exactly; `notebooks/README.md` maps each notebook to its results folder and figure. The warning ablation also
+needs the feature matrices published with the model:
+
+```bash
+python scripts/warning_ablation.py --features-dir <folder with features_released.npz and features_finetuned.npz>
+```
+
+## Credits and licence
+
+GENCO, gridfm-graphkit and the Texas test data are by the GridFM team (`gridfm/genco-pf-contingency`, Apache-2.0).
+lightsim2grid is by RTE France; PYPOWER, a port of MATPOWER, is used for the independent check. The code in this repository
+is MIT licensed; `results/` holds numbers derived from the public data, not the data itself.
+
+If you use this work, please cite it as described in `CITATION.cff`.
