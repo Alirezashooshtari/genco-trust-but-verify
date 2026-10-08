@@ -1,0 +1,12 @@
+# Exact versions that produced the committed figures and numbers (Python 3.13). The GPU notebooks run on Colab instead;
+# see environment/colab.md.
+joblib==1.6.0
+matplotlib==3.11.2
+networkx==3.6.1
+numpy==2.4.6
+pandas==2.3.3
+pillow==12.3.0
+pyarrow==25.0.1
+pytest==9.1.1
+scikit-learn==1.9.1
+scipy==1.18.1

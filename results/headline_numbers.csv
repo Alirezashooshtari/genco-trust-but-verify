@@ -1,0 +1,42 @@
+section,claim,value,source
+fail,clustered N-20 storms,120,storms/sweep.csv
+fail,storms with no converging start at the actual load,33,storms/sweep.csv
+fail,"GENCO lowest voltage, median: solved / unresolved storms (p.u.)",0.924 / 0.886,storms/sweep.csv
+fail,Newton from GENCO's state converged on an unresolved storm,0,storms/sweep.csv
+fail,"N-10: median worst-bus error, random / clustered outages (p.u.)",0.0021 / 0.0082,clustered_outages/storm_cases.csv
+fail,"N-20: median worst-bus error, random / clustered outages (p.u.)",0.0025 / 0.0421,clustered_outages/storm_cases.csv
+fail,"median worst-bus error, clustered / random outages: N-10, N-20","x4.0, x16.5",clustered_outages/storm_cases.csv
+why,GENCO response to uniform load growth relative to AC (median slope),0.60,load_response/load_growth_all_buses.csv
+frozen,classical multi-start: cases / verified / unresolved / false alarms,870 / 748 / 122 / 0,frozen_test/summary_by_workflow.csv
+frozen,classical multi-start: median end-to-end ms per case,12.7,frozen_test/summary_by_workflow.csv
+frozen,GENCO + verification: cases / verified / unresolved / false alarms,870 / 748 / 122 / 0,frozen_test/summary_by_workflow.csv
+frozen,GENCO + verification: median end-to-end ms per case,85.7,frozen_test/summary_by_workflow.csv
+frozen,GENCO + verification: verified cases whose decisions differ from the classical solution (two AC solutions),2,frozen_test/summary_by_workflow.csv
+frozen,GENCO alone: verified cases with at least one wrong decision,260 of 748 (35 %),frozen_test/genco_alone_by_family.csv
+frozen,"GENCO alone with the overload margin, random families: overloads missed",1 of 336 (0 %),frozen_test/genco_alone_by_family.csv
+frozen,"GENCO alone, random families: voltage violations missed",5 of 13 (38 %),frozen_test/genco_alone_by_family.csv
+frozen,"GENCO alone with the overload margin, clustered families: overloads missed",743 of 1772 (42 %),frozen_test/genco_alone_by_family.csv
+frozen,"GENCO alone, clustered families: voltage violations missed",1586 of 1748 (91 %),frozen_test/genco_alone_by_family.csv
+frozen,final set: cases / untouched operating points,870 / 174,frozen_test/summary.json
+frozen,mean Newton iterations: classical / from GENCO's state,3.50 / 2.60,frozen_test/timing.json
+frozen,"GENCO inference, compiled float16, batch 16 (ms per case)",13.2,frozen_test/timing.json
+frozen,"GENCO path, median ms (graph + transfer + inference)",70.8,frozen_test/timing.json
+frozen,branch check: verified cases with two distinct AC solutions among the starts,2 of 748,branch_check/summary.json
+overload,conformal overload margin (fraction of rating),0.0454,overload_margin/scenario_level_results.csv
+overload,N-2 test: overloaded scenarios with nothing missed (95 % CI),98.9 % (97.1 to 99.7),overload_margin/scenario_level_results.csv
+overload,"false alarms per scenario, GENCO / DC at the same guarantee",2.61 / 7.35,overload_margin/scenario_level_results.csv
+fix,training cases (regression targets) / minutes on one T4,6737 / 72,finetune/summary.json
+fix,"clustered outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","6.13 -> 4.70 (-1.43, -23 %; -1.88 to -1.02)",evaluate_finetuned/endpoints_cases.csv
+fix,"held-out construction: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","2.01 -> 1.58 (-0.43, -21 %; -0.68 to -0.21)",evaluate_finetuned/endpoints_cases.csv
+fix,"random outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","0.14 -> 0.18 (+0.04, +31 %; +0.01 to +0.08)",evaluate_finetuned/endpoints_cases.csv
+fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",0.0013 -> 0.0035,evaluate_finetuned/endpoint_forgetting.csv
+fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned/endpoint_near_fold.json
+warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned/endpoint_head.csv
+warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.937 (0.885 to 0.980); 0.84 / 0.18,evaluate_finetuned/endpoint_head.csv
+warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned/endpoint_head.csv
+warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned/endpoint_head.csv
+warning,"outage-topology baseline without GENCO (boosted trees), frozen-test AUROC",0.904,analysis/warning_scores.csv
+warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.058 (+0.031 to +0.089),analysis/warning_ablation.json
+warning,storms: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.138 (+0.052 to +0.233),analysis/warning_ablation.json
+warning,false-alarm rate at the 95 %-recall rule: topology baseline / GENCO warning,0.35 / 0.16,analysis/warning_ablation.json
+check,PYPOWER from raw parameters vs released solutions: largest |dVm| (p.u.); decisions agreeing,2.0e-09; 46 of 46,independent_check/summary.json
