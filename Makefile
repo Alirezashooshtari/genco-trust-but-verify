@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: install test numbers figures check
+.PHONY: install test numbers figures demo check
 
 install:
 	$(PY) -m pip install -r requirements.txt
@@ -15,5 +15,8 @@ numbers:
 figures:
 	$(PY) scripts/make_figures.py
 
-check: test numbers figures
-	git diff --exit-code -- results/
+demo:
+	$(PY) scripts/build_demo.py
+
+check: test numbers figures demo
+	git diff --exit-code -- results/ demo/index.html
