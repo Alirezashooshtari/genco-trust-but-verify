@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GENCO Contingency Verifier</title>
+<meta name="description" content="Explore 870 N-k contingencies on the Texas 2,000-bus grid: what GENCO predicted, what its warning said, and what the verified AC solver decided.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f3f4f3;
+  --surface: #ffffff;
+  --surface-2: #f7f8f7;
+  --ink: #1f1f1d;
+  --ink-2: #57564f;
+  --muted: #8a8983;
+  --rule: #e2e3e0;
+  --rule-strong: #c9cbc6;
+  --genco: #2a78d6;
+  --genco-soft: #e7f0fb;
+  --tuned: #4a3aa7;
+  --safe: #0c8f0c;
+  --safe-soft: #e5f3e5;
+  --violation: #b77800;
+  --violation-dot: #fab219;
+  --violation-soft: #fdf3dc;
+  --unresolved: #c83434;
+  --unresolved-dot: #d03b3b;
+  --unresolved-soft: #fbe7e6;
+  --overload: #e8743b;
+  --map-bg: #fbfbfa;
+  --map-line: #cfd1cc;
+  --map-line-hv: #a7aaa4;
+  --map-bus: #b3b5af;
+  --focus: #2a78d6;
+  --shadow: 0 1px 2px rgba(31, 31, 29, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #121312;
+    --surface: #1b1c1b;
+    --surface-2: #222322;
+    --ink: #f2f2ef;
+    --ink-2: #c3c2b9;
+    --muted: #8f8e88;
+    --rule: #2e302d;
+    --rule-strong: #43453f;
+    --genco: #4f93e6;
+    --genco-soft: #1d2a3b;
+    --tuned: #9085e9;
+    --safe: #3fbf3f;
+    --safe-soft: #17291a;
+    --violation: #e2a52b;
+    --violation-dot: #f0b532;
+    --violation-soft: #30281a;
+    --unresolved: #ec6c6c;
+    --unresolved-dot: #e66767;
+    --unresolved-soft: #3a1f1f;
+    --overload: #f08a52;
+    --map-bg: #171817;
+    --map-line: #3a3c38;
+    --map-line-hv: #5a5d57;
+    --map-bus: #61645e;
+    --focus: #6ea8ee;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #121312; --surface: #1b1c1b; --surface-2: #222322; --ink: #f2f2ef; --ink-2: #c3c2b9; --muted: #8f8e88;
+  --rule: #2e302d; --rule-strong: #43453f; --genco: #4f93e6; --genco-soft: #1d2a3b; --tuned: #9085e9;
+  --safe: #3fbf3f; --safe-soft: #17291a; --violation: #e2a52b; --violation-dot: #f0b532; --violation-soft: #30281a;
+  --unresolved: #ec6c6c; --unresolved-dot: #e66767; --unresolved-soft: #3a1f1f; --overload: #f08a52;
+  --map-bg: #171817; --map-line: #3a3c38; --map-line-hv: #5a5d57; --map-bus: #61645e; --focus: #6ea8ee; --shadow: none;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------ header */
+.top {
+  display: flex; align-items: center; gap: 28px;
+  height: 56px; padding: 0 20px;
+  background: var(--surface); border-bottom: 1px solid var(--rule);
+}
+.brand { display: flex; align-items: baseline; gap: 10px; white-space: nowrap; }
+.brand b { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.brand span { color: var(--muted); font-size: 13px; }
+.tabs { display: flex; gap: 2px; height: 100%; }
+.tab {
+  border: 0; background: none; padding: 0 12px; height: 100%; white-space: nowrap;
+  color: var(--ink-2); font-weight: 500; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.links { margin-left: auto; display: flex; gap: 18px; }
+.links a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.theme { border: 1px solid var(--rule); background: none; border-radius: 7px; width: 32px; height: 32px; cursor: pointer; color: var(--ink-2); display: grid; place-items: center; }
+
+.view { display: none; }
+.view.on { display: block; }
+
+/* ------------------------------------------------------------------ explorer */
+.explorer { display: grid; grid-template-columns: 340px minmax(0, 1fr); height: calc(100vh - 56px); }
+.queue { display: flex; flex-direction: column; min-height: 0; background: var(--surface); border-right: 1px solid var(--rule); }
+.queue-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--rule); display: grid; gap: 10px; }
+.queue-head h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.queue-head p { margin: 0; color: var(--muted); font-size: 12.5px; }
+.seg { display: flex; border: 1px solid var(--rule-strong); border-radius: 7px; overflow: hidden; }
+.seg button {
+  flex: 1; border: 0; background: none; padding: 6px 4px; font-size: 12.5px; cursor: pointer; color: var(--ink-2);
+  border-right: 1px solid var(--rule);
+}
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.seg button:disabled { color: var(--muted); cursor: not-allowed; opacity: 0.55; }
+.row2 { display: flex; gap: 8px; }
+.row2 select, .row2 input {
+  flex: 1; min-width: 0; height: 32px; padding: 0 8px; border: 1px solid var(--rule-strong); border-radius: 7px;
+  background: var(--surface);
+}
+.list { overflow-y: auto; flex: 1; }
+.item {
+  display: grid; grid-template-columns: 10px minmax(0, 1fr) 64px; gap: 0 12px; align-items: center;
+  width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--rule); background: none;
+  padding: 10px 16px; cursor: pointer;
+}
+.item:hover { background: var(--surface-2); }
+.item[aria-selected="true"] { background: var(--genco-soft); box-shadow: inset 3px 0 0 var(--genco); }
+.item .main { display: grid; gap: 1px; min-width: 0; }
+.item .t1 { font-weight: 600; }
+.item .t1 .ex { font-weight: 500; color: var(--genco); font-size: 12px; margin-left: 6px; }
+.item .t2 { color: var(--muted); font-size: 12.5px; }
+.item .w { text-align: right; font-size: 12px; color: var(--ink-2); }
+.wbar { display: block; position: relative; height: 4px; background: var(--rule); border-radius: 2px; margin-top: 4px; }
+.wbar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: var(--genco); }
+.wbar b { position: absolute; top: -3px; width: 1.5px; height: 10px; background: var(--ink); }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.dot.safe { background: var(--safe); }
+.dot.violation { background: var(--violation-dot); }
+.dot.unresolved { background: var(--unresolved-dot); }
+.empty { padding: 24px 16px; color: var(--muted); }
+
+.detail { overflow-y: auto; padding: 20px 24px 32px; min-width: 0; }
+.case-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 18px; margin-bottom: 4px; }
+.case-head h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.015em; }
+.case-head .sub { color: var(--ink-2); font-size: 14px; padding-bottom: 3px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border-radius: 999px;
+  font-weight: 600; font-size: 13px;
+}
+.badge.safe { background: var(--safe-soft); color: var(--safe); }
+.badge.violation { background: var(--violation-soft); color: var(--violation); }
+.badge.unresolved { background: var(--unresolved-soft); color: var(--unresolved); }
+.note { margin: 6px 0 18px; color: var(--ink-2); max-width: 75ch; }
+
+/* the pipeline: the actual order of the workflow */
+.pipe { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.1fr); gap: 0; margin-bottom: 18px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; box-shadow: var(--shadow); }
+.step { padding: 14px 16px; border-right: 1px solid var(--rule); position: relative; min-width: 0; }
+.step:last-child { border-right: 0; }
+.step h3 { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); display: flex; gap: 8px; align-items: center; }
+.step h3 em { font-style: normal; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--rule-strong); font-size: 11px; color: var(--muted); }
+.step .big { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+.step .small { color: var(--ink-2); font-size: 12.5px; margin-top: 3px; }
+.step.final.safe { background: var(--safe-soft); }
+.step.final.violation { background: var(--violation-soft); }
+.step.final.unresolved { background: var(--unresolved-soft); }
+.step.final .big { display: flex; align-items: center; gap: 8px; }
+.step.final.safe .big { color: var(--safe); }
+.step.final.violation .big { color: var(--violation); }
+.step.final.unresolved .big { color: var(--unresolved); }
+.step:not(:last-child)::after {
+  content: ""; position: absolute; right: -6px; top: 50%; width: 10px; height: 10px; margin-top: -5px;
+  background: var(--surface); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); transform: rotate(45deg); z-index: 1;
+}
+
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; align-items: start; }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
+.panel-head { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.panel-head h2 { margin: 0; font-size: 14px; font-weight: 600; }
+.panel-head .seg { margin-left: auto; }
+.panel-head .seg button { padding: 5px 12px; flex: none; }
+.mapwrap { position: relative; height: 520px; background: var(--map-bg); border-radius: 0 0 10px 10px; overflow: hidden; }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+canvas.drag { cursor: grabbing; }
+.maptools { position: absolute; right: 12px; top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.maptools button { width: 32px; height: 32px; border-radius: 7px; border: 1px solid var(--rule-strong); background: var(--surface); cursor: pointer; font-size: 15px; }
+.maptools button:hover { background: var(--surface-2); }
+.legend { position: absolute; left: 12px; bottom: 12px; background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; font-size: 12px; color: var(--ink-2); display: grid; gap: 5px; }
+.legend .k { display: flex; align-items: center; gap: 8px; }
+.legend .sw { width: 18px; height: 0; border-top: 2px solid; }
+.legend .sw.out { border-top: 2.5px dashed var(--ink); }
+.legend .sw.over { border-top: 3px solid var(--overload); }
+.legend .ramp { width: 120px; height: 8px; border-radius: 4px; }
+.legend .ticks { display: flex; justify-content: space-between; width: 120px; font-size: 11px; color: var(--muted); }
+.mapmsg { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 7px 12px; font-size: 12.5px; color: var(--ink-2); max-width: min(520px, 80%); text-align: center; box-shadow: var(--shadow); }
+.mapmsg:empty { display: none; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--surface); border-radius: 7px; padding: 7px 9px;
+  font-size: 12px; line-height: 1.4; white-space: nowrap; transform: translate(12px, -50%); display: none; z-index: 3; }
+.tip b { font-weight: 600; }
+
+.verdict table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.verdict th, .verdict td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.verdict th:first-child, .verdict td:first-child { white-space: normal; padding-left: 14px; }
+.verdict th:last-child, .verdict td:last-child { padding-right: 14px; }
+.verdict th:first-child, .verdict td:first-child { text-align: left; color: var(--ink-2); font-weight: 400; }
+.verdict thead th { font-size: 12px; color: var(--muted); font-weight: 500; }
+.verdict tr:last-child td { border-bottom: 0; }
+.verdict .miss { color: var(--unresolved); font-weight: 600; }
+.verdict .ok { color: var(--safe); }
+.verdict .foot { padding: 12px 14px 14px; color: var(--ink-2); font-size: 12.5px; border-top: 1px solid var(--rule); }
+.starts { padding: 10px 14px 14px; border-top: 1px solid var(--rule); font-size: 12.5px; }
+.starts h3 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.starts ol { margin: 0; padding-left: 18px; color: var(--ink-2); }
+.starts li { margin: 2px 0; }
+
+/* ------------------------------------------------------------------ overview & method */
+.page { max-width: 1080px; margin: 0 auto; padding: 36px 24px 56px; }
+.lede { font-size: 28px; line-height: 1.22; font-weight: 600; letter-spacing: -0.02em; max-width: 30ch; margin: 0 0 14px; }
+.lede-sub { color: var(--ink-2); font-size: 16px; max-width: 68ch; margin: 0 0 30px; }
+.figures { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px 16px; box-shadow: var(--shadow); min-width: 0; }
+.figure h2 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+.figure p.cap { margin: 0 0 14px; color: var(--ink-2); font-size: 13px; max-width: 60ch; }
+.fam { display: grid; grid-template-columns: 112px 1fr 44px; align-items: center; gap: 10px; margin: 9px 0; font-size: 13px; }
+.fam .bars { display: flex; height: 20px; border-radius: 4px; overflow: hidden; gap: 2px; }
+.fam .bars span { display: block; height: 100%; }
+.fam .wrong { text-align: right; font-weight: 600; color: var(--genco); }
+.keyrow { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-2); margin-top: 12px; }
+.keyrow span { display: inline-flex; align-items: center; gap: 6px; }
+.keyrow i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0 0 22px; border-top: 1px solid var(--rule-strong); }
+.fact { padding: 14px 16px 0 0; }
+.fact b { display: block; font-size: 30px; font-weight: 600; letter-spacing: -0.02em; }
+.fact span { color: var(--ink-2); font-size: 13px; }
+svg text { font-family: inherit; }
+.method { display: grid; gap: 22px; }
+.method .figure p { color: var(--ink-2); max-width: 70ch; margin: 6px 0 0; }
+.flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.15fr); gap: 14px; margin-top: 14px; }
+.flow > div { border: 1px solid var(--rule); border-radius: 9px; padding: 12px 14px; background: var(--surface-2); }
+.flow h3 { margin: 0 0 4px; font-size: 14px; }
+.flow p { margin: 0; font-size: 13px; color: var(--ink-2); }
+.outs { display: grid; gap: 6px; }
+.outs div { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.limits li { margin: 6px 0; color: var(--ink-2); max-width: 75ch; }
+
+/* ------------------------------------------------------------------ responsive */
+@media (max-width: 1100px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .figures { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .top { gap: 14px; padding: 0 16px; overflow-x: auto; }
+  .brand span, .links { display: none; }
+  .explorer { grid-template-columns: 1fr; height: auto; }
+  .queue { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 46vh; }
+  .detail { padding: 16px; }
+  .pipe { grid-template-columns: 1fr 1fr; }
+  .step:nth-child(2) { border-right: 0; }
+  .step:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .step::after { display: none; }
+  .mapwrap { height: 380px; }
+  .facts { grid-template-columns: 1fr 1fr; }
+  .flow { grid-template-columns: 1fr; }
+  .page { padding: 24px 16px 40px; }
+  .lede { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><b>Trust, but verify</b><span>GENCO contingency verifier</span></div>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab" role="tab" aria-selected="true" data-view="explorer">Case explorer</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="overview">Frozen test</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="method">How it works</button>
+  </nav>
+  <div class="links"><a href="#" id="link-post">Write-up</a><a href="#" id="link-code">Code</a></div>
+  <button class="theme" id="theme" aria-label="Switch colour theme" title="Switch colour theme"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg></button>
+</header>
+
+<main>
+  <!-- ============================================================ explorer -->
+  <section class="view on" id="view-explorer" aria-label="Case explorer">
+    <div class="explorer">
+      <aside class="queue" aria-label="Contingencies">
+        <div class="queue-head">
+          <h2>870 contingencies</h2>
+          <p>Texas 2,000-bus grid, 174 unseen operating points. The four examples with stored bus voltages come first; sort by warning score to see the cases most likely to need an engineer.</p>
+          <div class="seg" role="group" aria-label="Filter by outcome" id="filter-status">
+            <button aria-pressed="true" data-v="all">All</button>
+            <button aria-pressed="false" data-v="verified_safe">Safe</button>
+            <button aria-pressed="false" data-v="verified_violation">Violation</button>
+            <button aria-pressed="false" data-v="unresolved">Unresolved</button>
+          </div>
+          <div class="row2">
+            <select id="filter-family" aria-label="Outage family"><option value="all">All outage families</option></select>
+            <select id="sort" aria-label="Sort order">
+              <option value="examples">Examples first</option>
+              <option value="warning">Warning score</option>
+              <option value="id">Case number</option>
+            </select>
+          </div>
+          <div class="row2"><input id="search" type="search" placeholder="Find a case or bus number" aria-label="Find a case or bus number"></div>
+        </div>
+        <div class="list" id="list" role="listbox" aria-label="Contingency list" tabindex="0"></div>
+      </aside>
+
+      <div class="detail" id="detail">
+        <div class="case-head">
+          <h1 id="c-title">Case</h1>
+          <span class="badge" id="c-badge"></span>
+          <span class="sub" id="c-sub"></span>
+        </div>
+        <p class="note" id="c-note"></p>
+
+        <div class="pipe" id="pipe" aria-label="How this case was decided"></div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel-head">
+              <h2>The grid after the outage</h2>
+              <div class="seg" role="group" aria-label="Map shows" id="mode">
+                <button aria-pressed="true" data-v="genco">GENCO says</button>
+                <button aria-pressed="false" data-v="ac">Solver says</button>
+              </div>
+            </div>
+            <div class="mapwrap" id="mapwrap">
+              <canvas id="map" aria-label="Map of the Texas grid with the lines out and bus voltages" role="img"></canvas>
+              <div class="mapmsg" id="mapmsg"></div>
+              <div class="maptools">
+                <button id="zoom-in" aria-label="Zoom in" title="Zoom in">+</button>
+                <button id="zoom-out" aria-label="Zoom out" title="Zoom out">−</button>
+                <button id="zoom-fit" aria-label="Zoom to the outage" title="Zoom to the outage">⌖</button>
+                <button id="zoom-all" aria-label="Show the whole grid" title="Show the whole grid">▢</button>
+              </div>
+              <div class="legend" id="legend"></div>
+              <div class="tip" id="tip"></div>
+            </div>
+          </div>
+
+          <div class="panel verdict" id="verdict"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ overview -->
+  <section class="view" id="view-overview" aria-label="Frozen test">
+    <div class="page">
+      <p class="lede">On 870 contingencies no model had seen, verification never passed a case it could not solve.</p>
+      <p class="lede-sub">The protocol was fixed before the run: 174 untouched operating points, five outage families, the same cases for every workflow. GENCO alone gets one or more decisions wrong in a third of the cases that have a solution.</p>
+      <div class="facts" id="facts"></div>
+      <div class="figures">
+        <div class="figure">
+          <h2>Outcome of every case, by outage family</h2>
+          <p class="cap">Each bar is 174 cases, one per operating point. The number on the right counts the cases in which GENCO alone gets at least one decision wrong.</p>
+          <div id="families"></div>
+          <div class="keyrow">
+            <span><i style="background:var(--safe)"></i>Verified safe</span>
+            <span><i style="background:var(--violation-dot)"></i>Verified violation</span>
+            <span><i style="background:var(--unresolved-dot)"></i>Unresolved (alarm)</span>
+          </div>
+        </div>
+        <div class="figure">
+          <h2>Checking cases in warning order</h2>
+          <p class="cap">Sort the queue by GENCO's warning score and work down it. The curve shows how many of the 122 unresolved cases you have reached after checking a given share of all cases.</p>
+          <div id="triage"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ method -->
+  <section class="view" id="view-method" aria-label="How it works">
+    <div class="page method">
+      <div>
+        <p class="lede">GENCO proposes a state. Newton-Raphson decides.</p>
+        <p class="lede-sub">GENCO predicts every voltage and angle of a contingency in one forward pass. On its own it returns a plausible grid for every case, including cases past voltage collapse. The verifier turns that prediction into a starting point and lets the AC equations make the call.</p>
+      </div>
+      <div class="figure">
+        <h2>The workflow</h2>
+        <div class="flow">
+          <div><h3>1. GENCO</h3><p>One forward pass on a T4 GPU (about 70 ms here) gives the state of all 2,000 buses.</p></div>
+          <div><h3>2. Warning</h3><p>A logistic regression on GENCO's outputs and embeddings scores how likely the solver is to fail. It orders the queue; it decides nothing.</p></div>
+          <div><h3>3. Newton-Raphson</h3><p>Starts from GENCO's state; if that fails, from the pre-contingency, DC and flat states. Converged means a power mismatch below 10<sup>−8</sup> p.u.</p></div>
+          <div class="outs"><h3>4. Outcome</h3>
+            <div><span class="dot safe"></span>Verified safe: an AC solution with no limit violated</div>
+            <div><span class="dot violation"></span>Verified violation: an overload or a voltage outside 0.9 to 1.1 p.u.</div>
+            <div><span class="dot unresolved"></span>Unresolved: no start converged; the case goes to an engineer</div>
+          </div>
+        </div>
+      </div>
+      <div class="figure">
+        <h2>What the outcomes mean, and what they do not</h2>
+        <ul class="limits">
+          <li><b>Unresolved</b> is a statement about the solver and its four starts, not a proof that no AC solution exists. In the storms studied, continuation confirmed that the solution folds below the actual load.</li>
+          <li>The equations can have two solutions. In 2 of the 748 verified cases GENCO's start reached a high-voltage solution and the classical starts a low-voltage one. A static power flow cannot say which the grid would settle on.</li>
+          <li>The warning catches 95 % of unresolved cases at its preset threshold, with 16 % false alarms, and is close to chance right at a voltage-collapse point. The solver still runs on every case.</li>
+          <li>On this grid GENCO does not make screening faster: its start saves about one Newton iteration, but inference costs more than the classical solve.</li>
+          <li>One grid, one fine-tuning run, research code. Not for operational use.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+const D = /*DATA*/null;
+const LINKS = {
+  post: "https://huggingface.co/spaces/gridfm/genco-challenge/discussions",
+  code: "https://github.com/Alirezashooshtari/genco-trust-but-verify",
+};
+
+const STATUS = {
+  verified_safe: { label: "Verified safe", cls: "safe" },
+  verified_violation: { label: "Verified violation", cls: "violation" },
+  unresolved: { label: "Unresolved", cls: "unresolved" },
+};
+const START = { genco: "GENCO's state", base: "the pre-contingency state", dc: "the DC state", flat: "a flat start" };
+const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const $ = (id) => document.getElementById(id);
+const fmt = (v, d = 3) => (v == null ? "–" : Number(v).toFixed(d));
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+const cases = D.cases;
+const byId = new Map(cases.map((c) => [c.id, c]));
+const threshold = D.overview.threshold;
+const state = { status: "all", family: "all", sort: "examples", query: "", selected: null, mode: "genco" };
+
+// ------------------------------------------------------------------ queue
+function familyOptions() {
+  const sel = $("filter-family");
+  for (const [k, v] of Object.entries(D.families)) sel.add(new Option(v, k));
+}
+
+function filtered() {
+  const q = state.query.trim();
+  let out = cases.filter((c) =>
+    (state.status === "all" || c.status === state.status) &&
+    (state.family === "all" || c.family === state.family) &&
+    (!q || String(c.id).includes(q) || String(c.centre) === q));
+  const ex = (c) => (D.showcase[c.id] ? 0 : 1);
+  if (state.sort === "warning") out.sort((a, b) => b.warning - a.warning);
+  else if (state.sort === "id") out.sort((a, b) => a.id - b.id);
+  else out.sort((a, b) => ex(a) - ex(b) || b.warning - a.warning);
+  return out;
+}
+
+function renderList() {
+  const list = $("list");
+  const rows = filtered();
+  const counts = { all: 0, verified_safe: 0, verified_violation: 0, unresolved: 0 };
+  for (const c of cases) if (state.family === "all" || c.family === state.family) { counts.all++; counts[c.status]++; }
+  for (const b of $("filter-status").children) {
+    const v = b.dataset.v;
+    b.textContent = { all: "All", verified_safe: "Safe", verified_violation: "Violation", unresolved: "Unresolved" }[v] + ` ${counts[v]}`;
+  }
+  if (!rows.length) { list.innerHTML = `<div class="empty">No case matches. Clear the search or pick another filter.</div>`; return; }
+  const frag = document.createDocumentFragment();
+  for (const c of rows) {
+    const b = document.createElement("button");
+    b.className = "item"; b.setAttribute("role", "option"); b.dataset.id = c.id;
+    b.setAttribute("aria-selected", c.id === state.selected ? "true" : "false");
+    const w = Math.min(1, c.warning);
+    b.innerHTML = `<span class="dot ${STATUS[c.status].cls}" title="${STATUS[c.status].label}"></span>
+      <span class="main"><span class="t1">Case ${c.id}${D.showcase[c.id] ? '<span class="ex">bus voltages</span>' : ""}</span>
+      <span class="t2">${D.families[c.family]}, ${STATUS[c.status].label.toLowerCase()}</span></span>
+      <span class="w num" title="Warning score">${(100 * c.warning).toFixed(0)} %<span class="wbar"><i style="width:${(100 * w).toFixed(1)}%"></i><b style="left:${(100 * threshold).toFixed(1)}%"></b></span></span>`;
+    frag.appendChild(b);
+  }
+  list.replaceChildren(frag);
+}
+
+$("list").addEventListener("click", (e) => { const b = e.target.closest(".item"); if (b) select(+b.dataset.id, true); });
+$("list").addEventListener("keydown", (e) => {
+  if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+  e.preventDefault();
+  const items = [...$("list").querySelectorAll(".item")];
+  const i = items.findIndex((x) => +x.dataset.id === state.selected);
+  const next = items[Math.max(0, Math.min(items.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)))];
+  if (next) { select(+next.dataset.id, true); next.focus(); next.scrollIntoView({ block: "nearest" }); }
+});
+$("filter-status").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  state.status = b.dataset.v;
+  for (const x of $("filter-status").children) x.setAttribute("aria-pressed", x === b ? "true" : "false");
+  renderList();
+});
+$("filter-family").addEventListener("change", (e) => { state.family = e.target.value; renderList(); });
+$("sort").addEventListener("change", (e) => { state.sort = e.target.value; renderList(); });
+$("search").addEventListener("input", (e) => { state.query = e.target.value; renderList(); });
+
+// ------------------------------------------------------------------ detail
+function select(id, fit) {
+  const c = byId.get(id); if (!c) return;
+  state.selected = id;
+  for (const x of $("list").querySelectorAll(".item")) x.setAttribute("aria-selected", +x.dataset.id === id ? "true" : "false");
+  history.replaceState(null, "", `#case=${id}`);
+  const s = STATUS[c.status], ex = D.showcase[id];
+  $("c-title").textContent = `Case ${id}`;
+  $("c-badge").className = `badge ${s.cls}`;
+  $("c-badge").innerHTML = `<span class="dot ${s.cls}"></span>${s.label}`;
+  $("c-sub").textContent = `${D.families[c.family]}: ${c.removed.length} lines out around bus ${c.centre}, operating point ${c.base}`;
+  $("c-note").textContent = ex ? ex.note : noteFor(c);
+  renderPipe(c);
+  renderVerdict(c);
+  const acAvailable = !!(ex && ex.vm_ac);
+  const modeBtns = $("mode").children;
+  modeBtns[0].disabled = !ex; modeBtns[1].disabled = !acAvailable;
+  if (!acAvailable && state.mode === "ac") setMode("genco", false);
+  map.setCase(c, fit);
+}
+
+function noteFor(c) {
+  const a = c.alone;
+  if (c.status === "unresolved") return "No Newton start converged, so the case is raised as an alarm. GENCO alone still returned a full state for it.";
+  if (!a) return "";
+  const missed = a.over_missed + a.v_missed;
+  if (c.different_solution) return "The equations have two solutions here. GENCO's start and the classical starts reached different ones.";
+  if (missed === 0 && a.false_flags === 0) return "GENCO alone gets every decision right in this case.";
+  const parts = [];
+  if (a.over_missed) parts.push(plural(a.over_missed, "overload", "overloads"));
+  if (a.v_missed) parts.push(plural(a.v_missed, "voltage violation", "voltage violations"));
+  const miss = parts.length ? `GENCO alone misses ${parts.join(" and ")}` : "GENCO alone misses nothing";
+  return `${miss}${a.false_flags ? ` and raises ${plural(a.false_flags, "false overload flag", "false overload flags")}` : ""}. The check returns the AC decisions.`;
+}
+
+function renderPipe(c) {
+  const s = STATUS[c.status];
+  const flagged = c.warning >= threshold;
+  const genco = `<div class="step"><h3><em>1</em>GENCO predicts</h3>
+      <div class="big num">${fmt(c.genco_min_vm)} p.u.</div>
+      <div class="small">lowest voltage it shows; power residual ${fmt(c.residual_mw, 1)} MW</div></div>`;
+  const warn = `<div class="step"><h3><em>2</em>Warning score</h3>
+      <div class="big num">${(100 * c.warning).toFixed(0)} %</div>
+      <div class="small">${flagged ? "above" : "below"} the ${(100 * threshold).toFixed(0)} % threshold: ${flagged ? "likely unresolved" : "likely solvable"}</div></div>`;
+  let newton;
+  if (c.status === "unresolved") {
+    newton = `<div class="step"><h3><em>3</em>Newton-Raphson</h3><div class="big">No start converged</div>
+      <div class="small">GENCO, pre-contingency, DC and flat starts, 30 iterations each</div></div>`;
+  } else {
+    newton = `<div class="step"><h3><em>3</em>Newton-Raphson</h3><div class="big num">${plural(c.iterations, "iteration", "iterations")}</div>
+      <div class="small">from ${START[c.start] || c.start}; ${fmt(c.ms_genco, 0)} ms end to end</div></div>`;
+  }
+  let what;
+  if (c.status === "unresolved") what = "Sent to an engineer";
+  else if (c.status === "verified_safe") what = `Lowest voltage ${fmt(c.min_vm)} p.u.`;
+  else what = [c.n_over ? plural(c.n_over, "overload", "overloads") : "", c.n_low_v ? plural(c.n_low_v, "low-voltage bus", "low-voltage buses") : ""].filter(Boolean).join(", ") || "voltage above limit";
+  const final = `<div class="step final ${s.cls}"><h3><em>4</em>Outcome</h3><div class="big"><span class="dot ${s.cls}"></span>${s.label}</div>
+      <div class="small">${what}</div></div>`;
+  $("pipe").innerHTML = genco + warn + newton + final;
+}
+
+function renderVerdict(c) {
+  const a = c.alone, ex = D.showcase[c.id];
+  let rows = "";
+  const cell = (missed, ref) => missed ? `<span class="miss num">${missed} of ${ref} missed</span>` : (ref ? `<span class="ok num">all ${ref} found</span>` : `<span class="ok">none, correct</span>`);
+  if (c.status === "unresolved") {
+    rows = `<tr><td>AC solution</td><td>shown anyway</td><td>none found</td></tr>
+      <tr><td>Lowest voltage</td><td class="num">${fmt(c.genco_min_vm)}</td><td>–</td></tr>
+      <tr><td>Outcome</td><td>looks ordinary</td><td><b style="color:var(--unresolved)">alarm</b></td></tr>`;
+  } else {
+    rows = `<tr><td>Overloaded lines</td><td>${a ? cell(a.over_missed, a.over_ref) : "–"}</td><td class="num">${c.n_over}</td></tr>
+      <tr><td>Voltage violations</td><td>${a ? cell(a.v_missed, a.v_ref) : "–"}</td><td class="num">${c.n_low_v}</td></tr>
+      <tr><td>False overload flags</td><td class="num">${a ? a.false_flags : "–"}</td><td class="num">0</td></tr>
+      <tr><td>Lowest voltage (p.u.)</td><td class="num">${fmt(c.genco_min_vm)}</td><td class="num">${fmt(c.min_vm)}</td></tr>`;
+  }
+  let starts = "";
+  if (ex && ex.history) {
+    starts = `<div class="starts"><h3>Starts tried</h3><ol>${ex.history.map((h) =>
+      `<li>${START[h.start] || h.start}: ${h.converged ? `converged in ${h.iterations} iterations` : `did not converge (${h.iterations} iterations)`}</li>`).join("")}</ol></div>`;
+  }
+  const q = ex && ex.q_limits ? `<div class="foot">With generator reactive limits enforced the outcome is the same: ${String(ex.q_limits.note || "").replace(/\.$/, "")}.</div>` : "";
+  $("verdict").innerHTML = `<div class="panel-head"><h2>GENCO alone against the check</h2></div>
+    <table><thead><tr><th></th><th>GENCO alone</th><th>Verified</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="foot">GENCO alone means taking its predicted state at face value: a line is overloaded at 100 % of its rating, a bus violates below 0.9 or above 1.1 p.u. Verified decisions come from the converged AC state.</div>${starts}${q}`;
+}
+
+// ------------------------------------------------------------------ map
+const map = (() => {
+  const canvas = $("map"), wrap = $("mapwrap"), tip = $("tip"), ctx = canvas.getContext("2d");
+  const G = D.grid, nb = G.x.length, nl = G.f.length;
+  let W = 0, H = 0, dpr = 1, view = { s: 1, tx: 0, ty: 0 }, current = null, removed = new Set(), drag = null, pendingFit = false;
+  const lineKv = Float32Array.from({ length: nl }, (_, i) => Math.max(G.kv[G.f[i]], G.kv[G.t[i]]));
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    W = wrap.clientWidth; H = wrap.clientHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    if (pendingFit && W) { fitOutage(); pendingFit = false; }
+    draw();
+  }
+  function fitBox(x0, y0, x1, y1, pad = 40) {
+    const s = Math.min((W - 2 * pad) / Math.max(1, x1 - x0), (H - 2 * pad) / Math.max(1, y1 - y0));
+    view.s = Math.min(s, 14); view.tx = W / 2 - view.s * (x0 + x1) / 2; view.ty = H / 2 - view.s * (y0 + y1) / 2;
+  }
+  const fitAll = () => fitBox(0, 0, 1000, 1000, 16);
+  function fitOutage() {
+    if (!current) return fitAll();
+    const xs = [], ys = [];
+    for (const l of current.removed) { xs.push(G.x[G.f[l]], G.x[G.t[l]]); ys.push(G.y[G.f[l]], G.y[G.t[l]]); }
+    const pad = 110;
+    fitBox(Math.min(...xs) - pad, Math.min(...ys) - pad, Math.max(...xs) + pad, Math.max(...ys) + pad, 30);
+  }
+  const X = (i) => view.tx + view.s * G.x[i], Y = (i) => view.ty + view.s * G.y[i];
+
+  function voltageColor(v) {
+    if (v < 0.9) return css("--unresolved-dot");
+    if (v < 0.93) return css("--violation-dot");
+    if (v > 1.1) return css("--tuned");
+    return null;
+  }
+
+  function draw() {
+    if (!W) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const ex = current && D.showcase[current.id];
+    const mode = state.mode;
+    const vm = ex ? (mode === "ac" && ex.vm_ac ? ex.vm_ac : ex.vm_genco) : null;
+    const over = new Set(ex ? (mode === "ac" ? ex.over_ac || [] : ex.over_genco) : []);
+    const lw = Math.max(0.6, Math.min(2.2, 0.5 + view.s * 0.35));
+    // network
+    for (const [hv, color, width] of [[false, css("--map-line"), lw * 0.8], [true, css("--map-line-hv"), lw * 1.5]]) {
+      ctx.beginPath();
+      for (let i = 0; i < nl; i++) {
+        if (removed.has(i) || over.has(i) || (lineKv[i] >= 300) !== hv) continue;
+        ctx.moveTo(X(G.f[i]), Y(G.f[i])); ctx.lineTo(X(G.t[i]), Y(G.t[i]));
+      }
+      ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+    }
+    // overloaded lines
+    if (over.size) {
+      ctx.beginPath();
+      for (const i of over) { if (removed.has(i)) continue; ctx.moveTo(X(G.f[i]), Y(G.f[i])); ctx.lineTo(X(G.t[i]), Y(G.t[i])); }
+      ctx.strokeStyle = css("--overload"); ctx.lineWidth = lw * 2.6; ctx.lineCap = "round"; ctx.stroke();
+    }
+    // lines out
+    ctx.beginPath();
+    for (const i of removed) { ctx.moveTo(X(G.f[i]), Y(G.f[i])); ctx.lineTo(X(G.t[i]), Y(G.t[i])); }
+    ctx.setLineDash([5, 4]); ctx.strokeStyle = css("--ink"); ctx.lineWidth = lw * 1.8; ctx.stroke(); ctx.setLineDash([]);
+    // buses
+    const r = Math.max(1.1, Math.min(3.2, 0.6 + view.s * 0.45));
+    ctx.fillStyle = css("--map-bus");
+    ctx.beginPath();
+    for (let i = 0; i < nb; i++) {
+      if (vm && voltageColor(vm[i])) continue;
+      ctx.moveTo(X(i) + r * 0.7, Y(i)); ctx.arc(X(i), Y(i), r * 0.7, 0, 6.2832);
+    }
+    ctx.fill();
+    if (vm) {
+      const ring = css("--map-bg");
+      for (let i = 0; i < nb; i++) {
+        const col = voltageColor(vm[i]); if (!col) continue;
+        const rr = vm[i] < 0.9 ? r * 2.4 : r * 1.4;
+        ctx.beginPath(); ctx.arc(X(i), Y(i), rr + 1.2, 0, 6.2832); ctx.fillStyle = ring; ctx.fill();
+        ctx.beginPath(); ctx.arc(X(i), Y(i), rr, 0, 6.2832); ctx.fillStyle = col; ctx.fill();
+      }
+    }
+    if (current) {   // the outage centre
+      const i = current.centre;
+      ctx.beginPath(); ctx.arc(X(i), Y(i), r * 3.2, 0, 6.2832); ctx.strokeStyle = css("--ink"); ctx.lineWidth = 1.3; ctx.stroke();
+    }
+  }
+
+  function legend() {
+    const ex = current && D.showcase[current.id];
+    let html = `<div class="k"><span class="sw out"></span>Lines out</div>`;
+    if (ex) {
+      html += `<div class="k"><span class="sw over"></span>Overloaded line</div>
+        <div class="k"><span class="dot" style="background:var(--unresolved-dot)"></span>Bus below 0.90 p.u. (violation)</div>
+        <div class="k"><span class="dot" style="background:var(--violation-dot)"></span>Bus 0.90 to 0.93 p.u.</div>`;
+    }
+    html += `<div class="k"><span class="dot" style="background:none;border:1.3px solid var(--ink);width:11px;height:11px"></span>Outage centre</div>`;
+    $("legend").innerHTML = html;
+    const ex2 = ex;
+    let msg = "";
+    if (!ex2) msg = "Bus voltages are stored for the four example cases. Here the map shows where the lines went out.";
+    else if (state.mode === "ac" && !ex2.vm_ac) msg = "No AC solution: no start converged.";
+    $("mapmsg").textContent = msg;
+  }
+
+  function setCase(c, fit) {
+    current = c; removed = new Set(c.removed);
+    if (fit) { if (W) fitOutage(); else pendingFit = true; }
+    legend(); draw();
+  }
+
+  function zoomAt(px, py, k) {
+    const s2 = Math.max(0.3, Math.min(30, view.s * k)); k = s2 / view.s;
+    view.tx = px - k * (px - view.tx); view.ty = py - k * (py - view.ty); view.s = s2; draw();
+  }
+  canvas.addEventListener("wheel", (e) => { e.preventDefault(); const b = canvas.getBoundingClientRect(); zoomAt(e.clientX - b.left, e.clientY - b.top, Math.exp(-e.deltaY * 0.0015)); }, { passive: false });
+  canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty }; canvas.setPointerCapture(e.pointerId); canvas.classList.add("drag"); });
+  canvas.addEventListener("pointerup", () => { drag = null; canvas.classList.remove("drag"); });
+  canvas.addEventListener("pointerleave", () => { tip.style.display = "none"; });
+  canvas.addEventListener("pointermove", (e) => {
+    const b = canvas.getBoundingClientRect(), px = e.clientX - b.left, py = e.clientY - b.top;
+    if (drag) { view.tx = drag.tx + e.clientX - drag.x; view.ty = drag.ty + e.clientY - drag.y; tip.style.display = "none"; draw(); return; }
+    let best = -1, bd = 14 * 14;
+    for (let i = 0; i < nb; i++) { const dx = X(i) - px, dy = Y(i) - py, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
+    if (best < 0) { tip.style.display = "none"; return; }
+    const ex = current && D.showcase[current.id];
+    let body = `<b>Bus ${best}</b>, ${G.kv[best]} kV`;
+    if (ex) {
+      body += `<br>GENCO ${fmt(ex.vm_genco[best])} p.u.`;
+      body += ex.vm_ac ? `<br>Solver ${fmt(ex.vm_ac[best])} p.u.` : `<br>Solver: no solution`;
+      body += `<br>Before the outage ${fmt(ex.vm_pre[best])} p.u.`;
+    }
+    tip.innerHTML = body; tip.style.display = "block"; tip.style.left = `${px}px`; tip.style.top = `${py}px`;
+  });
+  $("zoom-in").onclick = () => zoomAt(W / 2, H / 2, 1.5);
+  $("zoom-out").onclick = () => zoomAt(W / 2, H / 2, 1 / 1.5);
+  $("zoom-fit").onclick = () => { fitOutage(); draw(); };
+  $("zoom-all").onclick = () => { fitAll(); draw(); };
+  new ResizeObserver(resize).observe(wrap);
+  return { setCase, draw, legend, resize, fitAll };
+})();
+
+function setMode(m, redraw = true) {
+  state.mode = m;
+  for (const b of $("mode").children) b.setAttribute("aria-pressed", b.dataset.v === m ? "true" : "false");
+  if (redraw) { map.legend(); map.draw(); }
+}
+$("mode").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b && !b.disabled) setMode(b.dataset.v); });
+
+// ------------------------------------------------------------------ overview
+function renderOverview() {
+  const O = D.overview, total = cases.length;
+  const wrong = cases.filter((c) => c.alone && (c.alone.over_missed + c.alone.v_missed) > 0).length;
+  $("facts").innerHTML = [
+    [O.verified, "cases verified with an AC solution"],
+    [O.unresolved, "cases unresolved, each raised as an alarm"],
+    [O.false_alarms, "solvable cases wrongly flagged unresolved"],
+    [O.auroc.toFixed(2), "AUROC of GENCO's warning for unresolved cases"],
+  ].map(([v, l]) => `<div class="fact"><b class="num">${v}</b><span>${l}</span></div>`).join("");
+
+  const fams = Object.keys(D.families);
+  $("families").innerHTML = fams.map((f) => {
+    const cs = cases.filter((c) => c.family === f);
+    const n = (s) => cs.filter((c) => c.status === s).length;
+    const w = cs.filter((c) => c.alone && (c.alone.over_missed + c.alone.v_missed) > 0).length;
+    const seg = (s, col) => n(s) ? `<span style="width:${(100 * n(s) / cs.length).toFixed(2)}%;background:${col}" title="${STATUS[s].label}: ${n(s)}"></span>` : "";
+    return `<div class="fam"><span>${D.families[f]}</span><div class="bars">${seg("verified_safe", "var(--safe)")}${seg("verified_violation", "var(--violation-dot)")}${seg("unresolved", "var(--unresolved-dot)")}</div><span class="wrong num" title="GENCO alone wrong">${w}</span></div>`;
+  }).join("");
+
+  // triage curve
+  const sorted = [...cases].sort((a, b) => b.warning - a.warning);
+  const nU = sorted.filter((c) => c.status === "unresolved").length;
+  let found = 0; const pts = [[0, 0]];
+  sorted.forEach((c, i) => { if (c.status === "unresolved") found++; pts.push([(i + 1) / total, found / nU]); });
+  const atThr = sorted.filter((c) => c.warning >= O.threshold);
+  const thrX = atThr.length / total, thrY = atThr.filter((c) => c.status === "unresolved").length / nU;
+  const w = 460, h = 300, m = { l: 58, r: 14, t: 10, b: 38 };
+  const sx = (x) => m.l + x * (w - m.l - m.r), sy = (y) => h - m.b - y * (h - m.t - m.b);
+  const path = pts.map(([x, y], i) => `${i ? "L" : "M"}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join("");
+  const ticks = [0, 0.25, 0.5, 0.75, 1];
+  $("triage").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="Share of unresolved cases found against share of cases checked, in warning order">
+    ${ticks.map((t) => `<line x1="${sx(0)}" x2="${sx(1)}" y1="${sy(t)}" y2="${sy(t)}" stroke="var(--rule)"/>
+      <text x="${m.l - 8}" y="${sy(t) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${t * 100}%</text>
+      <text x="${sx(t)}" y="${h - m.b + 16}" text-anchor="middle" font-size="11" fill="var(--muted)">${t * 100}%</text>`).join("")}
+    <line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(1)}" y2="${sy(1)}" stroke="var(--rule-strong)" stroke-dasharray="3 3"/>
+    <text x="${sx(0.62)}" y="${sy(0.55)}" font-size="11" fill="var(--muted)" transform="rotate(-33 ${sx(0.62)} ${sy(0.55)})">random order</text>
+    <path d="${path}" fill="none" stroke="var(--genco)" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="${sx(thrX)}" cy="${sy(thrY)}" r="5" fill="var(--genco)" stroke="var(--surface)" stroke-width="2"/>
+    <text x="${sx(thrX) + 10}" y="${sy(thrY) + 16}" font-size="12" fill="var(--ink)">threshold: ${(100 * thrY).toFixed(0)} % found</text>
+    <text x="${sx(thrX) + 10}" y="${sy(thrY) + 31}" font-size="12" fill="var(--ink-2)">after checking ${(100 * thrX).toFixed(0)} % of cases</text>
+    <text x="${sx(0.5)}" y="${h - 4}" text-anchor="middle" font-size="12" fill="var(--ink-2)">Cases checked, in warning order</text>
+    <text x="10" y="${sy(0.5)}" text-anchor="middle" font-size="12" fill="var(--ink-2)" transform="rotate(-90 10 ${sy(0.5)})">Unresolved cases found</text>
+  </svg>`;
+}
+
+// ------------------------------------------------------------------ views, theme, start
+for (const t of document.querySelectorAll(".tab")) {
+  t.addEventListener("click", () => {
+    for (const x of document.querySelectorAll(".tab")) x.setAttribute("aria-selected", x === t ? "true" : "false");
+    for (const v of document.querySelectorAll(".view")) v.classList.toggle("on", v.id === `view-${t.dataset.view}`);
+    if (t.dataset.view === "explorer") map.resize();
+  });
+}
+$("theme").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch (e) { /* storage unavailable */ }
+  map.draw(); renderOverview();
+});
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) { /* storage unavailable */ }
+$("link-post").href = LINKS.post; $("link-code").href = LINKS.code;
+
+familyOptions();
+renderList();
+renderOverview();
+const fromHash = +(location.hash.match(/case=(\d+)/) || [])[1];
+select(byId.has(fromHash) ? fromHash : 12453, true);
+</script>
+</body>
+</html>

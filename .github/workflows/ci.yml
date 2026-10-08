@@ -28,7 +28,9 @@ jobs:
       - run: python -m pip install -r requirements.txt && python -m pip install -e .
       - name: Recompute every number in the write-up
         run: python scripts/headline_numbers.py
-      - name: Redraw the figures
-        run: python scripts/make_figures.py
-      - name: The committed numbers are reproduced exactly
-        run: git diff --exit-code -- results/
+      - name: Redraw the figures and rebuild the demo
+        run: |
+          python scripts/make_figures.py
+          python scripts/build_demo.py
+      - name: The committed numbers and the demo are reproduced exactly
+        run: git diff --exit-code -- results/ demo/index.html
