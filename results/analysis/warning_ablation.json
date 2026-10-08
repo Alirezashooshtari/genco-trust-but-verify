@@ -1,0 +1,440 @@
+{
+ "topology_features": [
+  "lines out",
+  "buses touched",
+  "outage spread, max hops",
+  "outage spread, median hops",
+  "betweenness of lines out, sum",
+  "betweenness of lines out, max",
+  "lines out at 345 kV and above",
+  "load factor"
+ ],
+ "rows": [
+  {
+   "genco_model": "none (no GENCO)",
+   "features": "A topology",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.8421583238362409,
+   "auroc_ci95": [
+    0.8136035065495419,
+    0.869456179214415
+   ],
+   "recall": 0.9590163934426229,
+   "false_alarm_rate": 0.5080213903743316,
+   "missed": 5,
+   "n_features": 8
+  },
+  {
+   "genco_model": "none (no GENCO)",
+   "features": "A topology",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.5179380006966214,
+   "auroc_ci95": [
+    0.3796586487600356,
+    0.6443984278148569
+   ],
+   "recall": 1.0,
+   "false_alarm_rate": 1.0,
+   "missed": 0,
+   "n_features": 8
+  },
+  {
+   "genco_model": "released",
+   "features": "B GENCO outputs",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.8823529411764706,
+   "auroc_ci95": [
+    0.8496942824645384,
+    0.9115465877446653
+   ],
+   "recall": 0.9262295081967213,
+   "false_alarm_rate": 0.32887700534759357,
+   "missed": 9,
+   "n_features": 9
+  },
+  {
+   "genco_model": "released",
+   "features": "B GENCO outputs",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.7791710205503308,
+   "auroc_ci95": [
+    0.6716767018552023,
+    0.8648162931839403
+   ],
+   "recall": 0.9696969696969697,
+   "false_alarm_rate": 0.5862068965517241,
+   "missed": 1,
+   "n_features": 9
+  },
+  {
+   "genco_model": "released",
+   "features": "C GENCO embeddings",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9499539756289997,
+   "auroc_ci95": [
+    0.9241930579355366,
+    0.9691485636133096
+   ],
+   "recall": 0.9836065573770492,
+   "false_alarm_rate": 0.47593582887700536,
+   "missed": 2,
+   "n_features": 768
+  },
+  {
+   "genco_model": "released",
+   "features": "C GENCO embeddings",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9265064437478231,
+   "auroc_ci95": [
+    0.8660962301587302,
+    0.973540382836812
+   ],
+   "recall": 0.9696969696969697,
+   "false_alarm_rate": 0.5402298850574713,
+   "missed": 1,
+   "n_features": 768
+  },
+  {
+   "genco_model": "released",
+   "features": "BC outputs + embeddings (reported)",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9622928903304987,
+   "auroc_ci95": [
+    0.941431540842763,
+    0.9790440171944151
+   ],
+   "recall": 0.9508196721311475,
+   "false_alarm_rate": 0.1590909090909091,
+   "missed": 6,
+   "n_features": 777
+  },
+  {
+   "genco_model": "released",
+   "features": "BC outputs + embeddings (reported)",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9397422500870776,
+   "auroc_ci95": [
+    0.887727288810261,
+    0.9777838827838827
+   ],
+   "recall": 0.9090909090909091,
+   "false_alarm_rate": 0.26436781609195403,
+   "missed": 3,
+   "n_features": 777
+  },
+  {
+   "genco_model": "released",
+   "features": "ABC all",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9659200490926624,
+   "auroc_ci95": [
+    0.949088924681233,
+    0.9798831519253636
+   ],
+   "recall": 0.9508196721311475,
+   "false_alarm_rate": 0.1497326203208556,
+   "missed": 6,
+   "n_features": 785
+  },
+  {
+   "genco_model": "released",
+   "features": "ABC all",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9390456287008012,
+   "auroc_ci95": [
+    0.8880028271112722,
+    0.9765391482830348
+   ],
+   "recall": 0.9393939393939394,
+   "false_alarm_rate": 0.3218390804597701,
+   "missed": 2,
+   "n_features": 785
+  },
+  {
+   "genco_model": "none (no GENCO)",
+   "features": "A topology",
+   "classifier": "boosted trees",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9038145437012363,
+   "auroc_ci95": [
+    0.8791635018481788,
+    0.9271916798094767
+   ],
+   "recall": 0.9426229508196722,
+   "false_alarm_rate": 0.34893048128342247,
+   "missed": 7,
+   "n_features": 8
+  },
+  {
+   "genco_model": "none (no GENCO)",
+   "features": "A topology",
+   "classifier": "boosted trees",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.8014629049111808,
+   "auroc_ci95": [
+    0.7092434111475618,
+    0.8876540413193186
+   ],
+   "recall": 0.9696969696969697,
+   "false_alarm_rate": 0.8275862068965517,
+   "missed": 1,
+   "n_features": 8
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "B GENCO outputs",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9517401595511528,
+   "auroc_ci95": [
+    0.9355730430206298,
+    0.9653715213104136
+   ],
+   "recall": 0.8688524590163934,
+   "false_alarm_rate": 0.13502673796791445,
+   "missed": 16,
+   "n_features": 9
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "B GENCO outputs",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.8693834900731452,
+   "auroc_ci95": [
+    0.7923991108071136,
+    0.9282589903798877
+   ],
+   "recall": 0.8787878787878788,
+   "false_alarm_rate": 0.3448275862068966,
+   "missed": 4,
+   "n_features": 9
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "C GENCO embeddings",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9651968089769439,
+   "auroc_ci95": [
+    0.9445136973095635,
+    0.9803083631802836
+   ],
+   "recall": 0.9672131147540983,
+   "false_alarm_rate": 0.22994652406417113,
+   "missed": 4,
+   "n_features": 768
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "C GENCO embeddings",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9380006966213863,
+   "auroc_ci95": [
+    0.8880616451387243,
+    0.9775513108744972
+   ],
+   "recall": 0.9696969696969697,
+   "false_alarm_rate": 0.40229885057471265,
+   "missed": 1,
+   "n_features": 768
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "BC outputs + embeddings (reported)",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9734044884719909,
+   "auroc_ci95": [
+    0.953219940380137,
+    0.9867177072418771
+   ],
+   "recall": 0.9426229508196722,
+   "false_alarm_rate": 0.10695187165775401,
+   "missed": 7,
+   "n_features": 777
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "BC outputs + embeddings (reported)",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9582027168234064,
+   "auroc_ci95": [
+    0.9219426209455291,
+    0.9868026568193118
+   ],
+   "recall": 0.9393939393939394,
+   "false_alarm_rate": 0.20689655172413793,
+   "missed": 2,
+   "n_features": 777
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "ABC all",
+   "classifier": "logistic",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9742592267905672,
+   "auroc_ci95": [
+    0.9573883917664437,
+    0.9867784740254677
+   ],
+   "recall": 0.9426229508196722,
+   "false_alarm_rate": 0.09893048128342247,
+   "missed": 7,
+   "n_features": 785
+  },
+  {
+   "genco_model": "fine_tuned",
+   "features": "ABC all",
+   "classifier": "logistic",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9595959595959597,
+   "auroc_ci95": [
+    0.9222263088474026,
+    0.9869137785780362
+   ],
+   "recall": 0.9393939393939394,
+   "false_alarm_rate": 0.20689655172413793,
+   "missed": 2,
+   "n_features": 785
+  }
+ ],
+ "paired_auroc_differences": {
+  "F1: released GENCO outputs + embeddings vs topology (boosted trees)": {
+   "difference": 0.058478346629262434,
+   "ci95": [
+    0.03104522521212804,
+    0.08900709668158013
+   ]
+  },
+  "F1: released embeddings vs GENCO outputs alone": {
+   "difference": 0.06760103445252919,
+   "ci95": [
+    0.03441334540902998,
+    0.10424978350724924
+   ]
+  },
+  "F1: released all vs outputs + embeddings (topology added)": {
+   "difference": 0.0036271587621636847,
+   "ci95": [
+    -8.571066837346759e-05,
+    0.00859523107891232
+   ]
+  },
+  "F1: fine_tuned GENCO outputs + embeddings vs topology (boosted trees)": {
+   "difference": 0.06958994477075464,
+   "ci95": [
+    0.04118373243013447,
+    0.09899890765765772
+   ]
+  },
+  "F1: fine_tuned embeddings vs GENCO outputs alone": {
+   "difference": 0.013456649425791167,
+   "ci95": [
+    -0.009975670103076947,
+    0.032058546688981435
+   ]
+  },
+  "F1: fine_tuned all vs outputs + embeddings (topology added)": {
+   "difference": 0.000854738318576298,
+   "ci95": [
+    -0.0013523473500267058,
+    0.003896469267780237
+   ]
+  },
+  "K1: released GENCO outputs + embeddings vs topology (boosted trees)": {
+   "difference": 0.1382793451758968,
+   "ci95": [
+    0.05225282511427096,
+    0.2333389935165175
+   ]
+  },
+  "K1: released embeddings vs GENCO outputs alone": {
+   "difference": 0.14733542319749227,
+   "ci95": [
+    0.05849074074074064,
+    0.2469696969696969
+   ]
+  },
+  "K1: released all vs outputs + embeddings (topology added)": {
+   "difference": -0.0006966213862763526,
+   "ci95": [
+    -0.008141344362400493,
+    0.005698763411529272
+   ]
+  },
+  "K1: fine_tuned GENCO outputs + embeddings vs topology (boosted trees)": {
+   "difference": 0.15673981191222564,
+   "ci95": [
+    0.07420992298728275,
+    0.24974766612697658
+   ]
+  },
+  "K1: fine_tuned embeddings vs GENCO outputs alone": {
+   "difference": 0.0686172065482411,
+   "ci95": [
+    0.0014629629629630085,
+    0.14854706646719051
+   ]
+  },
+  "K1: fine_tuned all vs outputs + embeddings (topology added)": {
+   "difference": 0.0013932427725532603,
+   "ci95": [
+    -0.003703703703703656,
+    0.007937034230137651
+   ]
+  }
+ }
+}
