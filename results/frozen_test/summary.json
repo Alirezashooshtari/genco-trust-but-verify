@@ -1,0 +1,1213 @@
+{
+ "frozen_protocol": {
+  "model": {
+   "repo": "gridfm/genco-pf-contingency",
+   "checkpoint": "model/training_bs_16",
+   "precision": "float32, eager (the released model as is); compiled float16 timed separately",
+   "graphkit_branch": "genco-paper-repro"
+  },
+  "operating_points": {
+   "level": 2,
+   "data_partitions": [
+    6,
+    16
+   ],
+   "rule": "N-2 scenarios of the conformal test role that appear in no earlier notebook result (base point, evaluated scenario or hard case) and are not in the K1 base-point partitions 0-1; sorted by scenario id; the first PILOT_BASES are the pilot, the next N_FINAL (set by the pilot's runtime, never by its results) are the final set",
+   "block_scan": {
+    "2": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "3": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "4": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "5": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "6": {
+     "scenarios": 200,
+     "untouched": 95
+    },
+    "7": {
+     "scenarios": 200,
+     "untouched": 95
+    },
+    "8": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "9": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "10": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "11": {
+     "scenarios": 200,
+     "untouched": 79
+    },
+    "12": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "13": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "14": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "15": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "16": {
+     "scenarios": 200,
+     "untouched": 99
+    },
+    "17": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "18": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "19": {
+     "scenarios": 200,
+     "untouched": 83
+    },
+    "20": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "21": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "22": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "23": {
+     "scenarios": 200,
+     "untouched": 79
+    },
+    "24": {
+     "scenarios": 200,
+     "untouched": 82
+    },
+    "25": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "26": {
+     "scenarios": 200,
+     "untouched": 78
+    },
+    "27": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "28": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "29": {
+     "scenarios": 200,
+     "untouched": 79
+    },
+    "30": {
+     "scenarios": 200,
+     "untouched": 93
+    },
+    "31": {
+     "scenarios": 200,
+     "untouched": 77
+    },
+    "32": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "33": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "34": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "35": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "36": {
+     "scenarios": 200,
+     "untouched": 85
+    },
+    "37": {
+     "scenarios": 200,
+     "untouched": 0
+    },
+    "38": {
+     "scenarios": 200,
+     "untouched": 89
+    },
+    "39": {
+     "scenarios": 200,
+     "untouched": 76
+    },
+    "40": {
+     "scenarios": 200,
+     "untouched": 94
+    },
+    "41": {
+     "scenarios": 200,
+     "untouched": 87
+    },
+    "42": {
+     "scenarios": 200,
+     "untouched": 88
+    },
+    "43": {
+     "scenarios": 200,
+     "untouched": 0
+    }
+   }
+  },
+  "contingencies": {
+   "representative": [
+    [
+     "uniform",
+     10
+    ],
+    [
+     "uniform",
+     20
+    ],
+    [
+     "nearest",
+     10
+    ],
+    [
+     "nearest",
+     20
+    ]
+   ],
+   "challenge": [
+    [
+     "corridor",
+     20
+    ]
+   ],
+   "seed_rule": "numpy default_rng(SEED * 1000003 + base scenario id) per base point, so that the cases of a base point do not depend on how many base points are used",
+   "construction": "N2 pick_lines: extra lines removed on top of the base point's outages, grid kept in one piece"
+  },
+  "policy": {
+   "tol_pu": 1e-08,
+   "max_iter": 30,
+   "order": [
+    "genco",
+    "base",
+    "dc",
+    "flat"
+   ],
+   "line_limit": 1.0,
+   "voltage_buses": "pq",
+   "low_voltage_flag": 0.5,
+   "recovery": {
+    "max_iter": 100,
+    "homotopy_steps": [
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ]
+   },
+   "screen_margin": 0.0454,
+   "enforce_q_limits": false,
+   "q_limit_rounds": 15
+  },
+  "workflows": [
+   "classical",
+   "genco_verify",
+   "classical_first",
+   "classical_recovery"
+  ],
+  "gate": {
+   "signal": "resP_p99_MW",
+   "threshold_MW": 0.5414,
+   "rule": "fixed before this run: the 10th percentile of GENCO's 99th-percentile active residual over the 2,969 scenarios of notebook 01 (its 'most trusted 10 %')"
+  },
+  "definitions": {
+   "verified_safe": "converged state (largest mismatch < tol_pu) with no line loading >= 1.0 and no PQ-bus voltage outside its limits",
+   "verified_violation": "converged state with at least one such violation",
+   "unresolved": "no start converged within the iteration cap; never a pass",
+   "reference": "the verified state of the classical multi-start workflow; when it has none, the verified state of another workflow if any (then the case counts as resolved only with GENCO assistance, and that state is checked with PYPOWER)",
+   "missed_decision": "a line overloaded or a PQ bus outside its limits in the reference that the answer does not show",
+   "false_alarm": "an unresolved verdict on a case with a reference",
+   "primary_metrics": [
+    "missed decisions per workflow with their denominators",
+    "false alarms",
+    "unresolved cases",
+    "cases resolved only with GENCO assistance",
+    "end-to-end time per case (median, 95th percentile) overall and on the cases the classical workflow could not solve",
+    "results by family"
+   ],
+   "uncertainty": "cluster bootstrap over base points (BOOTSTRAP resamples, 2.5-97.5 percentiles); one-sided 95 % Clopper-Pearson with the number of base points as n for zero counts"
+  },
+  "sizing": {
+   "pilot_bases": 20,
+   "time_budget_min": 25,
+   "max_bases": 300,
+   "rule": "N_FINAL = min(MAX_BASES, floor(TIME_BUDGET_MIN * 60 / seconds per base point in the pilot))"
+  }
+ },
+ "sizing": {
+  "pilot_bases": 20,
+  "pilot_cases": 100,
+  "seconds_per_base": 2.116081501949998,
+  "N_FINAL": 174
+ },
+ "operating_points": {
+  "on_disk": 400,
+  "untouched_pool": 194,
+  "pilot": [
+   1200,
+   1202,
+   1204,
+   1205,
+   1206,
+   1208,
+   1210,
+   1211,
+   1212,
+   1213,
+   1218,
+   1220,
+   1221,
+   1228,
+   1229,
+   1234,
+   1237,
+   1239,
+   1240,
+   1244
+  ],
+  "final": [
+   1245,
+   1246,
+   1248,
+   1252,
+   1254,
+   1260,
+   1261,
+   1263,
+   1266,
+   1268,
+   1272,
+   1274,
+   1279,
+   1280,
+   1283,
+   1287,
+   1288,
+   1289,
+   1290,
+   1296,
+   1297,
+   1298,
+   1299,
+   1300,
+   1303,
+   1304,
+   1307,
+   1309,
+   1310,
+   1313,
+   1314,
+   1319,
+   1321,
+   1322,
+   1323,
+   1324,
+   1325,
+   1327,
+   1329,
+   1331,
+   1332,
+   1335,
+   1336,
+   1337,
+   1338,
+   1339,
+   1341,
+   1342,
+   1343,
+   1346,
+   1347,
+   1349,
+   1350,
+   1351,
+   1352,
+   1353,
+   1355,
+   1358,
+   1360,
+   1362,
+   1365,
+   1366,
+   1368,
+   1374,
+   1375,
+   1376,
+   1377,
+   1378,
+   1379,
+   1381,
+   1383,
+   1386,
+   1388,
+   1398,
+   1399,
+   3200,
+   3203,
+   3204,
+   3207,
+   3208,
+   3209,
+   3210,
+   3214,
+   3216,
+   3219,
+   3222,
+   3224,
+   3226,
+   3228,
+   3232,
+   3233,
+   3236,
+   3237,
+   3239,
+   3242,
+   3243,
+   3247,
+   3250,
+   3251,
+   3252,
+   3253,
+   3255,
+   3256,
+   3257,
+   3258,
+   3262,
+   3264,
+   3266,
+   3267,
+   3270,
+   3271,
+   3273,
+   3275,
+   3276,
+   3277,
+   3280,
+   3281,
+   3283,
+   3284,
+   3285,
+   3289,
+   3290,
+   3293,
+   3295,
+   3302,
+   3303,
+   3304,
+   3306,
+   3307,
+   3308,
+   3309,
+   3310,
+   3311,
+   3313,
+   3317,
+   3319,
+   3323,
+   3328,
+   3332,
+   3340,
+   3346,
+   3347,
+   3348,
+   3349,
+   3350,
+   3351,
+   3354,
+   3355,
+   3356,
+   3357,
+   3358,
+   3359,
+   3360,
+   3361,
+   3362,
+   3364,
+   3365,
+   3366,
+   3367,
+   3369,
+   3370,
+   3374,
+   3383,
+   3385,
+   3386,
+   3387,
+   3389,
+   3390,
+   3392,
+   3394,
+   3396,
+   3397,
+   3398,
+   3399
+  ]
+ },
+ "graphkit": {
+  "checked_out_commit": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f",
+  "module_file": "/content/gridfm-graphkit/gridfm_graphkit/__init__.py"
+ },
+ "versions": {
+  "python": "3.13.15",
+  "numpy": "2.1.3",
+  "pandas": "2.2.3",
+  "torch": "2.11.0+cu130",
+  "device": "cuda",
+  "lightsim2grid": true,
+  "torch_scatter_shim": true
+ },
+ "final_set": {
+  "cases": 870,
+  "base_points": 174,
+  "by_workflow": {
+   "classical": {
+    "cases": 870.0,
+    "verified": 748.0,
+    "unresolved": 122.0,
+    "false_alarms": 0.0,
+    "cases_with_a_reference": 748.0,
+    "verified_with_a_missed_decision": 0.0,
+    "missed_decisions": 0.0,
+    "reference_decisions": 3869.0,
+    "resolved_only_with_genco": 0.0,
+    "low_voltage_flags": 2.0,
+    "ms_median": 12.734636499999397,
+    "ms_p95": 175.78952414999094,
+    "ms_mean": 40.558189212646504,
+    "difficult_cases": 122.0,
+    "difficult_ms_median": 168.601097499959,
+    "difficult_ms_p95": 330.8509546500202
+   },
+   "classical_first": {
+    "cases": 870.0,
+    "verified": 748.0,
+    "unresolved": 122.0,
+    "false_alarms": 0.0,
+    "cases_with_a_reference": 748.0,
+    "verified_with_a_missed_decision": 0.0,
+    "missed_decisions": 0.0,
+    "reference_decisions": 3869.0,
+    "resolved_only_with_genco": 0.0,
+    "low_voltage_flags": 2.0,
+    "ms_median": 13.313843999981145,
+    "ms_p95": 311.44168570006053,
+    "ms_mean": 58.628892462065096,
+    "difficult_cases": 122.0,
+    "difficult_ms_median": 302.9099785001108,
+    "difficult_ms_p95": 438.6028565499145
+   },
+   "classical_recovery": {
+    "cases": 870.0,
+    "verified": 748.0,
+    "unresolved": 122.0,
+    "false_alarms": 0.0,
+    "cases_with_a_reference": 748.0,
+    "verified_with_a_missed_decision": 0.0,
+    "missed_decisions": 0.0,
+    "reference_decisions": 3869.0,
+    "resolved_only_with_genco": 0.0,
+    "low_voltage_flags": 2.0,
+    "ms_median": 11.898936999955367,
+    "ms_p95": 810.7535347999601,
+    "ms_mean": 130.1339749953994,
+    "difficult_cases": 122.0,
+    "difficult_ms_median": 798.2699654999124,
+    "difficult_ms_p95": 1220.7907185000067
+   },
+   "genco_verify": {
+    "cases": 870.0,
+    "verified": 748.0,
+    "unresolved": 122.0,
+    "false_alarms": 0.0,
+    "cases_with_a_reference": 748.0,
+    "verified_with_a_missed_decision": 2.0,
+    "missed_decisions": 18.0,
+    "reference_decisions": 3869.0,
+    "resolved_only_with_genco": 0.0,
+    "low_voltage_flags": 0.0,
+    "ms_median": 85.65117700004521,
+    "ms_p95": 304.2229192500372,
+    "ms_mean": 121.1484282850608,
+    "difficult_cases": 122.0,
+    "difficult_ms_median": 296.92648100001406,
+    "difficult_ms_p95": 432.01083389985797
+   }
+  },
+  "by_family": {
+   "corridor-N20": {
+    "classical": {
+     "cases": 174.0,
+     "verified": 112.0,
+     "unresolved": 62.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 112.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 2131.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 16.836189000059676,
+     "ms_p95": 263.4777393001855,
+     "ms_mean": 80.15375385633072,
+     "difficult_cases": 62.0,
+     "difficult_ms_median": 171.40572150003663,
+     "difficult_ms_p95": 294.489930199984
+    },
+    "classical_first": {
+     "cases": 174.0,
+     "verified": 112.0,
+     "unresolved": 62.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 112.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 2131.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 19.248687999947833,
+     "ms_p95": 416.15237150002713,
+     "ms_mean": 125.15818771263659,
+     "difficult_cases": 62.0,
+     "difficult_ms_median": 301.4984325000114,
+     "difficult_ms_p95": 438.6028565499146
+    },
+    "classical_recovery": {
+     "cases": 174.0,
+     "verified": 112.0,
+     "unresolved": 62.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 112.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 2131.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 13.745898000024681,
+     "ms_p95": 1016.9448644999987,
+     "ms_mean": 310.71749641953295,
+     "difficult_cases": 62.0,
+     "difficult_ms_median": 796.1494604999189,
+     "difficult_ms_p95": 1207.0776328500074
+    },
+    "genco_verify": {
+     "cases": 174.0,
+     "verified": 112.0,
+     "unresolved": 62.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 112.0,
+     "verified_with_a_missed_decision": 1.0,
+     "missed_decisions": 8.0,
+     "reference_decisions": 2131.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 101.91037950005466,
+     "ms_p95": 419.73640259996046,
+     "ms_mean": 173.36137933334507,
+     "difficult_cases": 62.0,
+     "difficult_ms_median": 295.3444564999472,
+     "difficult_ms_p95": 432.5897317000681
+    }
+   },
+   "nearest-N10": {
+    "classical": {
+     "cases": 174.0,
+     "verified": 164.0,
+     "unresolved": 10.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 164.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 430.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 12.815733500019633,
+     "ms_p95": 163.15209605000973,
+     "ms_mean": 25.04147794828028,
+     "difficult_cases": 10.0,
+     "difficult_ms_median": 165.39542950010855,
+     "difficult_ms_p95": 239.87990080001953
+    },
+    "classical_first": {
+     "cases": 174.0,
+     "verified": 164.0,
+     "unresolved": 10.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 164.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 430.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 13.166352000098414,
+     "ms_p95": 279.23601529987536,
+     "ms_mean": 32.97288989655441,
+     "difficult_cases": 10.0,
+     "difficult_ms_median": 302.2314520001146,
+     "difficult_ms_p95": 331.16039510007334
+    },
+    "classical_recovery": {
+     "cases": 174.0,
+     "verified": 164.0,
+     "unresolved": 10.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 164.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 430.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 1.0,
+     "ms_median": 11.86911049990158,
+     "ms_p95": 750.2628734000041,
+     "ms_mean": 61.327319304603236,
+     "difficult_cases": 10.0,
+     "difficult_ms_median": 787.0073824999508,
+     "difficult_ms_p95": 1066.1838054499863
+    },
+    "genco_verify": {
+     "cases": 174.0,
+     "verified": 164.0,
+     "unresolved": 10.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 164.0,
+     "verified_with_a_missed_decision": 1.0,
+     "missed_decisions": 10.0,
+     "reference_decisions": 430.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 84.14532749986847,
+     "ms_p95": 281.5502936499797,
+     "ms_mean": 102.37259493679164,
+     "difficult_cases": 10.0,
+     "difficult_ms_median": 300.86999300010575,
+     "difficult_ms_p95": 385.1033743001152
+    }
+   },
+   "nearest-N20": {
+    "classical": {
+     "cases": 174.0,
+     "verified": 125.0,
+     "unresolved": 49.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 125.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 959.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 14.8054344999764,
+     "ms_p95": 254.61652594997304,
+     "ms_mean": 70.30044069540116,
+     "difficult_cases": 49.0,
+     "difficult_ms_median": 168.8660299998901,
+     "difficult_ms_p95": 413.575963999937
+    },
+    "classical_first": {
+     "cases": 174.0,
+     "verified": 125.0,
+     "unresolved": 49.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 125.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 959.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 15.847366499997406,
+     "ms_p95": 363.9911608998999,
+     "ms_mean": 104.4352787930921,
+     "difficult_cases": 49.0,
+     "difficult_ms_median": 308.91856499988535,
+     "difficult_ms_p95": 434.44423160012764
+    },
+    "classical_recovery": {
+     "cases": 174.0,
+     "verified": 125.0,
+     "unresolved": 49.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 125.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 959.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 13.428836499997487,
+     "ms_p95": 959.9386128998844,
+     "ms_mean": 250.01070076436446,
+     "difficult_cases": 49.0,
+     "difficult_ms_median": 800.401963000013,
+     "difficult_ms_p95": 1243.441443200072
+    },
+    "genco_verify": {
+     "cases": 174.0,
+     "verified": 125.0,
+     "unresolved": 49.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 125.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 959.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 91.0974000000806,
+     "ms_p95": 326.81657960002894,
+     "ms_mean": 153.17568517815582,
+     "difficult_cases": 49.0,
+     "difficult_ms_median": 297.79236799981845,
+     "difficult_ms_p95": 431.7637331999322
+    }
+   },
+   "uniform-N10": {
+    "classical": {
+     "cases": 174.0,
+     "verified": 174.0,
+     "unresolved": 0.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 174.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 144.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 11.594777000027534,
+     "ms_p95": 19.252300650077814,
+     "ms_mean": 13.033693298848187,
+     "difficult_cases": 0.0,
+     "difficult_ms_median": null,
+     "difficult_ms_p95": null
+    },
+    "classical_first": {
+     "cases": 174.0,
+     "verified": 174.0,
+     "unresolved": 0.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 174.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 144.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 12.574496000070212,
+     "ms_p95": 20.296493599971654,
+     "ms_mean": 14.28613517241397,
+     "difficult_cases": 0.0,
+     "difficult_ms_median": null,
+     "difficult_ms_p95": null
+    },
+    "classical_recovery": {
+     "cases": 174.0,
+     "verified": 174.0,
+     "unresolved": 0.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 174.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 144.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 11.386537500015947,
+     "ms_p95": 18.322987399892554,
+     "ms_mean": 12.079461999995136,
+     "difficult_cases": 0.0,
+     "difficult_ms_median": null,
+     "difficult_ms_p95": null
+    },
+    "genco_verify": {
+     "cases": 174.0,
+     "verified": 174.0,
+     "unresolved": 0.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 174.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 144.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 81.89163250006004,
+     "ms_p95": 114.95176010004116,
+     "ms_mean": 87.48929370690296,
+     "difficult_cases": 0.0,
+     "difficult_ms_median": null,
+     "difficult_ms_p95": null
+    }
+   },
+   "uniform-N20": {
+    "classical": {
+     "cases": 174.0,
+     "verified": 173.0,
+     "unresolved": 1.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 173.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 205.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 11.56863100004557,
+     "ms_p95": 19.957254150108383,
+     "ms_mean": 14.26158026437218,
+     "difficult_cases": 1.0,
+     "difficult_ms_median": 171.0513020000235,
+     "difficult_ms_p95": 171.0513020000235
+    },
+    "classical_first": {
+     "cases": 174.0,
+     "verified": 173.0,
+     "unresolved": 1.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 173.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 205.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 12.660529499953554,
+     "ms_p95": 21.215167799948624,
+     "ms_mean": 16.29197073562843,
+     "difficult_cases": 1.0,
+     "difficult_ms_median": 308.6298280002211,
+     "difficult_ms_p95": 308.6298280002211
+    },
+    "classical_recovery": {
+     "cases": 174.0,
+     "verified": 173.0,
+     "unresolved": 1.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 173.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 205.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 11.480597500053591,
+     "ms_p95": 17.7570496000385,
+     "ms_mean": 16.53489648850118,
+     "difficult_cases": 1.0,
+     "difficult_ms_median": 770.8484419999877,
+     "difficult_ms_p95": 770.8484419999877
+    },
+    "genco_verify": {
+     "cases": 174.0,
+     "verified": 173.0,
+     "unresolved": 1.0,
+     "false_alarms": 0.0,
+     "cases_with_a_reference": 173.0,
+     "verified_with_a_missed_decision": 0.0,
+     "missed_decisions": 0.0,
+     "reference_decisions": 205.0,
+     "resolved_only_with_genco": 0.0,
+     "low_voltage_flags": 0.0,
+     "ms_median": 83.95741700007875,
+     "ms_p95": 120.87281379989462,
+     "ms_mean": 89.34318827010853,
+     "difficult_cases": 1.0,
+     "difficult_ms_median": 288.4238530002676,
+     "difficult_ms_p95": 288.4238530002676
+    }
+   }
+  },
+  "bootstrap_95": {
+   "classical": {
+    "unresolved_rate": [
+     0.11724137931034483,
+     0.16206896551724137
+    ],
+    "false_alarm_rate": [
+     0.0,
+     0.0
+    ],
+    "resolved_only_with_genco_rate": [
+     0.0,
+     0.0
+    ],
+    "missed_decision_case_rate": [
+     0.0,
+     0.0
+    ]
+   },
+   "genco_verify": {
+    "unresolved_rate": [
+     0.11836206896551725,
+     0.16209770114942526
+    ],
+    "false_alarm_rate": [
+     0.0,
+     0.0
+    ],
+    "resolved_only_with_genco_rate": [
+     0.0,
+     0.0
+    ],
+    "missed_decision_case_rate": [
+     0.0,
+     0.006747638326585695
+    ]
+   },
+   "classical_first": {
+    "unresolved_rate": [
+     0.11839080459770115,
+     0.16206896551724137
+    ],
+    "false_alarm_rate": [
+     0.0,
+     0.0
+    ],
+    "resolved_only_with_genco_rate": [
+     0.0,
+     0.0
+    ],
+    "missed_decision_case_rate": [
+     0.0,
+     0.0
+    ]
+   },
+   "classical_recovery": {
+    "unresolved_rate": [
+     0.11839080459770115,
+     0.16436781609195403
+    ],
+    "false_alarm_rate": [
+     0.0,
+     0.0
+    ],
+    "resolved_only_with_genco_rate": [
+     0.0,
+     0.0
+    ],
+    "missed_decision_case_rate": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "clopper_pearson_zero_upper_bound_pct_bases": 1.7069489069354238
+ },
+ "genco_alone_by_family": {
+  "corridor-N20": {
+   "cases": 112,
+   "ref_overloads": 984,
+   "missed_overloads": 537,
+   "missed_with_margin": 473,
+   "false_flags_per_case": 4.723214285714286,
+   "ref_vviol": 1147,
+   "missed_vviol": 1132,
+   "cases_with_a_miss": 76,
+   "cases_with_a_miss_with_margin": 67
+  },
+  "nearest-N10": {
+   "cases": 164,
+   "ref_overloads": 250,
+   "missed_overloads": 94,
+   "missed_with_margin": 68,
+   "false_flags_per_case": 2.481707317073171,
+   "ref_vviol": 180,
+   "missed_vviol": 126,
+   "cases_with_a_miss": 53,
+   "cases_with_a_miss_with_margin": 39
+  },
+  "nearest-N20": {
+   "cases": 125,
+   "ref_overloads": 538,
+   "missed_overloads": 242,
+   "missed_with_margin": 202,
+   "false_flags_per_case": 3.192,
+   "ref_vviol": 421,
+   "missed_vviol": 328,
+   "cases_with_a_miss": 89,
+   "cases_with_a_miss_with_margin": 84
+  },
+  "uniform-N10": {
+   "cases": 174,
+   "ref_overloads": 138,
+   "missed_overloads": 17,
+   "missed_with_margin": 0,
+   "false_flags_per_case": 2.425287356321839,
+   "ref_vviol": 6,
+   "missed_vviol": 2,
+   "cases_with_a_miss": 17,
+   "cases_with_a_miss_with_margin": 1
+  },
+  "uniform-N20": {
+   "cases": 173,
+   "ref_overloads": 198,
+   "missed_overloads": 26,
+   "missed_with_margin": 1,
+   "false_flags_per_case": 2.300578034682081,
+   "ref_vviol": 7,
+   "missed_vviol": 3,
+   "cases_with_a_miss": 25,
+   "cases_with_a_miss_with_margin": 4
+  }
+ },
+ "gate": {
+  "threshold_MW": 0.5414,
+  "cases_gated": 18,
+  "of": 748,
+  "gated_cases_with_a_missed_decision": 1,
+  "gated_cases_with_a_miss_with_margin": 0
+ },
+ "timing": {
+  "hardware": {
+   "gpu": "Tesla T4",
+   "device": "cuda",
+   "cpu_count": 2,
+   "torch_threads": 1,
+   "solver": "lightsim2grid KLU (C++), one thread",
+   "precision": "float32 eager, batch 1"
+  },
+  "cold": {
+   "genco_path_first_call_ms": 89.8195620000024,
+   "inference_first_call_ms": 69.80364600008215,
+   "first_verification_ms": 30.0210180000704,
+   "compile_float16_s": 142.5284500900002
+  },
+  "genco_path_components_ms_median": {
+   "graph_ms": 10.5731570001808,
+   "transfer_ms": 3.287043000000267,
+   "inference_ms": 56.59907399990516,
+   "convert_ms": 0.19195499999113963,
+   "genco_total_ms": 70.82336999997096,
+   "prepare_ms": 7.007104999956937
+  },
+  "genco_path_components_ms_p95": {
+   "graph_ms": 15.728352399946742,
+   "transfer_ms": 5.691508500058262,
+   "inference_ms": 85.96778060000361,
+   "convert_ms": 0.2926061000835032,
+   "genco_total_ms": 106.18184029992786,
+   "prepare_ms": 10.141369599978132
+  },
+  "workflows": {
+   "classical": {
+    "ms_median": 12.73839999998927,
+    "ms_p95": 175.7923461000246,
+    "ms_mean": 40.661063890429595,
+    "newton_ms_median": 11.84841300005246,
+    "starts_tried_mean": 1.2860438292964245,
+    "iterations_mean": 3.5017301038062283,
+    "difficult_cases": 122,
+    "difficult_ms_median": 168.601097499959,
+    "difficult_ms_p95": 330.8509546500202,
+    "unresolved_ms_median": 168.601097499959
+   },
+   "genco_verify": {
+    "ms_median": 85.61748400006763,
+    "ms_p95": 304.28709750003685,
+    "ms_mean": 121.2221371510996,
+    "newton_ms_median": 9.38152000003356,
+    "starts_tried_mean": 1.4232987312572087,
+    "iterations_mean": 2.604382929642445,
+    "difficult_cases": 122,
+    "difficult_ms_median": 296.92648100001406,
+    "difficult_ms_p95": 432.01083389985797,
+    "unresolved_ms_median": 296.92648100001406
+   },
+   "classical_first": {
+    "ms_median": 13.28991400009727,
+    "ms_p95": 311.5428778000932,
+    "ms_mean": 58.77204697808159,
+    "newton_ms_median": 11.271628000031342,
+    "starts_tried_mean": 1.4267589388696655,
+    "iterations_mean": 3.5017301038062283,
+    "difficult_cases": 122,
+    "difficult_ms_median": 302.9099785001108,
+    "difficult_ms_p95": 438.6028565499145,
+    "unresolved_ms_median": 302.9099785001108
+   },
+   "classical_recovery": {
+    "ms_median": 11.901278999857823,
+    "ms_p95": 810.864138199986,
+    "ms_mean": 130.5441309411735,
+    "newton_ms_median": 11.021613000139041,
+    "starts_tried_mean": 1.8489042675893888,
+    "iterations_mean": 3.5017301038062283,
+    "difficult_cases": 122,
+    "difficult_ms_median": 798.2699654999124,
+    "difficult_ms_p95": 1220.7907185000067,
+    "unresolved_ms_median": 798.2699654999124
+   }
+  },
+  "throughput_ms_per_case": {
+   "float32_batch16": 42.77851767708422,
+   "float32_batch64": 43.38447353125,
+   "compiled_float16_batch1": 28.647952973958724,
+   "compiled_float16_batch16": 13.178803614583975,
+   "compiled_float16_batch64": 13.681147291666917
+  }
+ },
+ "pypower_checks": {
+  "states_checked": 20,
+  "max_mismatch_pu": 0.000342035698592318,
+  "max_dVm_from_state": 5.960410542904526e-08,
+  "resolved_only_with_genco": []
+ },
+ "demo_cases": [
+  {
+   "name": "normal",
+   "sid": 12451,
+   "family": "uniform-N20"
+  },
+  {
+   "name": "misleading_corrected",
+   "sid": 12453,
+   "family": "nearest-N20"
+  },
+  {
+   "name": "recovered_with_genco",
+   "sid": null,
+   "note": "no case of this kind in the final set"
+  },
+  {
+   "name": "near_limit",
+   "sid": 12450,
+   "family": "uniform-N10"
+  },
+  {
+   "name": "unresolved",
+   "sid": 12464,
+   "family": "corridor-N20"
+  },
+  {
+   "name": "reactive_limits",
+   "sid": 12453,
+   "family": "nearest-N20"
+  }
+ ],
+ "_json_note": "Values the notebook wrote as NaN (not valid JSON) were replaced by null when the package was assembled (8 October 2026); they mean 'not applicable' (no verified state, no reference, no case of that kind). Paths replaced: final_set.by_family.uniform-N10.classical.difficult_ms_median; final_set.by_family.uniform-N10.classical.difficult_ms_p95; final_set.by_family.uniform-N10.classical_first.difficult_ms_median; final_set.by_family.uniform-N10.classical_first.difficult_ms_p95; final_set.by_family.uniform-N10.classical_recovery.difficult_ms_median; final_set.by_family.uniform-N10.classical_recovery.difficult_ms_p95; final_set.by_family.uniform-N10.genco_verify.difficult_ms_median; final_set.by_family.uniform-N10.genco_verify.difficult_ms_p95"
+}

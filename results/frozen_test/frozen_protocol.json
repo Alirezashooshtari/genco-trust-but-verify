@@ -1,0 +1,273 @@
+{
+ "model": {
+  "repo": "gridfm/genco-pf-contingency",
+  "checkpoint": "model/training_bs_16",
+  "precision": "float32, eager (the released model as is); compiled float16 timed separately",
+  "graphkit_branch": "genco-paper-repro"
+ },
+ "operating_points": {
+  "level": 2,
+  "data_partitions": [
+   6,
+   16
+  ],
+  "rule": "N-2 scenarios of the conformal test role that appear in no earlier notebook result (base point, evaluated scenario or hard case) and are not in the K1 base-point partitions 0-1; sorted by scenario id; the first PILOT_BASES are the pilot, the next N_FINAL (set by the pilot's runtime, never by its results) are the final set",
+  "block_scan": {
+   "2": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "3": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "4": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "5": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "6": {
+    "scenarios": 200,
+    "untouched": 95
+   },
+   "7": {
+    "scenarios": 200,
+    "untouched": 95
+   },
+   "8": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "9": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "10": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "11": {
+    "scenarios": 200,
+    "untouched": 79
+   },
+   "12": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "13": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "14": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "15": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "16": {
+    "scenarios": 200,
+    "untouched": 99
+   },
+   "17": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "18": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "19": {
+    "scenarios": 200,
+    "untouched": 83
+   },
+   "20": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "21": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "22": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "23": {
+    "scenarios": 200,
+    "untouched": 79
+   },
+   "24": {
+    "scenarios": 200,
+    "untouched": 82
+   },
+   "25": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "26": {
+    "scenarios": 200,
+    "untouched": 78
+   },
+   "27": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "28": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "29": {
+    "scenarios": 200,
+    "untouched": 79
+   },
+   "30": {
+    "scenarios": 200,
+    "untouched": 93
+   },
+   "31": {
+    "scenarios": 200,
+    "untouched": 77
+   },
+   "32": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "33": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "34": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "35": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "36": {
+    "scenarios": 200,
+    "untouched": 85
+   },
+   "37": {
+    "scenarios": 200,
+    "untouched": 0
+   },
+   "38": {
+    "scenarios": 200,
+    "untouched": 89
+   },
+   "39": {
+    "scenarios": 200,
+    "untouched": 76
+   },
+   "40": {
+    "scenarios": 200,
+    "untouched": 94
+   },
+   "41": {
+    "scenarios": 200,
+    "untouched": 87
+   },
+   "42": {
+    "scenarios": 200,
+    "untouched": 88
+   },
+   "43": {
+    "scenarios": 200,
+    "untouched": 0
+   }
+  }
+ },
+ "contingencies": {
+  "representative": [
+   [
+    "uniform",
+    10
+   ],
+   [
+    "uniform",
+    20
+   ],
+   [
+    "nearest",
+    10
+   ],
+   [
+    "nearest",
+    20
+   ]
+  ],
+  "challenge": [
+   [
+    "corridor",
+    20
+   ]
+  ],
+  "seed_rule": "numpy default_rng(SEED * 1000003 + base scenario id) per base point, so that the cases of a base point do not depend on how many base points are used",
+  "construction": "N2 pick_lines: extra lines removed on top of the base point's outages, grid kept in one piece"
+ },
+ "policy": {
+  "tol_pu": 1e-08,
+  "max_iter": 30,
+  "order": [
+   "genco",
+   "base",
+   "dc",
+   "flat"
+  ],
+  "line_limit": 1.0,
+  "voltage_buses": "pq",
+  "low_voltage_flag": 0.5,
+  "recovery": {
+   "max_iter": 100,
+   "homotopy_steps": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+   ]
+  },
+  "screen_margin": 0.0454,
+  "enforce_q_limits": false,
+  "q_limit_rounds": 15
+ },
+ "workflows": [
+  "classical",
+  "genco_verify",
+  "classical_first",
+  "classical_recovery"
+ ],
+ "gate": {
+  "signal": "resP_p99_MW",
+  "threshold_MW": 0.5414,
+  "rule": "fixed before this run: the 10th percentile of GENCO's 99th-percentile active residual over the 2,969 scenarios of notebook 01 (its 'most trusted 10 %')"
+ },
+ "definitions": {
+  "verified_safe": "converged state (largest mismatch < tol_pu) with no line loading >= 1.0 and no PQ-bus voltage outside its limits",
+  "verified_violation": "converged state with at least one such violation",
+  "unresolved": "no start converged within the iteration cap; never a pass",
+  "reference": "the verified state of the classical multi-start workflow; when it has none, the verified state of another workflow if any (then the case counts as resolved only with GENCO assistance, and that state is checked with PYPOWER)",
+  "missed_decision": "a line overloaded or a PQ bus outside its limits in the reference that the answer does not show",
+  "false_alarm": "an unresolved verdict on a case with a reference",
+  "primary_metrics": [
+   "missed decisions per workflow with their denominators",
+   "false alarms",
+   "unresolved cases",
+   "cases resolved only with GENCO assistance",
+   "end-to-end time per case (median, 95th percentile) overall and on the cases the classical workflow could not solve",
+   "results by family"
+  ],
+  "uncertainty": "cluster bootstrap over base points (BOOTSTRAP resamples, 2.5-97.5 percentiles); one-sided 95 % Clopper-Pearson with the number of base points as n for zero counts"
+ },
+ "sizing": {
+  "pilot_bases": 20,
+  "time_budget_min": 25,
+  "max_bases": 300,
+  "rule": "N_FINAL = min(MAX_BASES, floor(TIME_BUDGET_MIN * 60 / seconds per base point in the pilot))"
+ }
+}

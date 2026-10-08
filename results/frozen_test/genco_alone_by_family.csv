@@ -1,0 +1,6 @@
+family,cases,ref_overloads,missed_overloads,missed_with_margin,false_flags_per_case,ref_vviol,missed_vviol,cases_with_a_miss,cases_with_a_miss_with_margin
+corridor-N20,112,984,537,473,4.723214285714286,1147,1132,76,67
+nearest-N10,164,250,94,68,2.481707317073171,180,126,53,39
+nearest-N20,125,538,242,202,3.192,421,328,89,84
+uniform-N10,174,138,17,0,2.425287356321839,6,2,17,1
+uniform-N20,173,198,26,1,2.300578034682081,7,3,25,4

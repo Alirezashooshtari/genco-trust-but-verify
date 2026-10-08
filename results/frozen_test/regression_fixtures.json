@@ -1,0 +1,146 @@
+{
+ "policy": {
+  "tol_pu": 1e-08,
+  "max_iter": 30,
+  "order": [
+   "genco",
+   "base",
+   "dc",
+   "flat"
+  ],
+  "line_limit": 1.0,
+  "voltage_buses": "pq",
+  "low_voltage_flag": 0.5,
+  "recovery": {
+   "max_iter": 100,
+   "homotopy_steps": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+   ]
+  },
+  "screen_margin": 0.0454,
+  "enforce_q_limits": false,
+  "q_limit_rounds": 15
+ },
+ "written_by": "notebook F1",
+ "cases": [
+  {
+   "name": "normal",
+   "base_scenario": 1245,
+   "removed_lines": [
+    1833,
+    1645,
+    1176,
+    2413,
+    755,
+    2350,
+    446,
+    1750,
+    771,
+    2798,
+    1921,
+    1248,
+    671,
+    901,
+    2084,
+    1832,
+    2185,
+    230
+   ],
+   "policy": "classical",
+   "expected_status": "verified_violation",
+   "expected_start_used": "base",
+   "data_paths": {
+    "bus": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/bus_data.parquet",
+    "branch": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/branch_data.parquet",
+    "gen": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/gen_data.parquet"
+   }
+  },
+  {
+   "name": "near_limit",
+   "base_scenario": 1245,
+   "removed_lines": [
+    160,
+    508,
+    2535,
+    927,
+    3155,
+    809,
+    2471,
+    1440
+   ],
+   "policy": "classical",
+   "expected_status": "verified_safe",
+   "expected_start_used": "base",
+   "data_paths": {
+    "bus": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/bus_data.parquet",
+    "branch": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/branch_data.parquet",
+    "gen": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/gen_data.parquet"
+   }
+  },
+  {
+   "name": "unresolved under the stated policy",
+   "base_scenario": 1246,
+   "removed_lines": [
+    675,
+    676,
+    770,
+    767,
+    602,
+    601,
+    671,
+    670,
+    689,
+    570,
+    585,
+    586,
+    690,
+    494,
+    591,
+    590,
+    589,
+    495
+   ],
+   "policy": "classical_recovery",
+   "expected_status": "unresolved",
+   "data_paths": {
+    "bus": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/bus_data.parquet",
+    "branch": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/branch_data.parquet",
+    "gen": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/gen_data.parquet"
+   }
+  },
+  {
+   "name": "reactive_limits (without limits)",
+   "base_scenario": 1245,
+   "removed_lines": [
+    322,
+    482,
+    324,
+    305,
+    306,
+    382,
+    454,
+    301,
+    371,
+    384,
+    339,
+    385,
+    414,
+    383,
+    386,
+    391,
+    432,
+    116
+   ],
+   "policy": "classical",
+   "expected_status": "verified_violation",
+   "data_paths": {
+    "bus": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/bus_data.parquet",
+    "branch": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/branch_data.parquet",
+    "gen": "genco-pf-contingency/data/test_2/Texas2k_case1_2016summerpeak/raw/gen_data.parquet"
+   }
+  }
+ ]
+}
