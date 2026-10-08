@@ -5,7 +5,8 @@
 Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC) · a.shooshtari1996@gmail.com
 
 Entry to the [GENCO Challenge](https://huggingface.co/spaces/gridfm/genco-challenge) (GridFM Porto 2026).
-
+[Model](https://huggingface.co/Alirezashooshtari/genco-texas-clustered) ·
+[Demo](https://huggingface.co/spaces/Alirezashooshtari/genco-contingency-verifier)
 
 GENCO predicts the AC power flow of a contingency in one forward pass. This repository asks when that answer can be trusted
 for N-k screening on the released Texas 2,000-bus grid, and what to do when it cannot.
@@ -30,6 +31,7 @@ pip install -r requirements.txt && pip install -e .
 pytest                                # tests of the verification module (no data needed)
 python scripts/headline_numbers.py    # every number in the write-up, recomputed from results/
 python scripts/make_figures.py        # the five figures
+python scripts/build_demo.py          # the case explorer, demo/index.html
 ```
 
 `headline_numbers.py` writes `results/headline_numbers.csv`, one row per claim with the file it comes from. CI recomputes
@@ -61,9 +63,11 @@ src/genco_verify/   the verification workflow (numpy, scipy; lightsim2grid optio
 tests/              tests of every outcome and option on a three-bus grid
 notebooks/          the Colab notebooks that produced the results (see notebooks/README.md)
 results/            their outputs, one folder per notebook, plus the analyses in results/analysis/
-scripts/            headline numbers, figures, warning ablation
+scripts/            headline numbers, figures, demo, warning ablation, Hugging Face upload
 figures/            the five figures of the write-up (PNG and SVG)
+demo/               the case explorer (also the Hugging Face Space)
 environment/        Colab setup, pinned upstream revisions, data and checkpoint hashes
+release/            the model card of the fine-tuned model
 ```
 
 ## Reproducing from scratch
