@@ -1,0 +1,207 @@
+{
+ "cases": 870,
+ "consistency_with_f1": {
+  "classical": {
+   "cases": 870,
+   "same_status": 870,
+   "same_start": 870
+  },
+  "genco_verify": {
+   "cases": 870,
+   "same_status": 870,
+   "same_start": 870
+  }
+ },
+ "rows_differing_from_f1": 0,
+ "by_workflow": {
+  "classical": {
+   "verified": 748,
+   "multiple_solutions": 1,
+   "decisions_differ": 1
+  },
+  "genco_verify": {
+   "verified": 748,
+   "multiple_solutions": 2,
+   "decisions_differ": 2
+  }
+ },
+ "by_workflow_family": {
+  "classical|corridor-N20": {
+   "verified": 112,
+   "starts_converged": 2.9910714285714284,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 1
+  },
+  "classical|nearest-N10": {
+   "verified": 164,
+   "starts_converged": 2.981707317073171,
+   "multiple_solutions": 1,
+   "decisions_differ": 1,
+   "low_voltage_flag": 1
+  },
+  "classical|nearest-N20": {
+   "verified": 125,
+   "starts_converged": 3.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  },
+  "classical|uniform-N10": {
+   "verified": 174,
+   "starts_converged": 3.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  },
+  "classical|uniform-N20": {
+   "verified": 173,
+   "starts_converged": 3.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  },
+  "genco_verify|corridor-N20": {
+   "verified": 112,
+   "starts_converged": 3.982142857142857,
+   "multiple_solutions": 1,
+   "decisions_differ": 1,
+   "low_voltage_flag": 0
+  },
+  "genco_verify|nearest-N10": {
+   "verified": 164,
+   "starts_converged": 3.981707317073171,
+   "multiple_solutions": 1,
+   "decisions_differ": 1,
+   "low_voltage_flag": 0
+  },
+  "genco_verify|nearest-N20": {
+   "verified": 125,
+   "starts_converged": 4.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  },
+  "genco_verify|uniform-N10": {
+   "verified": 174,
+   "starts_converged": 4.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  },
+  "genco_verify|uniform-N20": {
+   "verified": 173,
+   "starts_converged": 4.0,
+   "multiple_solutions": 0,
+   "decisions_differ": 0,
+   "low_voltage_flag": 0
+  }
+ },
+ "cases_with_multiple_solutions": [
+  12742,
+  32934
+ ],
+ "cases_where_highest_voltage_rule_changes_decisions": [
+  12742
+ ],
+ "known_cases": {
+  "12742": [
+   {
+    "workflow": "genco_verify",
+    "status": "verified_violation",
+    "start_used": "genco",
+    "min_vm_all": 0.913180477943032,
+    "n_solutions_found": 2,
+    "multiple_solutions": true,
+    "decisions_differ": true
+   },
+   {
+    "workflow": "classical",
+    "status": "verified_violation",
+    "start_used": "base",
+    "min_vm_all": 0.26913403649403744,
+    "n_solutions_found": 2,
+    "multiple_solutions": true,
+    "decisions_differ": true
+   }
+  ],
+  "32934": [
+   {
+    "workflow": "genco_verify",
+    "status": "verified_violation",
+    "start_used": "genco",
+    "min_vm_all": 0.7748770908615619,
+    "n_solutions_found": 2,
+    "multiple_solutions": true,
+    "decisions_differ": true
+   },
+   {
+    "workflow": "classical",
+    "status": "verified_violation",
+    "start_used": "dc",
+    "min_vm_all": 0.38653470170041027,
+    "n_solutions_found": 1,
+    "multiple_solutions": false,
+    "decisions_differ": false
+   }
+  ]
+ },
+ "method": "revised method, not the frozen test: the F1 cases rebuilt from their stored lists, run with branch_check on (every start run, converged states grouped into distinct solutions, decisions compared); the first converged start is the frozen workflow's outcome and is compared with F1's record",
+ "policy": {
+  "tol_pu": 1e-08,
+  "max_iter": 30,
+  "order": [
+   "genco",
+   "base",
+   "dc",
+   "flat"
+  ],
+  "line_limit": 1.0,
+  "voltage_buses": "pq",
+  "low_voltage_flag": 0.5,
+  "recovery": {
+   "max_iter": 100,
+   "homotopy_steps": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+   ]
+  },
+  "screen_margin": 0.0454,
+  "enforce_q_limits": false,
+  "q_limit_rounds": 15,
+  "branch_check": true,
+  "branch_tol_pu": 0.0001,
+  "branch_choice": "first"
+ },
+ "workflows": {
+  "genco_verify": [
+   "genco",
+   "base",
+   "dc",
+   "flat"
+  ],
+  "classical": [
+   "base",
+   "dc",
+   "flat"
+  ]
+ },
+ "data_partitions": [
+  6,
+  16
+ ],
+ "graphkit": {
+  "checked_out_commit": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f"
+ },
+ "versions": {
+  "python": "3.13.15",
+  "numpy": "2.1.3",
+  "pandas": "2.2.3",
+  "torch": "2.11.0+cu130",
+  "device": "cuda",
+  "lightsim2grid": true
+ },
+ "_note": "Second run of notebook B1 (8 October 2026, module 0.4.3: complex-voltage comparison aligned to the slack angle, decisions compared for every converged start). The first run (module 0.4.1: voltage magnitudes, decisions of each group's representative) is kept in first_run_module_0.4.1/; both runs give the same counts (2 of 748 verified cases with two solutions among four starts, 1 of 748 among the three classical starts, decisions differing in all of them, the highest-voltage rule changing case 12742 only) and reproduce every frozen status and start of F1."
+}
