@@ -1,0 +1,84 @@
+{
+ "min_lines": 5,
+ "threshold_hops": 11.0,
+ "training_accuracy": 0.9885984427141268,
+ "frozen_test": {
+  "random": {
+   "cases": 347,
+   "routed_to_fine_tuned": 0,
+   "released_missed_mean": 0.138328530259366,
+   "fine_tuned_missed_mean": 0.18155619596541786,
+   "routed_missed_mean": 0.138328530259366,
+   "routed_minus_released_missed": {
+    "mean": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   "released_worst_err_mean": 0.003140508990949663,
+   "fine_tuned_worst_err_mean": 0.005278988227832212,
+   "routed_worst_err_mean": 0.003140508990949663,
+   "routed_minus_released_worst_err": {
+    "mean": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "clustered": {
+   "cases": 401,
+   "routed_to_fine_tuned": 400,
+   "released_missed_mean": 6.132169576059851,
+   "fine_tuned_missed_mean": 4.698254364089776,
+   "routed_missed_mean": 4.695760598503741,
+   "routed_minus_released_missed": {
+    "mean": -1.4364089775561097,
+    "ci95": [
+     -1.9312906670946872,
+     -1.0074180267153903
+    ]
+   },
+   "released_worst_err_mean": 0.05393947319042877,
+   "fine_tuned_worst_err_mean": 0.04483789439794138,
+   "routed_worst_err_mean": 0.04486224995573268,
+   "routed_minus_released_worst_err": {
+    "mean": -0.009077223234696098,
+    "ci95": [
+     -0.011025371308672854,
+     -0.007273970798564178
+    ]
+   }
+  },
+  "all": {
+   "cases": 748,
+   "routed_to_fine_tuned": 400,
+   "released_missed_mean": 3.3516042780748663,
+   "fine_tuned_missed_mean": 2.6029411764705883,
+   "routed_missed_mean": 2.5815508021390374,
+   "routed_minus_released_missed": {
+    "mean": -0.7700534759358288,
+    "ci95": [
+     -1.0417520630441763,
+     -0.5393679587256098
+    ]
+   },
+   "released_worst_err_mean": 0.030373643541739936,
+   "fine_tuned_worst_err_mean": 0.026486369744160788,
+   "routed_worst_err_mean": 0.02550737814452986,
+   "routed_minus_released_worst_err": {
+    "mean": -0.0048662653972100746,
+    "ci95": [
+     -0.005901785703999784,
+     -0.003908884483708306
+    ]
+   }
+  }
+ },
+ "random_outages_routed_to_fine_tuned": {
+  "N-2": 0.0,
+  "N-10": 0.0,
+  "N-20": 0.0
+ }
+}
