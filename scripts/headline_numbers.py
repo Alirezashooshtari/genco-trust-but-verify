@@ -258,6 +258,29 @@ claim(
     "analysis/warning_ablation.json",
 )
 
+routing = json.loads((RES / "analysis/routing.json").read_text())
+claim(
+    "routing",
+    "rule: at least N lines out and spread at most H hops -> fine-tuned model; accuracy on training cases",
+    f"N = {routing['min_lines']}, H = {routing['threshold_hops']:.0f}; {routing['training_accuracy']:.3f}",
+    "analysis/routing.json",
+)
+for group in ("clustered", "random"):
+    r = routing["frozen_test"][group]
+    d = r["routed_minus_released_missed"]
+    claim(
+        "routing",
+        f"frozen test, {group} outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",
+        f"{r['routed_to_fine_tuned']} of {r['cases']}; {r['released_missed_mean']:.2f} -> {r['routed_missed_mean']:.2f} "
+        f"({d['ci95'][0]:+.2f} to {d['ci95'][1]:+.2f})",
+        "analysis/routing.json",
+    )
+claim(
+    "routing",
+    "random N-2 / N-10 / N-20 outages routed to the fine-tuned model",
+    " / ".join(f"{100 * routing['random_outages_routed_to_fine_tuned'][k]:.0f} %" for k in ("N-2", "N-10", "N-20")),
+    "analysis/routing.json",
+)
 v1 = json.loads((RES / "independent_check/summary.json").read_text())["released_cases"]
 claim(
     "check",

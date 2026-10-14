@@ -39,4 +39,8 @@ warning,"outage-topology baseline without GENCO (boosted trees), frozen-test AUR
 warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.058 (+0.031 to +0.089),analysis/warning_ablation.json
 warning,storms: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.138 (+0.052 to +0.233),analysis/warning_ablation.json
 warning,false-alarm rate at the 95 %-recall rule: topology baseline / GENCO warning,0.35 / 0.16,analysis/warning_ablation.json
+routing,rule: at least N lines out and spread at most H hops -> fine-tuned model; accuracy on training cases,"N = 5, H = 11; 0.989",analysis/routing.json
+routing,"frozen test, clustered outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",400 of 401; 6.13 -> 4.70 (-1.93 to -1.01),analysis/routing.json
+routing,"frozen test, random outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",0 of 347; 0.14 -> 0.14 (+0.00 to +0.00),analysis/routing.json
+routing,random N-2 / N-10 / N-20 outages routed to the fine-tuned model,0 % / 0 % / 0 %,analysis/routing.json
 check,PYPOWER from raw parameters vs released solutions: largest |dVm| (p.u.); decisions agreeing,2.0e-09; 46 of 46,independent_check/summary.json
