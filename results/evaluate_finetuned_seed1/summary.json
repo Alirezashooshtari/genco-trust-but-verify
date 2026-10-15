@@ -1,0 +1,650 @@
+{
+ "frozen_protocol": {
+  "purpose": "the test of the fine-tuned GENCO (notebook T1) against the released model, paired on cases neither model was trained or selected on, and of a warning head that flags cases likely to be unresolved by the specified solver; fixed before any fine-tuned output is seen",
+  "models": {
+   "released": "gridfm/genco-pf-contingency/model/training_bs_16",
+   "fine_tuned": "finetune_seed1/genco_finetuned_state_dict.pt (SHA-256 checked against its summary)",
+   "finetune_seed": 1
+  },
+  "verification": {
+   "policy": {
+    "tol_pu": 1e-08,
+    "max_iter": 30,
+    "order": [
+     "genco",
+     "base",
+     "dc",
+     "flat"
+    ],
+    "line_limit": 1.0,
+    "voltage_buses": "pq",
+    "low_voltage_flag": 0.5,
+    "recovery": {
+     "max_iter": 100,
+     "homotopy_steps": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+     ]
+    },
+    "screen_margin": 0.0454,
+    "enforce_q_limits": false,
+    "q_limit_rounds": 15
+   },
+   "note": "the frozen policy of F1 (no reactive limits, first converged start); every verdict comes from the solver"
+  },
+  "test_sets": {
+   "F1": "the 870 contingencies of the frozen final evaluation (N-2 blocks 6 and 16), rebuilt from their stored base points and removed lines",
+   "footprint": "a soft-footprint N-20 case per F1 base point (174), a construction held out of fine-tuning, seed rule default_rng(SEED*1000003 + base + 11)",
+   "forgetting": "released scenarios with released AC solutions: N-2 block 7 and N-10, N-20 block 0, the first 200 of each",
+   "near_fold": "the 120 K1 storms (N-2 blocks 0-1), their tracked-branch fold recomputed as in K1 and their AC truth along K1's load grid"
+  },
+  "primary_endpoints": [
+   "1. clustered cases (F1 nearest/corridor families and footprint): decisions missed by GENCO alone per verified case, paired difference (fine-tuned - released), mean with a 95 % cluster bootstrap interval over base points; also cases with any missed decision (exact McNemar)",
+   "2. worst-bus voltage error of GENCO alone on the same cases, paired difference, mean and median, cluster bootstrap",
+   "3. forgetting: worst-bus voltage error on the released scenarios, paired difference; non-inferior if the upper 95 % bound of the mean increase is below 0.001 p.u. at each level",
+   "4. near the fold: the lowest voltage at the fold (AC, released, fine-tuned) and GENCO's voltage drop over the last 5 % of load as a share of the AC drop, at the AC solution's weakest bus, medians over storms with a fold; beyond the fold Newton from the fine-tuned state must still converge nowhere",
+   "5. warning head for cases unresolved by the specified solver (baselines: GENCO's lowest voltage, residual and predicted-violation count alone; logistic regression on GENCO's own outputs and embeddings, trained on T1's training cases, threshold fixed on T1's validation cases for 95% recall of unresolved cases): AUROC, recall and false alarms on F1, footprint and the K1 storms"
+  ],
+  "secondary": [
+   "Newton iterations from GENCO's state, verdict agreement with the reference, cases resolved only from the fine-tuned state (checked with PYPOWER), the branch check on the fine-tuned workflow, end-to-end GENCO time (unchanged by construction)"
+  ],
+  "bootstrap": 1000,
+  "seed": 0
+ },
+ "checkpoint_sha256": "544185154b000f39bbfa53cf7ed1ac6e92fdebf47092f4b864973e418c38d14b",
+ "endpoints_cases": [
+  {
+   "group": "clustered (F1)",
+   "metric": "missed",
+   "cases": 401,
+   "released_mean": 6.132169576059851,
+   "fine_tuned_mean": 4.87780548628429,
+   "released_median": 1.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": -1.254364089775561,
+   "diff_ci_lo": -1.6384958210073504,
+   "diff_ci_hi": -0.8992059498969047,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "clustered (F1)",
+   "metric": "missed_m",
+   "cases": 401,
+   "released_mean": 5.807980049875312,
+   "fine_tuned_mean": 4.526184538653367,
+   "released_median": 0.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": -1.2817955112219452,
+   "diff_ci_lo": -1.6809611174685306,
+   "diff_ci_hi": -0.9202737441811992,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "clustered (F1)",
+   "metric": "worst_err",
+   "cases": 401,
+   "released_mean": 0.05393848554378329,
+   "fine_tuned_mean": 0.045539096281529384,
+   "released_median": 0.017261155967393083,
+   "fine_tuned_median": 0.012256318587464565,
+   "diff_mean": -0.008399389262253908,
+   "diff_ci_lo": -0.010225512273254017,
+   "diff_ci_hi": -0.006659459700341379,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "clustered (F1)",
+   "metric": "any_miss",
+   "cases": 401,
+   "released_mean": 0.543640897755611,
+   "fine_tuned_mean": 0.4912718204488778,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": -0.05236907730673317,
+   "diff_ci_lo": -0.07920792079207921,
+   "diff_ci_hi": -0.027067297824302162,
+   "fixed_by_fine_tuning": 27.0,
+   "broken_by_fine_tuning": 6.0,
+   "mcnemar_p_ignores_clustering": 0.0003240634687244892
+  },
+  {
+   "group": "clustered (F1)",
+   "metric": "any_miss_m",
+   "cases": 401,
+   "released_mean": 0.47381546134663344,
+   "fine_tuned_mean": 0.42144638403990026,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": -0.05236907730673317,
+   "diff_ci_lo": -0.0759493670886076,
+   "diff_ci_hi": -0.026755948203256604,
+   "fixed_by_fine_tuning": 26.0,
+   "broken_by_fine_tuning": 5.0,
+   "mcnemar_p_ignores_clustering": 0.00019219517707824707
+  },
+  {
+   "group": "footprint (held out)",
+   "metric": "missed",
+   "cases": 153,
+   "released_mean": 2.0065359477124183,
+   "fine_tuned_mean": 1.5947712418300655,
+   "released_median": 0.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": -0.4117647058823529,
+   "diff_ci_lo": -0.6080065359477124,
+   "diff_ci_hi": -0.2220588235294119,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "footprint (held out)",
+   "metric": "missed_m",
+   "cases": 153,
+   "released_mean": 1.7516339869281046,
+   "fine_tuned_mean": 1.3594771241830066,
+   "released_median": 0.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": -0.39215686274509803,
+   "diff_ci_lo": -0.5949346405228758,
+   "diff_ci_hi": -0.21568627450980393,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "footprint (held out)",
+   "metric": "worst_err",
+   "cases": 153,
+   "released_mean": 0.030384391699353756,
+   "fine_tuned_mean": 0.02696733853143647,
+   "released_median": 0.005187488698538134,
+   "fine_tuned_median": 0.006460325127315203,
+   "diff_mean": -0.0034170531679172827,
+   "diff_ci_lo": -0.005631253165473082,
+   "diff_ci_hi": -0.0014090488312829973,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "footprint (held out)",
+   "metric": "any_miss",
+   "cases": 153,
+   "released_mean": 0.3464052287581699,
+   "fine_tuned_mean": 0.35947712418300654,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": 0.013071895424836602,
+   "diff_ci_lo": -0.0392156862745098,
+   "diff_ci_hi": 0.06535947712418301,
+   "fixed_by_fine_tuning": 9.0,
+   "broken_by_fine_tuning": 11.0,
+   "mcnemar_p_ignores_clustering": 0.8238029479980469
+  },
+  {
+   "group": "footprint (held out)",
+   "metric": "any_miss_m",
+   "cases": 153,
+   "released_mean": 0.24836601307189543,
+   "fine_tuned_mean": 0.23529411764705882,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": -0.013071895424836602,
+   "diff_ci_lo": -0.0457516339869281,
+   "diff_ci_hi": 0.0196078431372549,
+   "fixed_by_fine_tuning": 5.0,
+   "broken_by_fine_tuning": 3.0,
+   "mcnemar_p_ignores_clustering": 0.7265625
+  },
+  {
+   "group": "uniform (F1)",
+   "metric": "missed",
+   "cases": 347,
+   "released_mean": 0.138328530259366,
+   "fine_tuned_mean": 0.15273775216138327,
+   "released_median": 0.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": 0.01440922190201729,
+   "diff_ci_lo": -0.020114942528735632,
+   "diff_ci_hi": 0.05202689117868811,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "uniform (F1)",
+   "metric": "missed_m",
+   "cases": 347,
+   "released_mean": 0.01729106628242075,
+   "fine_tuned_mean": 0.020172910662824207,
+   "released_median": 0.0,
+   "fine_tuned_median": 0.0,
+   "diff_mean": 0.002881844380403458,
+   "diff_ci_lo": -0.014450867052023121,
+   "diff_ci_hi": 0.022988505747126436,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "uniform (F1)",
+   "metric": "worst_err",
+   "cases": 347,
+   "released_mean": 0.003140501604783355,
+   "fine_tuned_mean": 0.005658834526754584,
+   "released_median": 0.0019964733204820284,
+   "fine_tuned_median": 0.0052076976777925,
+   "diff_mean": 0.0025183329219712293,
+   "diff_ci_lo": 0.002143153789840718,
+   "diff_ci_hi": 0.002904041181180972,
+   "fixed_by_fine_tuning": NaN,
+   "broken_by_fine_tuning": NaN,
+   "mcnemar_p_ignores_clustering": NaN
+  },
+  {
+   "group": "uniform (F1)",
+   "metric": "any_miss",
+   "cases": 347,
+   "released_mean": 0.12103746397694524,
+   "fine_tuned_mean": 0.12103746397694524,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": 0.0,
+   "diff_ci_lo": -0.025936599423631124,
+   "diff_ci_hi": 0.025936599423631124,
+   "fixed_by_fine_tuning": 11.0,
+   "broken_by_fine_tuning": 11.0,
+   "mcnemar_p_ignores_clustering": 1.0
+  },
+  {
+   "group": "uniform (F1)",
+   "metric": "any_miss_m",
+   "cases": 347,
+   "released_mean": 0.01440922190201729,
+   "fine_tuned_mean": 0.020172910662824207,
+   "released_median": NaN,
+   "fine_tuned_median": NaN,
+   "diff_mean": 0.005763688760806916,
+   "diff_ci_lo": -0.008645533141210375,
+   "diff_ci_hi": 0.022988505747126436,
+   "fixed_by_fine_tuning": 2.0,
+   "broken_by_fine_tuning": 4.0,
+   "mcnemar_p_ignores_clustering": 0.6875
+  }
+ ],
+ "endpoint_forgetting": [
+  {
+   "level": "N-2",
+   "scenarios": 200,
+   "released_median_err": 0.0012781205555431607,
+   "fine_tuned_median_err": 0.004287328876622809,
+   "diff_mean_err": 0.0027398372996305653,
+   "diff_ci_lo": 0.002434877516694166,
+   "diff_ci_hi": 0.0030108222812882464,
+   "non_inferior": false,
+   "released_missed_m_per_case": 0.005,
+   "fine_tuned_missed_m_per_case": 0.005,
+   "diff_missed_m": 0.0,
+   "diff_missed_m_ci": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "level": "N-10",
+   "scenarios": 200,
+   "released_median_err": 0.0019419346388951375,
+   "fine_tuned_median_err": 0.006187862838659963,
+   "diff_mean_err": 0.0036735869643294145,
+   "diff_ci_lo": 0.0030947741181638656,
+   "diff_ci_hi": 0.0041480528582588,
+   "non_inferior": false,
+   "released_missed_m_per_case": 0.05,
+   "fine_tuned_missed_m_per_case": 0.05,
+   "diff_missed_m": 0.0,
+   "diff_missed_m_ci": [
+    -0.015,
+    0.015
+   ]
+  },
+  {
+   "level": "N-20",
+   "scenarios": 200,
+   "released_median_err": 0.0027183248757404743,
+   "fine_tuned_median_err": 0.006772286759151369,
+   "diff_mean_err": 0.0029825471698588617,
+   "diff_ci_lo": 0.002147889270086838,
+   "diff_ci_hi": 0.003730609155832592,
+   "non_inferior": false,
+   "released_missed_m_per_case": 0.07,
+   "fine_tuned_missed_m_per_case": 0.055,
+   "diff_missed_m": -0.015,
+   "diff_missed_m_ci": [
+    -0.035,
+    0.0
+   ]
+  }
+ ],
+ "endpoint_near_fold": {
+  "unresolved_at_actual_load": {
+   "storms": 24,
+   "lowest_v_at_fold": {
+    "true": 0.6354691129855496,
+    "released": 0.9222932457923889,
+    "fine_tuned": 0.8894974887371063
+   },
+   "drop_last_5pct": {
+    "true": 0.13567119477838702,
+    "released": 0.006616920232772883,
+    "fine_tuned": 0.010481595993041992
+   },
+   "drop_share_of_ac": {
+    "released": 0.05237526162607074,
+    "fine_tuned": 0.08060588330118254
+   },
+   "missed_overloads_at_fold_m": {
+    "released": 0.7482517482517483,
+    "fine_tuned": 0.6458333333333333
+   },
+   "beyond_fold_points": 384,
+   "fine_tuned_newton_converged_beyond": 0,
+   "calm_beyond_fold": {
+    "released": 0,
+    "fine_tuned": 0
+   }
+  },
+  "solved_at_actual_load": {
+   "storms": 87,
+   "lowest_v_at_fold": {
+    "true": 0.6401922135545999,
+    "released": 0.8205169439315797,
+    "fine_tuned": 0.7731062769889832
+   },
+   "drop_last_5pct": {
+    "true": 0.10592847437196962,
+    "released": 0.015487968921661599,
+    "fine_tuned": 0.02117854356765758
+   },
+   "drop_share_of_ac": {
+    "released": 0.16022336837575668,
+    "fine_tuned": 0.2067479911706206
+   },
+   "missed_overloads_at_fold_m": {
+    "released": 0.21323529411764705,
+    "fine_tuned": 0.1
+   },
+   "beyond_fold_points": 1305,
+   "fine_tuned_newton_converged_beyond": 0,
+   "calm_beyond_fold": {
+    "released": 0,
+    "fine_tuned": 0
+   }
+  },
+  "unresolved_storms_at_actual_load": {
+   "released": {
+    "min_vm_median": 0.8858971595764159,
+    "n_low_v_median": 1.0,
+    "n_over_m_median": 5.0
+   },
+   "fine_tuned": {
+    "min_vm_median": 0.8338450193405151,
+    "n_low_v_median": 5.0,
+    "n_over_m_median": 8.0
+   }
+  }
+ },
+ "endpoint_head": [
+  {
+   "model": "released",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9623148066976418,
+   "auroc_ci": [
+    0.9440866381315202,
+    0.977361245658943
+   ],
+   "recall_at_threshold": 0.9508196721311475,
+   "false_alarm_rate": 0.1590909090909091,
+   "flagged": 235,
+   "auroc_genco_lowest_voltage_alone": 0.7620320855614973,
+   "auroc_genco_residual_alone": 0.8113658280003507,
+   "auroc_genco_predicted_violations_alone": 0.8586394319277636,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "released",
+   "test": "footprint",
+   "cases": 172,
+   "unresolved": 19,
+   "auroc": 0.9370485036119711,
+   "auroc_ci": [
+    0.8852446222096585,
+    0.9803884490392374
+   ],
+   "recall_at_threshold": 0.8421052631578947,
+   "false_alarm_rate": 0.1830065359477124,
+   "flagged": 44,
+   "auroc_genco_lowest_voltage_alone": 0.7540419676642587,
+   "auroc_genco_residual_alone": 0.6546267629858962,
+   "auroc_genco_predicted_violations_alone": 0.7158582731338148,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "released",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9397422500870776,
+   "auroc_ci": [
+    0.8943571323312702,
+    0.9791842563566702
+   ],
+   "recall_at_threshold": 0.9090909090909091,
+   "false_alarm_rate": 0.26436781609195403,
+   "flagged": 53,
+   "auroc_genco_lowest_voltage_alone": 0.7279693486590039,
+   "auroc_genco_residual_alone": 0.6920933472657611,
+   "auroc_genco_predicted_violations_alone": 0.6231278300243819,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "released",
+   "test": "K1 points within 5 % of the fold",
+   "cases": 1226,
+   "unresolved": 558,
+   "auroc": 0.571593372394995,
+   "auroc_ci": [
+    0.540324019622436,
+    0.607822586655514
+   ],
+   "recall_at_threshold": 0.8817204301075269,
+   "false_alarm_rate": 0.8772455089820359,
+   "flagged": 1078,
+   "auroc_genco_lowest_voltage_alone": 0.6027300238233211,
+   "auroc_genco_residual_alone": 0.5447894533513618,
+   "auroc_genco_predicted_violations_alone": 0.5740078981821304,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "released",
+   "test": "head training (T1)",
+   "cases": 3295,
+   "unresolved": 513,
+   "auroc": 0.9913801197618216,
+   "auroc_ci": [
+    0.989070765919241,
+    0.9935799501156751
+   ],
+   "recall_at_threshold": 0.9980506822612085,
+   "false_alarm_rate": 0.11682242990654206,
+   "flagged": 837,
+   "auroc_genco_lowest_voltage_alone": 0.8287280526582053,
+   "auroc_genco_residual_alone": 0.7802049656452017,
+   "auroc_genco_predicted_violations_alone": 0.7706685837526959,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "released",
+   "test": "head validation (T1)",
+   "cases": 879,
+   "unresolved": 131,
+   "auroc": 0.9518716577540106,
+   "auroc_ci": [
+    0.9146334795076888,
+    0.9776571076925533
+   ],
+   "recall_at_threshold": 0.9465648854961832,
+   "false_alarm_rate": 0.14705882352941177,
+   "flagged": 234,
+   "auroc_genco_lowest_voltage_alone": 0.8445421888394498,
+   "auroc_genco_residual_alone": 0.7627362534187859,
+   "auroc_genco_predicted_violations_alone": 0.7553271829203576,
+   "threshold": 0.20113383444279145
+  },
+  {
+   "model": "fine_tuned",
+   "test": "F1",
+   "cases": 870,
+   "unresolved": 122,
+   "auroc": 0.9785877093013062,
+   "auroc_ci": [
+    0.9662414163101479,
+    0.9879539875155662
+   ],
+   "recall_at_threshold": 0.9672131147540983,
+   "false_alarm_rate": 0.1270053475935829,
+   "flagged": 213,
+   "auroc_genco_lowest_voltage_alone": 0.8908017007100902,
+   "auroc_genco_residual_alone": 0.8192995529061103,
+   "auroc_genco_predicted_violations_alone": 0.9137152625580783,
+   "threshold": 0.1734074198187717
+  },
+  {
+   "model": "fine_tuned",
+   "test": "footprint",
+   "cases": 172,
+   "unresolved": 19,
+   "auroc": 0.9439284485724114,
+   "auroc_ci": [
+    0.8824205288575357,
+    0.988510900140647
+   ],
+   "recall_at_threshold": 0.9473684210526315,
+   "false_alarm_rate": 0.1568627450980392,
+   "flagged": 42,
+   "auroc_genco_lowest_voltage_alone": 0.8324733402132783,
+   "auroc_genco_residual_alone": 0.6405228758169934,
+   "auroc_genco_predicted_violations_alone": 0.8414172686618508,
+   "threshold": 0.1734074198187717
+  },
+  {
+   "model": "fine_tuned",
+   "test": "K1 storms at the actual load",
+   "cases": 120,
+   "unresolved": 33,
+   "auroc": 0.9453152211772902,
+   "auroc_ci": [
+    0.9081998594011248,
+    0.9776313269493844
+   ],
+   "recall_at_threshold": 0.9696969696969697,
+   "false_alarm_rate": 0.20689655172413793,
+   "flagged": 50,
+   "auroc_genco_lowest_voltage_alone": 0.8126088470916056,
+   "auroc_genco_residual_alone": 0.6903517938000696,
+   "auroc_genco_predicted_violations_alone": 0.8213166144200627,
+   "threshold": 0.1734074198187717
+  },
+  {
+   "model": "fine_tuned",
+   "test": "K1 points within 5 % of the fold",
+   "cases": 1226,
+   "unresolved": 558,
+   "auroc": 0.6103116347949262,
+   "auroc_ci": [
+    0.5863160336088167,
+    0.6374191159028781
+   ],
+   "recall_at_threshold": 0.9229390681003584,
+   "false_alarm_rate": 0.8577844311377245,
+   "flagged": 1088,
+   "auroc_genco_lowest_voltage_alone": 0.6254480286738351,
+   "auroc_genco_residual_alone": 0.5500987272766296,
+   "auroc_genco_predicted_violations_alone": 0.5782789260189298,
+   "threshold": 0.1734074198187717
+  },
+  {
+   "model": "fine_tuned",
+   "test": "head training (T1)",
+   "cases": 3295,
+   "unresolved": 513,
+   "auroc": 0.9952542311125686,
+   "auroc_ci": [
+    0.9935888749691631,
+    0.9966274118949654
+   ],
+   "recall_at_threshold": 1.0,
+   "false_alarm_rate": 0.100647016534867,
+   "flagged": 793,
+   "auroc_genco_lowest_voltage_alone": 0.9202909822683556,
+   "auroc_genco_residual_alone": 0.8393823843897625,
+   "auroc_genco_predicted_violations_alone": 0.8275162104478385,
+   "threshold": 0.1734074198187717
+  },
+  {
+   "model": "fine_tuned",
+   "test": "head validation (T1)",
+   "cases": 879,
+   "unresolved": 131,
+   "auroc": 0.9666183614320121,
+   "auroc_ci": [
+    0.9474068583017051,
+    0.9845680074972517
+   ],
+   "recall_at_threshold": 0.9465648854961832,
+   "false_alarm_rate": 0.11229946524064172,
+   "flagged": 208,
+   "auroc_genco_lowest_voltage_alone": 0.9240927460505368,
+   "auroc_genco_residual_alone": 0.8024554027023717,
+   "auroc_genco_predicted_violations_alone": 0.8289688533289791,
+   "threshold": 0.1734074198187717
+  }
+ ],
+ "secondary": {
+  "released": {
+   "iters_from_genco_mean": 3.042222222222222,
+   "genco_start_converged": 900,
+   "verified_cases": 901,
+   "same_verdict_and_state": 898,
+   "resolved_only_with_this_genco": 0
+  },
+  "fine_tuned": {
+   "iters_from_genco_mean": 3.195338512763596,
+   "genco_start_converged": 901,
+   "verified_cases": 901,
+   "same_verdict_and_state": 898,
+   "resolved_only_with_this_genco": 0
+  }
+ },
+ "resolved_only_with_finetuned": [],
+ "graphkit": {
+  "checked_out_commit": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f"
+ },
+ "versions": {
+  "python": "3.13.15",
+  "numpy": "2.1.3",
+  "torch": "2.11.0+cu130",
+  "device": "cuda",
+  "lightsim2grid": true
+ }
+}

@@ -2,11 +2,13 @@
 
     pip install huggingface_hub safetensors torch
     huggingface-cli login
-    python scripts/publish_huggingface.py --user <account> --finetune finetune.zip --evaluation evaluate_finetuned.zip
+    python scripts/publish_huggingface.py --user <account> \
+        --finetune finetune_seed0.zip --evaluation evaluate_finetuned_seed0.zip
 
---finetune and --evaluation are the zip files written by notebooks/finetune.ipynb and notebooks/evaluate_finetuned.ipynb.
-The weights are checked against the SHA-256 recorded in results/finetune/summary.json, converted to safetensors and
-uploaded together with the warning heads, the feature matrices, the model card and the training notebook.
+--finetune and --evaluation are the zip files written by notebooks/finetune.ipynb and notebooks/evaluate_finetuned.ipynb
+with TRAIN_SEED = 0, the published run. The weights are checked against the SHA-256 recorded in
+results/finetune_seed0/summary.json and the evaluation against the same hash, then the weights are converted to
+safetensors and uploaded together with the warning heads, the feature matrices, the model card and the training notebook.
 """
 
 import argparse
@@ -25,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_REPO = "gridfm/genco-pf-contingency"
 BASE_REVISION = "5c625b00f5b79c8a7d4d27ecc133d4ecdf573af7"
 GRAPHKIT_COMMIT = "95b90eecc7f5c2c86a9dd776f0c3f40434def22f"
+RUN = "seed0"
 
 WARNING_FILES = {  # file written by the evaluation notebook -> path in the model repository
     "warning_released.joblib": "warning/warning_released.joblib",
@@ -56,11 +59,14 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
     tmp = Path(tempfile.mkdtemp())
     ft = unzip(finetune_zip, tmp / "finetune")
     ev = unzip(evaluation_zip, tmp / "evaluation")
-    summary = json.loads((ROOT / "results/finetune/summary.json").read_text())
+    summary = json.loads((ROOT / f"results/finetune_{RUN}/summary.json").read_text())
 
     weights = next(ft.rglob("genco_finetuned_state_dict.pt"))
     if sha256(weights) != summary["checkpoint_sha256"]:
-        raise SystemExit(f"{weights.name}: SHA-256 does not match results/finetune/summary.json")
+        raise SystemExit(f"{weights.name}: SHA-256 does not match results/finetune_{RUN}/summary.json")
+    evaluated = json.loads(next(ev.rglob("summary.json")).read_text())["checkpoint_sha256"]
+    if evaluated != summary["checkpoint_sha256"]:
+        raise SystemExit(f"{evaluation_zip} evaluates a different checkpoint")
     state = torch.load(weights, map_location="cpu")
     save_file({k: v.contiguous() for k, v in state.items()}, out / "model.safetensors")
 
@@ -74,7 +80,7 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
     normalizer = hf_hub_download(BASE_REPO, "model/training_bs_16/normalizer_stats.pt", revision=BASE_REVISION)
     shutil.copy(normalizer, out / "normalizer_stats.pt")
     (out / "training").mkdir()
-    shutil.copy(ROOT / "notebooks/finetune_as_run.ipynb", out / "training/finetune.ipynb")
+    shutil.copy(ROOT / "notebooks/finetune.ipynb", out / "training/finetune.ipynb")
 
     protocol = summary["frozen_protocol"]
     config = {
@@ -92,6 +98,7 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
             "validation_cases": summary["cases"]["regression_targets_val"],
             "optimizer_steps": summary["optimizer_steps"],
             "selected_step": summary["selected_step"],
+            "train_seed": protocol["train_seed"],
             "minutes_on_t4": round(summary["training_minutes"]),
         },
         "sha256": {

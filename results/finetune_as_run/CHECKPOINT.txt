@@ -1,0 +1,3 @@
+The first fine-tuning run, made with notebooks/finetune_as_run.ipynb before the gradient-accumulation fix. It is kept as
+a third run of the comparison; its weights are not published. SHA-256 of genco_finetuned_state_dict.pt:
+7e9e3c635ea6eca6d3b1dc7009c2ba9e2aa05890fbd9a6f76ab59084d75c57e6 (also in summary.json).

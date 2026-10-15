@@ -17,7 +17,9 @@ for N-k screening on the released Texas 2,000-bus grid, and what to do when it c
   violation* or *unresolved* (an alarm, never a pass). On a frozen test of 870 unseen contingencies it gives an AC decision
   for all 748 solvable cases and an alarm for all 122 others; GENCO alone would have been wrong in 260.
 - **Extending GENCO.** Fine-tuning on solver-labelled contingencies cuts missed decisions on unseen clustered outages by
-  23 %. A warning head on GENCO's embeddings predicts unresolved cases with AUROC 0.96.
+  22 % (20 to 23 % over three training runs). A rule on the outage alone sends only clustered outages to the fine-tuned
+  model, so ordinary cases keep the released one. A warning head on GENCO's embeddings predicts unresolved cases with
+  AUROC 0.96.
 
 ![The verified workflow](figures/fig1_workflow.png)
 

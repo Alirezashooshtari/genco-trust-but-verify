@@ -25,22 +25,29 @@ frozen,branch check: verified cases with two distinct AC solutions among the sta
 overload,conformal overload margin (fraction of rating),0.0454,overload_margin/scenario_level_results.csv
 overload,N-2 test: overloaded scenarios with nothing missed (95 % CI),98.9 % (97.1 to 99.7),overload_margin/scenario_level_results.csv
 overload,"false alarms per scenario, GENCO / DC at the same guarantee",2.61 / 7.35,overload_margin/scenario_level_results.csv
-fix,training cases (regression targets) / minutes on one T4,6737 / 72,finetune/summary.json
-fix,"clustered outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","6.13 -> 4.70 (-1.43, -23 %; -1.88 to -1.02)",evaluate_finetuned/endpoints_cases.csv
-fix,"held-out construction: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","2.01 -> 1.58 (-0.43, -21 %; -0.68 to -0.21)",evaluate_finetuned/endpoints_cases.csv
-fix,"random outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","0.14 -> 0.18 (+0.04, +31 %; +0.01 to +0.08)",evaluate_finetuned/endpoints_cases.csv
-fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",0.0013 -> 0.0035,evaluate_finetuned/endpoint_forgetting.csv
-fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned/endpoint_near_fold.json
-warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.937 (0.885 to 0.980); 0.84 / 0.18,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned/endpoint_head.csv
+fix,training cases (regression targets) / minutes on one T4,6737 / 69,finetune_seed0/summary.json
+fix,"clustered outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","6.13 -> 4.79 (-1.34, -22 %; -1.72 to -0.97)",evaluate_finetuned_seed0/endpoints_cases.csv
+runs,"clustered outages: change in decisions missed per case (95 % CI), seed 0 / seed 1 / first run",-1.34 (-1.72 to -0.97) / -1.25 (-1.64 to -0.90) / -1.43 (-1.88 to -1.02),evaluate_finetuned_*/endpoints_cases.csv
+fix,"held-out construction: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","2.01 -> 1.56 (-0.44, -22 %; -0.66 to -0.24)",evaluate_finetuned_seed0/endpoints_cases.csv
+runs,"held-out construction: change in decisions missed per case (95 % CI), seed 0 / seed 1 / first run",-0.44 (-0.66 to -0.24) / -0.41 (-0.61 to -0.22) / -0.43 (-0.68 to -0.21),evaluate_finetuned_*/endpoints_cases.csv
+fix,"random outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","0.14 -> 0.14 (+0.00, +2 %; -0.03 to +0.04)",evaluate_finetuned_seed0/endpoints_cases.csv
+runs,"random outages: change in decisions missed per case (95 % CI), seed 0 / seed 1 / first run",+0.00 (-0.03 to +0.04) / +0.01 (-0.02 to +0.05) / +0.04 (+0.01 to +0.08),evaluate_finetuned_*/endpoints_cases.csv
+fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",0.0013 -> 0.0036,evaluate_finetuned_seed0/endpoint_forgetting.csv
+runs,"ordinary N-2 scenarios: fine-tuned median worst-bus error (p.u.), seed 0 / seed 1 / first run",0.0036 / 0.0043 / 0.0035,evaluate_finetuned_*/endpoint_forgetting.csv
+fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned_seed0/endpoint_near_fold.json
+runs,"warning on the fine-tuned model, frozen-test AUROC, seed 0 / seed 1 / first run",0.977 / 0.979 / 0.973,evaluate_finetuned_*/endpoint_head.csv
+warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned_seed0/endpoint_head.csv
+warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.938 (0.886 to 0.980); 0.84 / 0.18,evaluate_finetuned_seed0/endpoint_head.csv
+warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned_seed0/endpoint_head.csv
+warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned_seed0/endpoint_head.csv
 warning,"outage-topology baseline without GENCO (boosted trees), frozen-test AUROC",0.904,analysis/warning_scores.csv
-warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.058 (+0.031 to +0.089),analysis/warning_ablation.json
+warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.059 (+0.031 to +0.089),analysis/warning_ablation.json
 warning,storms: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.138 (+0.052 to +0.233),analysis/warning_ablation.json
 warning,false-alarm rate at the 95 %-recall rule: topology baseline / GENCO warning,0.35 / 0.16,analysis/warning_ablation.json
 routing,rule: at least N lines out and spread at most H hops -> fine-tuned model; accuracy on training cases,"N = 5, H = 11; 0.989",analysis/routing.json
-routing,"frozen test, clustered outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",400 of 401; 6.13 -> 4.70 (-1.93 to -1.01),analysis/routing.json
+routing,"frozen test, clustered outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",400 of 401; 6.13 -> 4.79 (-1.76 to -0.97),analysis/routing.json
 routing,"frozen test, random outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",0 of 347; 0.14 -> 0.14 (+0.00 to +0.00),analysis/routing.json
+routing,"held-out construction outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",111 of 153; 2.01 -> 1.61 (-0.61 to -0.20),analysis/routing.json
+runs,"routing, clustered outages: decisions missed per case, routed, seed 0 / seed 1 / first run",4.79 / 4.88 / 4.70,analysis/routing.json
 routing,random N-2 / N-10 / N-20 outages routed to the fine-tuned model,0 % / 0 % / 0 %,analysis/routing.json
 check,PYPOWER from raw parameters vs released solutions: largest |dVm| (p.u.); decisions agreeing,2.0e-09; 46 of 46,independent_check/summary.json

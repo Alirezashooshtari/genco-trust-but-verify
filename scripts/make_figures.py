@@ -474,24 +474,25 @@ def figure4():
 # ---------------------------------------------------------------------------------------------------------- 5
 def figure5():
     """Fine-tuning and the unresolved-case warning."""
-    E = pd.read_csv(RES / "evaluate_finetuned/endpoints_cases.csv")
-    F = pd.read_csv(RES / "evaluate_finetuned/endpoint_forgetting.csv")
+    runs = ("seed0", "seed1", "as_run")  # seed0 is the published checkpoint, drawn as bars; the others as markers
+    E = {r: pd.read_csv(RES / f"evaluate_finetuned_{r}/endpoints_cases.csv") for r in runs}
+    F = {r: pd.read_csv(RES / f"evaluate_finetuned_{r}/endpoint_forgetting.csv") for r in runs}
     SC = pd.read_csv(RES / "analysis/warning_scores.csv")
-    P = pd.read_csv(RES / "evaluate_finetuned/unresolved_warning/per_case_scores.csv")
+    P = pd.read_csv(RES / "evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv")
 
     fig = plt.figure(figsize=(WIDTH, 5.3))
     headline(
         fig,
         "Teaching GENCO where it fails, and to warn when the solver will",
-        "Fine-tuned on 6,737 solver-labelled contingencies, mostly clustered or stressed, GENCO misses fewer decisions on\n"
-        "cases it never saw, at a price on ordinary ones. A small head on its embeddings flags cases the solver will not resolve.",
+        "Fine-tuned on 6,737 solver-labelled contingencies, GENCO misses fewer decisions on cases it never saw, in all three\n"
+        "training runs, at a price on ordinary ones. A small head on its embeddings flags cases the solver will not resolve.",
     )
     gs = fig.add_gridspec(
         1, 3, left=0.07, right=0.975, top=0.68, bottom=0.17, wspace=0.42, width_ratios=[1.15, 0.85, 1.0]
     )
     a, b, c = (fig.add_subplot(gs[i]) for i in range(3))
 
-    m = E[E.metric == "missed"].set_index("group")
+    m = E["seed0"][E["seed0"].metric == "missed"].set_index("group")
     groups = [
         ("clustered (F1)", "clustered"),
         ("footprint (held out)", "held-out\nconstruction"),
@@ -506,6 +507,10 @@ def figure5():
         a.text(
             xi, top + 0.22, f"{r.diff_mean:+.2f}", ha="center", va="bottom", fontsize=10.5, color=INK, fontweight="bold"
         )
+    for r in runs[1:]:
+        other = E[r][E[r].metric == "missed"].set_index("group")
+        a.scatter(x + 0.19, [other.loc[g, "fine_tuned_mean"] for g, _ in groups], s=14, color=INK, zorder=3, lw=0)
+    a.scatter([], [], s=14, color=INK, lw=0, label="other runs")
     a.set_xticks(x)
     a.set_xticklabels([lab for _, lab in groups], fontsize=9.5)
     a.set_ylim(0, 7.4)
@@ -513,11 +518,14 @@ def figure5():
     a.legend(loc="upper right")
     panel_title(a, "a", "Unseen hard cases")
 
-    xs = np.arange(len(F))
-    b.bar(xs - 0.19, F.released_median_err * 1000, 0.36, color=GENCO)
-    b.bar(xs + 0.19, F.fine_tuned_median_err * 1000, 0.36, color=TUNED)
+    f0 = F["seed0"]
+    xs = np.arange(len(f0))
+    b.bar(xs - 0.19, f0.released_median_err * 1000, 0.36, color=GENCO)
+    b.bar(xs + 0.19, f0.fine_tuned_median_err * 1000, 0.36, color=TUNED)
+    for r in runs[1:]:
+        b.scatter(xs + 0.19, F[r].fine_tuned_median_err * 1000, s=14, color=INK, zorder=3, lw=0)
     b.set_xticks(xs)
-    b.set_xticklabels(F.level)
+    b.set_xticklabels(f0.level)
     b.set_ylim(0, 7.4)
     b.set_ylabel("Median worst-bus error ($10^{-3}$ p.u.)")
     panel_title(b, "b", "The price")
@@ -554,8 +562,8 @@ def figure5():
     panel_title(c, "c", "Warning, frozen test")
     source(
         fig,
-        "Notebooks `finetune` and `evaluate_finetuned`, paired on the same cases. a: 401 clustered, 153 held-out, 347 random cases. "
-        "b: released test scenarios. c: the 870 frozen-test cases.",
+        "Bars: the published run (seed 0); dots: seed 1 and the first run. a: 401 clustered, 153 held-out, 347 random cases. "
+        "b: released test scenarios. c: 870 frozen-test cases.",
     )
     save(fig, "fig5_fine_tuning_and_warning")
 

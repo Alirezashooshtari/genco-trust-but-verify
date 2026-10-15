@@ -1,0 +1,6 @@
+These are the weights published as model.safetensors in
+https://huggingface.co/Alirezashooshtari/genco-texas-clustered
+
+The notebook (notebooks/finetune.ipynb, TRAIN_SEED = 0) saves them as genco_finetuned_state_dict.pt
+(SHA-256 cf705d23b87cc0fd1b6ede6a9028925584bd9b00b936a76244a90a75fcb353a2, also in summary.json).
+scripts/publish_huggingface.py checks this hash before converting the file to safetensors.
