@@ -5,7 +5,7 @@
     python scripts/publish_huggingface.py --user <account> --finetune finetune.zip --evaluation evaluate_finetuned.zip
 
 --finetune and --evaluation are the zip files written by notebooks/finetune.ipynb and notebooks/evaluate_finetuned.ipynb.
-The weights are checked against the SHA-256 recorded in results/finetune/summary.json, converted to safetensors and
+The weights are checked against the SHA-256 recorded in results/finetune_as_run/summary.json, converted to safetensors and
 uploaded together with the warning heads, the feature matrices, the model card and the training notebook.
 """
 
@@ -56,11 +56,11 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
     tmp = Path(tempfile.mkdtemp())
     ft = unzip(finetune_zip, tmp / "finetune")
     ev = unzip(evaluation_zip, tmp / "evaluation")
-    summary = json.loads((ROOT / "results/finetune/summary.json").read_text())
+    summary = json.loads((ROOT / "results/finetune_as_run/summary.json").read_text())
 
     weights = next(ft.rglob("genco_finetuned_state_dict.pt"))
     if sha256(weights) != summary["checkpoint_sha256"]:
-        raise SystemExit(f"{weights.name}: SHA-256 does not match results/finetune/summary.json")
+        raise SystemExit(f"{weights.name}: SHA-256 does not match results/finetune_as_run/summary.json")
     state = torch.load(weights, map_location="cpu")
     save_file({k: v.contiguous() for k, v in state.items()}, out / "model.safetensors")
 

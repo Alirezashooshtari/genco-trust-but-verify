@@ -1,6 +1,0 @@
-The fine-tuned weights are not stored in this repository. They are published as model.safetensors in
-https://huggingface.co/Alirezashooshtari/genco-texas-clustered
-
-The notebook saves them as genco_finetuned_state_dict.pt (80,420,497 bytes,
-SHA-256 7e9e3c635ea6eca6d3b1dc7009c2ba9e2aa05890fbd9a6f76ab59084d75c57e6, also in summary.json).
-scripts/publish_huggingface.py checks this hash before converting the file to safetensors.

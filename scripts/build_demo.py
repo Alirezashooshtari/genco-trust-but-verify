@@ -39,7 +39,7 @@ def cases_table():
     classical = wf[wf.workflow == "classical"].set_index("sid")
     genco = wf[wf.workflow == "genco_verify"].set_index("sid")
     alone = pd.read_csv(RES / "frozen_test/genco_alone.csv").set_index("sid")
-    warn = pd.read_csv(RES / "evaluate_finetuned/unresolved_warning/per_case_scores.csv")
+    warn = pd.read_csv(RES / "evaluate_finetuned_as_run/unresolved_warning/per_case_scores.csv")
     warn = warn[(warn.model == "released") & (warn.test == "F1")]
     warn = warn.assign(sid=warn.case.str.split(":").str[1].astype(int)).set_index("sid")
 
@@ -114,7 +114,7 @@ def showcase():
 
 def overview():
     summary = pd.read_csv(RES / "frozen_test/summary_by_workflow.csv", index_col=0)
-    head = pd.read_csv(RES / "evaluate_finetuned/endpoint_head.csv").set_index(["model", "test"])
+    head = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_head.csv").set_index(["model", "test"])
     return {
         "verified": int(summary.loc["classical", "verified"]),
         "unresolved": int(summary.loc["classical", "unresolved"]),

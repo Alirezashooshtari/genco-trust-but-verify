@@ -474,10 +474,10 @@ def figure4():
 # ---------------------------------------------------------------------------------------------------------- 5
 def figure5():
     """Fine-tuning and the unresolved-case warning."""
-    E = pd.read_csv(RES / "evaluate_finetuned/endpoints_cases.csv")
-    F = pd.read_csv(RES / "evaluate_finetuned/endpoint_forgetting.csv")
+    E = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoints_cases.csv")
+    F = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_forgetting.csv")
     SC = pd.read_csv(RES / "analysis/warning_scores.csv")
-    P = pd.read_csv(RES / "evaluate_finetuned/unresolved_warning/per_case_scores.csv")
+    P = pd.read_csv(RES / "evaluate_finetuned_as_run/unresolved_warning/per_case_scores.csv")
 
     fig = plt.figure(figsize=(WIDTH, 5.3))
     headline(

@@ -25,16 +25,16 @@ frozen,branch check: verified cases with two distinct AC solutions among the sta
 overload,conformal overload margin (fraction of rating),0.0454,overload_margin/scenario_level_results.csv
 overload,N-2 test: overloaded scenarios with nothing missed (95 % CI),98.9 % (97.1 to 99.7),overload_margin/scenario_level_results.csv
 overload,"false alarms per scenario, GENCO / DC at the same guarantee",2.61 / 7.35,overload_margin/scenario_level_results.csv
-fix,training cases (regression targets) / minutes on one T4,6737 / 72,finetune/summary.json
-fix,"clustered outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","6.13 -> 4.70 (-1.43, -23 %; -1.88 to -1.02)",evaluate_finetuned/endpoints_cases.csv
-fix,"held-out construction: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","2.01 -> 1.58 (-0.43, -21 %; -0.68 to -0.21)",evaluate_finetuned/endpoints_cases.csv
-fix,"random outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","0.14 -> 0.18 (+0.04, +31 %; +0.01 to +0.08)",evaluate_finetuned/endpoints_cases.csv
-fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",0.0013 -> 0.0035,evaluate_finetuned/endpoint_forgetting.csv
-fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned/endpoint_near_fold.json
-warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.937 (0.885 to 0.980); 0.84 / 0.18,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned/endpoint_head.csv
-warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned/endpoint_head.csv
+fix,training cases (regression targets) / minutes on one T4,6737 / 72,finetune_as_run/summary.json
+fix,"clustered outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","6.13 -> 4.70 (-1.43, -23 %; -1.88 to -1.02)",evaluate_finetuned_as_run/endpoints_cases.csv
+fix,"held-out construction: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","2.01 -> 1.58 (-0.43, -21 %; -0.68 to -0.21)",evaluate_finetuned_as_run/endpoints_cases.csv
+fix,"random outages: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)","0.14 -> 0.18 (+0.04, +31 %; +0.01 to +0.08)",evaluate_finetuned_as_run/endpoints_cases.csv
+fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",0.0013 -> 0.0035,evaluate_finetuned_as_run/endpoint_forgetting.csv
+fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned_as_run/endpoint_near_fold.json
+warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned_as_run/endpoint_head.csv
+warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.937 (0.885 to 0.980); 0.84 / 0.18,evaluate_finetuned_as_run/endpoint_head.csv
+warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned_as_run/endpoint_head.csv
+warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned_as_run/endpoint_head.csv
 warning,"outage-topology baseline without GENCO (boosted trees), frozen-test AUROC",0.904,analysis/warning_scores.csv
 warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.058 (+0.031 to +0.089),analysis/warning_ablation.json
 warning,storms: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.138 (+0.052 to +0.233),analysis/warning_ablation.json

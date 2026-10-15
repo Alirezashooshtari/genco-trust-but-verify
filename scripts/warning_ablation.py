@@ -86,7 +86,7 @@ class Cases:
     """Removed lines, load factor and operating point of every case id: 'T1:<cid>' (fine-tuning set), 'F1:<sid>' (frozen test), 'K1:<sid>@<lam>' (storms)."""
 
     def __init__(self):
-        self.t1 = pd.read_csv(RES / "finetune/train_cases.csv").set_index("cid")
+        self.t1 = pd.read_csv(RES / "finetune_as_run/train_cases.csv").set_index("cid")
         self.f1 = pd.read_csv(RES / "frozen_test/cases.csv").set_index("sid")
         self.k1 = pd.read_csv(RES / "storms/cases.csv").set_index("sid")
 

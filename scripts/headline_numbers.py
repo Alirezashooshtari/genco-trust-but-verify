@@ -181,14 +181,14 @@ claim(
 )
 
 # ------------------------------------------------------------------ fine-tuning
-t1 = json.loads((RES / "finetune/summary.json").read_text())
+t1 = json.loads((RES / "finetune_as_run/summary.json").read_text())
 claim(
     "fix",
     "training cases (regression targets) / minutes on one T4",
     f"{t1['cases']['regression_targets_train']} / {t1['training_minutes']:.0f}",
-    "finetune/summary.json",
+    "finetune_as_run/summary.json",
 )
-ep = pd.read_csv(RES / "evaluate_finetuned/endpoints_cases.csv").set_index(["group", "metric"])
+ep = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoints_cases.csv").set_index(["group", "metric"])
 for grp in ("clustered (F1)", "footprint (held out)", "uniform (F1)"):
     r = ep.loc[(grp, "missed")]
     claim(
@@ -196,27 +196,27 @@ for grp in ("clustered (F1)", "footprint (held out)", "uniform (F1)"):
         f"{GROUP_NAMES[grp]}: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)",
         f"{r.released_mean:.2f} -> {r.fine_tuned_mean:.2f} ({r.diff_mean:+.2f}, {100 * r.diff_mean / r.released_mean:+.0f} %; "
         f"{r.diff_ci_lo:+.2f} to {r.diff_ci_hi:+.2f})",
-        "evaluate_finetuned/endpoints_cases.csv",
+        "evaluate_finetuned_as_run/endpoints_cases.csv",
     )
-fg = pd.read_csv(RES / "evaluate_finetuned/endpoint_forgetting.csv").set_index("level")
+fg = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_forgetting.csv").set_index("level")
 claim(
     "fix",
     "ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",
     f"{fg.loc['N-2', 'released_median_err']:.4f} -> {fg.loc['N-2', 'fine_tuned_median_err']:.4f}",
-    "evaluate_finetuned/endpoint_forgetting.csv",
+    "evaluate_finetuned_as_run/endpoint_forgetting.csv",
 )
-nf = json.loads((RES / "evaluate_finetuned/endpoint_near_fold.json").read_text())
+nf = json.loads((RES / "evaluate_finetuned_as_run/endpoint_near_fold.json").read_text())
 beyond = sum(nf[k]["beyond_fold_points"] for k in ("unresolved_at_actual_load", "solved_at_actual_load"))
 conv = sum(nf[k]["fine_tuned_newton_converged_beyond"] for k in ("unresolved_at_actual_load", "solved_at_actual_load"))
 claim(
     "fix",
     "load points beyond a fold where Newton from the fine-tuned state converged",
     f"{conv} of {beyond}",
-    "evaluate_finetuned/endpoint_near_fold.json",
+    "evaluate_finetuned_as_run/endpoint_near_fold.json",
 )
 
 # ------------------------------------------------------------------ the warning
-head = pd.read_csv(RES / "evaluate_finetuned/endpoint_head.csv").set_index(["model", "test"])
+head = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_head.csv").set_index(["model", "test"])
 for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points within 5 % of the fold"):
     r = head.loc[("released", test)]
     lo, hi = json.loads(r.auroc_ci)
@@ -224,7 +224,7 @@ for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points withi
         "warning",
         f"released GENCO, {TEST_NAMES[test]}: AUROC (95 % CI); recall / false alarms at the frozen threshold",
         f"{r.auroc:.3f} ({lo:.3f} to {hi:.3f}); {r.recall_at_threshold:.2f} / {r.false_alarm_rate:.2f}",
-        "evaluate_finetuned/endpoint_head.csv",
+        "evaluate_finetuned_as_run/endpoint_head.csv",
     )
 scores = pd.read_csv(RES / "analysis/warning_scores.csv")
 topo = scores[(scores.test == "F1") & (scores.features == "A topology") & (scores.classifier == "boosted trees")]

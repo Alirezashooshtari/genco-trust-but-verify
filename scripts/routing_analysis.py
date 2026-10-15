@@ -52,7 +52,7 @@ def paired_mean_ci(diff, clusters, n_boot=2000, seed=0):
 
 
 def main():
-    train = pd.read_csv(RES / "finetune/train_cases.csv")
+    train = pd.read_csv(RES / "finetune_as_run/train_cases.csv")
     train = train[(train.split == "train") & (train.k > 2)]
     train["spread"] = [spread(json.loads(r)) for r in train.removed_lines]
     clustered = train.family.str.startswith(CLUSTERED).to_numpy()
@@ -64,7 +64,7 @@ def main():
         return "fine_tuned" if len(removed) >= MIN_LINES and spread(removed) <= threshold else "released"
 
     cases = pd.read_csv(RES / "frozen_test/cases.csv").set_index("sid")
-    ev = pd.read_csv(RES / "evaluate_finetuned/cases.csv")
+    ev = pd.read_csv(RES / "evaluate_finetuned_as_run/cases.csv")
     ev = ev[(ev.set == "F1") & ev.ref_status.str.startswith("verified")].copy()
     ev["spread"] = [spread(json.loads(cases.loc[s, "removed_lines"])) for s in ev.sid]
     ev["route"] = [route(json.loads(cases.loc[s, "removed_lines"])) for s in ev.sid]
