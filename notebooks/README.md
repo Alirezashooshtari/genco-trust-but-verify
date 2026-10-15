@@ -12,9 +12,9 @@ Each notebook is self-contained and runs on a fresh Colab runtime (see `../envir
 | `overload_margin` | Conformal overload margin for GENCO and DC power flow | CPU, ~30 min | `overload_margin` |
 | `frozen_test` | The frozen test: 870 cases, four workflows, timing (Figure 4) | T4, ~50 min | `frozen_test` |
 | `branch_check` | The branch check on the frozen-test cases: which cases have two AC solutions | T4, ~20 min | `branch_check` |
-| `finetune` | Fine-tuning GENCO on solver-labelled contingencies | T4, ~2 h | `finetune` |
-| `finetune_as_run` | The exact code that produced the published fine-tuned checkpoint | T4, ~2 h | `finetune` |
-| `evaluate_finetuned` | Paired test of the fine-tuned model and the unresolved-case warning (Figure 5) | T4, ~1 h | `evaluate_finetuned` |
+| `finetune` | Fine-tuning GENCO on solver-labelled contingencies, one run per `TRAIN_SEED` (seed 0 is published) | T4, ~2 h | `finetune_seed0`, `finetune_seed1` |
+| `finetune_as_run` | The first fine-tuning run, before the gradient-accumulation fix | T4, ~2 h | `finetune_as_run` |
+| `evaluate_finetuned` | Paired test of a fine-tuned run and the unresolved-case warning (Figure 5) | T4, ~1 h | `evaluate_finetuned_seed0`, `_seed1`, `_as_run` |
 | `independent_check` | PYPOWER built from the raw network parameters as an independent check | CPU, ~40 min | `independent_check` |
 
 Inside the notebooks the data sets keep the short tags used while the work was done: `F1` is the frozen test, `K1` the
