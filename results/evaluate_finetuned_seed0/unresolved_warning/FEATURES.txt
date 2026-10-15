@@ -1,0 +1,3 @@
+The feature matrices of every case the warning was trained, validated and tested on (43 MB) are published in
+https://huggingface.co/Alirezashooshtari/genco-texas-clustered under data/. This folder keeps the fitted warning heads
+(joblib and plain JSON), the feature definitions and the score of every case.

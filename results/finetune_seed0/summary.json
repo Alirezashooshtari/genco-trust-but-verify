@@ -1,0 +1,157 @@
+{
+ "frozen_protocol": {
+  "purpose": "fine-tune the released GENCO checkpoint on solver-labelled clustered and load-stressed contingencies, with the released training objective, and evaluate it later (notebook T2) against the released model on cases neither has seen",
+  "model": {
+   "repo": "gridfm/genco-pf-contingency",
+   "checkpoint": "model/training_bs_16",
+   "graphkit_branch": "genco-paper-repro",
+   "precision": "float32"
+  },
+  "objective": "the released training objective, unchanged: graphkit MixedLoss of caseTexas_train.yaml = 0.9 x masked bus MSE (Vm, Va) + 0.1 x layered weighted physics residual (base weight 0.5), in the released normalisation",
+  "data": {
+   "level": 2,
+   "train_partitions": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "excluded_partitions": [
+    0,
+    1,
+    6,
+    7,
+    16
+   ],
+   "excluded_why": "0-1: base points of K1/N1/N2 (the storms of T2's near-fold test); 6, 16: the final evaluation F1 (T2's main test); 7: T2's forgetting check on released N-2 scenarios",
+   "families": [
+    [
+     "none",
+     2,
+     "stress"
+    ],
+    [
+     "uniform",
+     5,
+     1
+    ],
+    [
+     "uniform",
+     10,
+     1
+    ],
+    [
+     "uniform",
+     20,
+     1
+    ],
+    [
+     "uniform",
+     10,
+     "stress"
+    ],
+    [
+     "nearest",
+     10,
+     1
+    ],
+    [
+     "nearest",
+     20,
+     1
+    ],
+    [
+     "nearest",
+     10,
+     "stress"
+    ],
+    [
+     "nearest",
+     20,
+     "stress"
+    ],
+    [
+     "corridor",
+     20,
+     1
+    ],
+    [
+     "corridor",
+     20,
+     "stress"
+    ]
+   ],
+   "load_factor_range": [
+    0.85,
+    1.35
+   ],
+   "held_out_constructions": [
+    "footprint"
+   ],
+   "labels": "Newton-Raphson (lightsim2grid KLU) to 1e-8 p.u. from the pre-contingency, DC and flat starts with the branch check on; a case is a regression target only if verified, with one solution among the starts and a lowest voltage >= LOW_V_EXCLUDE; unresolved cases are kept as labels for the solvability head (notebook T2)",
+   "split": "by base point: 10% of the training base points (seeded) are validation, never trained on"
+  },
+  "optimiser": {
+   "type": "AdamW",
+   "lr": 5e-05,
+   "betas": [
+    0.9,
+    0.999
+   ],
+   "weight_decay": 0.01,
+   "warmup_steps": 20,
+   "batch": 4,
+   "accumulation": 4,
+   "effective_batch": 16,
+   "grad_clip": 1.0,
+   "schedule": "linear warm-up, then constant"
+  },
+  "selection": "the checkpoint with the lowest validation loss (the training objective on the validation split), evaluated every 100 optimizer steps and at the end of each epoch; the released model's own validation loss is the starting point",
+  "sizing": "EPOCHS = min(4, max(1, floor(70 min / (pilot seconds per case x training cases)))); the pilot's weight updates are discarded",
+  "evaluation": "notebook T2, frozen before this run: paired released vs fine-tuned on the 870 F1 cases (GENCO-alone misses against the verified reference, worst-bus voltage error, Newton iterations, verdicts), on soft-footprint N-20 cases built on the F1 base points (a construction held out of training), on released N-2 (block 7), N-10 and N-20 scenarios (forgetting), on the 120 K1 storms against their stored AC truth along the load sweep (near-fold response), and the solvability head",
+  "seed": 0,
+  "train_seed": 0
+ },
+ "sizing": {
+  "pilot_cases": 64,
+  "seconds_per_case": 0.1289829220156271,
+  "training_cases": 6737,
+  "epochs": 4,
+  "optimizer_steps": 1688,
+  "accumulation": "loss of each micro-batch weighted by its share of the cases of its optimizer step; the last step of an epoch takes the remainder; no gradient carried across epochs"
+ },
+ "training_minutes": 68.60622267866667,
+ "optimizer_steps": 1688,
+ "selected_step": 1600,
+ "validation_released": {
+  "val_loss": 0.003323852525791153,
+  "worst_bus_err_median_uniform/base": 0.0018870830535888672,
+  "worst_bus_err_median_stressed": 0.016438424587249756,
+  "worst_bus_err_median_clustered": 0.02226412296295166
+ },
+ "validation_selected": {
+  "val_loss": 0.001807571507136648,
+  "worst_bus_err_median_uniform/base": 0.004540115594863892,
+  "worst_bus_err_median_stressed": 0.00814145803451538,
+  "worst_bus_err_median_clustered": 0.015612125396728516
+ },
+ "checkpoint_sha256": "cf705d23b87cc0fd1b6ede6a9028925584bd9b00b936a76244a90a75fcb353a2",
+ "cases": {
+  "built": 8791,
+  "unresolved": 1298,
+  "multiple_solutions": 4,
+  "regression_targets_train": 6737,
+  "regression_targets_val": 748
+ },
+ "graphkit": {
+  "checked_out_commit": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f"
+ },
+ "versions": {
+  "python": "3.13.15",
+  "numpy": "2.1.3",
+  "torch": "2.11.0+cu130",
+  "device": "cuda",
+  "gpu": "Tesla T4",
+  "lightsim2grid": true
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "unresolved_at_actual_load": {
+  "storms": 24,
+  "lowest_v_at_fold": {
+   "true": 0.6354691129855496,
+   "released": 0.9222932457923889,
+   "fine_tuned": 0.8894974887371063
+  },
+  "drop_last_5pct": {
+   "true": 0.13567119477838702,
+   "released": 0.006616920232772883,
+   "fine_tuned": 0.010481595993041992
+  },
+  "drop_share_of_ac": {
+   "released": 0.05237526162607074,
+   "fine_tuned": 0.08060588330118254
+  },
+  "missed_overloads_at_fold_m": {
+   "released": 0.7482517482517483,
+   "fine_tuned": 0.6458333333333333
+  },
+  "beyond_fold_points": 384,
+  "fine_tuned_newton_converged_beyond": 0,
+  "calm_beyond_fold": {
+   "released": 0,
+   "fine_tuned": 0
+  }
+ },
+ "solved_at_actual_load": {
+  "storms": 87,
+  "lowest_v_at_fold": {
+   "true": 0.6401922135545999,
+   "released": 0.8205169439315797,
+   "fine_tuned": 0.7731062769889832
+  },
+  "drop_last_5pct": {
+   "true": 0.10592847437196962,
+   "released": 0.015487968921661599,
+   "fine_tuned": 0.02117854356765758
+  },
+  "drop_share_of_ac": {
+   "released": 0.16022336837575668,
+   "fine_tuned": 0.2067479911706206
+  },
+  "missed_overloads_at_fold_m": {
+   "released": 0.21323529411764705,
+   "fine_tuned": 0.1
+  },
+  "beyond_fold_points": 1305,
+  "fine_tuned_newton_converged_beyond": 0,
+  "calm_beyond_fold": {
+   "released": 0,
+   "fine_tuned": 0
+  }
+ },
+ "unresolved_storms_at_actual_load": {
+  "released": {
+   "min_vm_median": 0.8858971595764159,
+   "n_low_v_median": 1.0,
+   "n_over_m_median": 5.0
+  },
+  "fine_tuned": {
+   "min_vm_median": 0.8338450193405151,
+   "n_low_v_median": 5.0,
+   "n_over_m_median": 8.0
+  }
+ }
+}
