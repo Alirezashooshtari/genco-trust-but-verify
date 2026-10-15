@@ -181,14 +181,21 @@ claim(
 )
 
 # ------------------------------------------------------------------ fine-tuning
-t1 = json.loads((RES / "finetune_as_run/summary.json").read_text())
+# seed0 is the published checkpoint; seed1 and the first run (as_run) measure the spread between training runs
+RUNS = {"seed0": "seed 0", "seed1": "seed 1", "as_run": "first run"}
+PUBLISHED = "seed0"
+t1 = json.loads((RES / f"finetune_{PUBLISHED}/summary.json").read_text())
 claim(
     "fix",
     "training cases (regression targets) / minutes on one T4",
     f"{t1['cases']['regression_targets_train']} / {t1['training_minutes']:.0f}",
-    "finetune_as_run/summary.json",
+    f"finetune_{PUBLISHED}/summary.json",
 )
-ep = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoints_cases.csv").set_index(["group", "metric"])
+endpoints = {
+    run: pd.read_csv(RES / f"evaluate_finetuned_{run}/endpoints_cases.csv").set_index(["group", "metric"])
+    for run in RUNS
+}
+ep = endpoints[PUBLISHED]
 for grp in ("clustered (F1)", "footprint (held out)", "uniform (F1)"):
     r = ep.loc[(grp, "missed")]
     claim(
@@ -196,27 +203,55 @@ for grp in ("clustered (F1)", "footprint (held out)", "uniform (F1)"):
         f"{GROUP_NAMES[grp]}: decisions missed per case, released -> fine-tuned (paired 95 % CI of the difference)",
         f"{r.released_mean:.2f} -> {r.fine_tuned_mean:.2f} ({r.diff_mean:+.2f}, {100 * r.diff_mean / r.released_mean:+.0f} %; "
         f"{r.diff_ci_lo:+.2f} to {r.diff_ci_hi:+.2f})",
-        "evaluate_finetuned_as_run/endpoints_cases.csv",
+        f"evaluate_finetuned_{PUBLISHED}/endpoints_cases.csv",
     )
-fg = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_forgetting.csv").set_index("level")
+    claim(
+        "runs",
+        f"{GROUP_NAMES[grp]}: change in decisions missed per case (95 % CI), " + " / ".join(RUNS.values()),
+        " / ".join(
+            f"{e.loc[(grp, 'missed')].diff_mean:+.2f} ({e.loc[(grp, 'missed')].diff_ci_lo:+.2f} to "
+            f"{e.loc[(grp, 'missed')].diff_ci_hi:+.2f})"
+            for e in endpoints.values()
+        ),
+        "evaluate_finetuned_*/endpoints_cases.csv",
+    )
+forgetting = {
+    run: pd.read_csv(RES / f"evaluate_finetuned_{run}/endpoint_forgetting.csv").set_index("level") for run in RUNS
+}
+fg = forgetting[PUBLISHED]
 claim(
     "fix",
     "ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u.)",
     f"{fg.loc['N-2', 'released_median_err']:.4f} -> {fg.loc['N-2', 'fine_tuned_median_err']:.4f}",
-    "evaluate_finetuned_as_run/endpoint_forgetting.csv",
+    f"evaluate_finetuned_{PUBLISHED}/endpoint_forgetting.csv",
 )
-nf = json.loads((RES / "evaluate_finetuned_as_run/endpoint_near_fold.json").read_text())
+claim(
+    "runs",
+    "ordinary N-2 scenarios: fine-tuned median worst-bus error (p.u.), " + " / ".join(RUNS.values()),
+    " / ".join(f"{f.loc['N-2', 'fine_tuned_median_err']:.4f}" for f in forgetting.values()),
+    "evaluate_finetuned_*/endpoint_forgetting.csv",
+)
+nf = json.loads((RES / f"evaluate_finetuned_{PUBLISHED}/endpoint_near_fold.json").read_text())
 beyond = sum(nf[k]["beyond_fold_points"] for k in ("unresolved_at_actual_load", "solved_at_actual_load"))
 conv = sum(nf[k]["fine_tuned_newton_converged_beyond"] for k in ("unresolved_at_actual_load", "solved_at_actual_load"))
 claim(
     "fix",
     "load points beyond a fold where Newton from the fine-tuned state converged",
     f"{conv} of {beyond}",
-    "evaluate_finetuned_as_run/endpoint_near_fold.json",
+    f"evaluate_finetuned_{PUBLISHED}/endpoint_near_fold.json",
+)
+heads = {
+    run: pd.read_csv(RES / f"evaluate_finetuned_{run}/endpoint_head.csv").set_index(["model", "test"]) for run in RUNS
+}
+claim(
+    "runs",
+    "warning on the fine-tuned model, frozen-test AUROC, " + " / ".join(RUNS.values()),
+    " / ".join(f"{h.loc[('fine_tuned', 'F1'), 'auroc']:.3f}" for h in heads.values()),
+    "evaluate_finetuned_*/endpoint_head.csv",
 )
 
 # ------------------------------------------------------------------ the warning
-head = pd.read_csv(RES / "evaluate_finetuned_as_run/endpoint_head.csv").set_index(["model", "test"])
+head = heads[PUBLISHED]
 for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points within 5 % of the fold"):
     r = head.loc[("released", test)]
     lo, hi = json.loads(r.auroc_ci)
@@ -224,7 +259,7 @@ for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points withi
         "warning",
         f"released GENCO, {TEST_NAMES[test]}: AUROC (95 % CI); recall / false alarms at the frozen threshold",
         f"{r.auroc:.3f} ({lo:.3f} to {hi:.3f}); {r.recall_at_threshold:.2f} / {r.false_alarm_rate:.2f}",
-        "evaluate_finetuned_as_run/endpoint_head.csv",
+        f"evaluate_finetuned_{PUBLISHED}/endpoint_head.csv",
     )
 scores = pd.read_csv(RES / "analysis/warning_scores.csv")
 topo = scores[(scores.test == "F1") & (scores.features == "A topology") & (scores.classifier == "boosted trees")]
@@ -265,16 +300,26 @@ claim(
     f"N = {routing['min_lines']}, H = {routing['threshold_hops']:.0f}; {routing['training_accuracy']:.3f}",
     "analysis/routing.json",
 )
-for group in ("clustered", "random"):
-    r = routing["runs"]["as_run"][group]
+for group, label in (
+    ("clustered", "frozen test, clustered"),
+    ("random", "frozen test, random"),
+    ("footprint", "held-out construction"),
+):
+    r = routing["runs"][PUBLISHED][group]
     d = r["routed_minus_released_missed"]
     claim(
         "routing",
-        f"frozen test, {group} outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",
+        f"{label} outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",
         f"{r['routed_to_fine_tuned']} of {r['cases']}; {r['released_missed_mean']:.2f} -> {r['routed_missed_mean']:.2f} "
         f"({d['ci95'][0]:+.2f} to {d['ci95'][1]:+.2f})",
         "analysis/routing.json",
     )
+claim(
+    "runs",
+    "routing, clustered outages: decisions missed per case, routed, " + " / ".join(RUNS.values()),
+    " / ".join(f"{routing['runs'][run]['clustered']['routed_missed_mean']:.2f}" for run in RUNS),
+    "analysis/routing.json",
+)
 claim(
     "routing",
     "random N-2 / N-10 / N-20 outages routed to the fine-tuned model",
