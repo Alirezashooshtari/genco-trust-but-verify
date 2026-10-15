@@ -36,7 +36,7 @@ warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false 
 warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned_as_run/endpoint_head.csv
 warning,"released GENCO, storms within 5 % of the fold: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.572 (0.540 to 0.608); 0.88 / 0.88,evaluate_finetuned_as_run/endpoint_head.csv
 warning,"outage-topology baseline without GENCO (boosted trees), frozen-test AUROC",0.904,analysis/warning_scores.csv
-warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.058 (+0.031 to +0.089),analysis/warning_ablation.json
+warning,frozen test: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.059 (+0.031 to +0.089),analysis/warning_ablation.json
 warning,storms: AUROC gain of the GENCO warning over the topology baseline (paired 95 % CI),+0.138 (+0.052 to +0.233),analysis/warning_ablation.json
 warning,false-alarm rate at the 95 %-recall rule: topology baseline / GENCO warning,0.35 / 0.16,analysis/warning_ablation.json
 routing,rule: at least N lines out and spread at most H hops -> fine-tuned model; accuracy on training cases,"N = 5, H = 11; 0.989",analysis/routing.json
