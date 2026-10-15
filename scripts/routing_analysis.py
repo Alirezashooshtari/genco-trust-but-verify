@@ -4,8 +4,10 @@ Whether an outage is clustered is known from the outage itself, before any model
 fine-tuned model when it removes at least MIN_LINES lines and its spread (the largest hop distance between buses touched
 by the removed lines) is at most a threshold; everything else goes to the released model. MIN_LINES is the smallest
 outage in the fine-tuning set. The threshold is the one that classifies the fine-tuning training cases best (clustered
-or random). The rule is then applied unchanged to the frozen test, and its routing rate on random N-2, N-10 and N-20
-outages is estimated by drawing outages the way the released test sets do (lines drawn uniformly at random).
+or random). The rule is then applied unchanged to the frozen test and the held-out footprint cases of every fine-tuning
+run, and its routing rate on random N-2, N-10 and N-20 outages is estimated by drawing outages the way the released test
+sets do (lines drawn uniformly at random). The first run did not store the lines of its footprint cases, so for it only
+the frozen test is routed.
 
     python scripts/routing_analysis.py      # writes results/analysis/routing.json and routing_cases.csv
 """
@@ -22,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "results"
 CLUSTERED = ("nearest", "corridor")
 MIN_LINES = 5
+RUNS = ("seed0", "seed1", "as_run")  # seed0 is the published model
 
 
 def build_grid():
@@ -51,32 +54,31 @@ def paired_mean_ci(diff, clusters, n_boot=2000, seed=0):
     return [float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))]
 
 
-def main():
-    train = pd.read_csv(RES / "finetune_as_run/train_cases.csv")
-    train = train[(train.split == "train") & (train.k > 2)]
-    train["spread"] = [spread(json.loads(r)) for r in train.removed_lines]
-    clustered = train.family.str.startswith(CLUSTERED).to_numpy()
-    candidates = np.arange(1, 31)
-    accuracy = [float(((train.spread.to_numpy() <= c) == clustered).mean()) for c in candidates]
-    threshold = float(candidates[int(np.argmax(accuracy))])
-
-    def route(removed):
-        return "fine_tuned" if len(removed) >= MIN_LINES and spread(removed) <= threshold else "released"
-
-    cases = pd.read_csv(RES / "frozen_test/cases.csv").set_index("sid")
-    ev = pd.read_csv(RES / "evaluate_finetuned_as_run/cases.csv")
-    ev = ev[(ev.set == "F1") & ev.ref_status.str.startswith("verified")].copy()
-    ev["spread"] = [spread(json.loads(cases.loc[s, "removed_lines"])) for s in ev.sid]
-    ev["route"] = [route(json.loads(cases.loc[s, "removed_lines"])) for s in ev.sid]
+def route_run(run, route):
+    folder = RES / f"evaluate_finetuned_{run}"
+    removed = pd.read_csv(RES / "frozen_test/cases.csv").set_index("sid").removed_lines.to_dict()
+    footprint = folder / "footprint_cases.csv"
+    sets = ["F1"]
+    if footprint.exists():
+        removed |= pd.read_csv(footprint).set_index("sid").removed_lines.to_dict()
+        sets.append("footprint")
+    ev = pd.read_csv(folder / "cases.csv")
+    ev = ev[ev.set.isin(sets) & ev.ref_status.str.startswith("verified")].copy()
+    lines = [json.loads(removed[s]) for s in ev.sid]
+    ev["spread"] = [spread(r) for r in lines]
+    ev["route"] = [route(r) for r in lines]
     ev["routed_missed"] = np.where(ev.route == "fine_tuned", ev.fine_tuned_missed, ev.released_missed)
     ev["routed_worst_err"] = np.where(ev.route == "fine_tuned", ev.fine_tuned_worst_err, ev.released_worst_err)
 
-    out = {"min_lines": MIN_LINES, "threshold_hops": threshold, "training_accuracy": max(accuracy), "frozen_test": {}}
-    for name, mask in [
-        ("random", ~ev.family.str.startswith(CLUSTERED)),
-        ("clustered", ev.family.str.startswith(CLUSTERED)),
-        ("all", ev.family.notna()),
-    ]:
+    out = {}
+    groups = [
+        ("random", (ev.set == "F1") & ~ev.family.str.startswith(CLUSTERED)),
+        ("clustered", (ev.set == "F1") & ev.family.str.startswith(CLUSTERED)),
+        ("all", ev.set == "F1"),
+    ]
+    if "footprint" in sets:
+        groups.append(("footprint", ev.set == "footprint"))
+    for name, mask in groups:
         g = ev[mask]
         row = {"cases": int(len(g)), "routed_to_fine_tuned": int((g.route == "fine_tuned").sum())}
         for metric in ("missed", "worst_err"):
@@ -87,7 +89,27 @@ def main():
                 "mean": float(d.mean()),
                 "ci95": paired_mean_ci(d, g.base.to_numpy()),
             }
-        out["frozen_test"][name] = row
+        out[name] = row
+    return out, ev.assign(run=run)
+
+
+def main():
+    train = pd.read_csv(RES / "finetune_seed0/train_cases.csv")
+    train = train[(train.split == "train") & (train.k > 2)]
+    train["spread"] = [spread(json.loads(r)) for r in train.removed_lines]
+    clustered = train.family.str.startswith(CLUSTERED).to_numpy()
+    candidates = np.arange(1, 31)
+    accuracy = [float(((train.spread.to_numpy() <= c) == clustered).mean()) for c in candidates]
+    threshold = float(candidates[int(np.argmax(accuracy))])
+
+    def route(removed):
+        return "fine_tuned" if len(removed) >= MIN_LINES and spread(removed) <= threshold else "released"
+
+    out = {"min_lines": MIN_LINES, "threshold_hops": threshold, "training_accuracy": max(accuracy), "runs": {}}
+    per_case = []
+    for run in RUNS:
+        out["runs"][run], cases = route_run(run, route)
+        per_case.append(cases)
 
     rng = np.random.default_rng(0)
     out["random_outages_routed_to_fine_tuned"] = {}
@@ -96,21 +118,9 @@ def main():
         out["random_outages_routed_to_fine_tuned"][f"N-{k}"] = float(np.mean(np.array(draws) == "fine_tuned"))
 
     (RES / "analysis/routing.json").write_text(json.dumps(out, indent=1) + "\n")
-    ev[
-        [
-            "sid",
-            "base",
-            "family",
-            "spread",
-            "route",
-            "released_missed",
-            "fine_tuned_missed",
-            "routed_missed",
-            "released_worst_err",
-            "fine_tuned_worst_err",
-            "routed_worst_err",
-        ]
-    ].to_csv(RES / "analysis/routing_cases.csv", index=False, float_format="%.6g")
+    columns = ["run", "set", "sid", "base", "family", "spread", "route"]
+    columns += [f"{m}_{x}" for x in ("missed", "worst_err") for m in ("released", "fine_tuned", "routed")]
+    pd.concat(per_case)[columns].to_csv(RES / "analysis/routing_cases.csv", index=False, float_format="%.6g")
     print(json.dumps(out, indent=1))
 
 

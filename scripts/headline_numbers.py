@@ -266,7 +266,7 @@ claim(
     "analysis/routing.json",
 )
 for group in ("clustered", "random"):
-    r = routing["frozen_test"][group]
+    r = routing["runs"]["as_run"][group]
     d = r["routed_minus_released_missed"]
     claim(
         "routing",
