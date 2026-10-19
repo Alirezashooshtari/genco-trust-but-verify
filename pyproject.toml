@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genco-verify"
-version = "1.2.0"
+version = "1.2.1"
 description = "Verified N-k contingency screening with GENCO: Newton-Raphson decides, every case ends verified safe, verified violation or unresolved."
 readme = "README.md"
 license = { text = "MIT" }
