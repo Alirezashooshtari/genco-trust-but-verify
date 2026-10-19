@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.npz binary
+*.joblib binary
+*.pt binary
+*.safetensors binary

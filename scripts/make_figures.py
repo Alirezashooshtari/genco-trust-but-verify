@@ -270,9 +270,9 @@ def figure3():
     fig = plt.figure(figsize=(WIDTH, 5.1))
     headline(
         fig,
-        "Where GENCO goes wrong, and why",
+        "Where GENCO goes wrong, and a likely reason",
         "Its errors grow when outages cluster in one area, the pattern of storms and wildfires. Probing it with small,\n"
-        "realistic changes shows why: GENCO largely follows local physics, but under-reacts when the whole system is stressed.",
+        "realistic changes points to a reason: it tracks AC closely under local changes but under-reacts to system-wide growth.",
     )
     gs = fig.add_gridspec(1, 2, left=0.085, right=0.975, top=0.69, bottom=0.2, wspace=0.3, width_ratios=[1.15, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -484,8 +484,8 @@ def figure5():
     headline(
         fig,
         "Teaching GENCO where it fails, and to warn when the solver will",
-        "Fine-tuned on 6,737 solver-labelled contingencies, GENCO misses fewer decisions on cases it never saw, in all three\n"
-        "training runs, at a price on ordinary ones. A small head on its embeddings flags cases the solver will not resolve.",
+        "Fine-tuned on 6,737 solver-labelled contingencies, GENCO misses fewer decisions on cases it never saw, also in a second\n"
+        "seed and in a first run made before a fix, at a price on ordinary ones. A head on its embeddings flags unresolved cases.",
     )
     gs = fig.add_gridspec(
         1, 3, left=0.07, right=0.975, top=0.68, bottom=0.17, wspace=0.42, width_ratios=[1.15, 0.85, 1.0]

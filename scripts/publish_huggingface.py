@@ -107,6 +107,8 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
         },
     }
     (out / "config.json").write_text(json.dumps(config, indent=2) + "\n")
+    if config["sha256"]["model.safetensors"] not in (ROOT / "release/MODEL_CARD.md").read_text():
+        raise SystemExit("release/MODEL_CARD.md does not state the SHA-256 of the converted model.safetensors")
     card = (
         (ROOT / "release/MODEL_CARD.md")
         .read_text()
