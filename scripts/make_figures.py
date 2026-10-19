@@ -1,7 +1,10 @@
-"""Draws the five figures of the write-up from the files in results/.
+"""Draws figures 2 to 5 of the write-up from the files in results/.
 
-python scripts/make_figures.py            # all figures -> figures/*.png and figures/*.svg
+python scripts/make_figures.py            # all four -> figures/*.png and figures/*.svg
 python scripts/make_figures.py 2 5        # selected figures
+
+Figure 1, the workflow diagram, is drawn in draw.io: figures/fig1_workflow.svg opens there for editing, and
+figures/fig1_workflow.png is exported from it.
 """
 
 import sys
@@ -15,7 +18,6 @@ import numpy as np
 import pandas as pd
 from matplotlib import font_manager
 from matplotlib.lines import Line2D
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 from sklearn.metrics import roc_auc_score, roc_curve
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -95,83 +97,6 @@ def save(fig, name):
     fig.savefig(OUT / f"{name}.svg")
     plt.close(fig)
     print("wrote", f"figures/{name}.png")
-
-
-# ---------------------------------------------------------------------------------------------------------- 1
-def figure1():
-    """The verified workflow."""
-    fig = plt.figure(figsize=(WIDTH, 4.0))
-    headline(
-        fig,
-        "GENCO proposes, the solver decides",
-        "Every contingency ends in one of three outcomes. A case the solver cannot resolve is an alarm, never a pass.",
-    )
-    ax = fig.add_axes([0.02, 0.02, 0.96, 0.76])
-    ax.set_xlim(0, 100)
-    ax.set_ylim(0, 48)
-    ax.axis("off")
-
-    def box(x, y, w, h, title, lines, accent=None):
-        ax.add_patch(
-            FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.6", fc="white", ec=AXIS, lw=1.1)
-        )
-        if accent:
-            ax.plot([x + 1.8, x + w - 1.8], [y + h, y + h], color=accent, lw=5, solid_capstyle="butt")
-        ax.text(x + 2.2, y + h - 5.4, title, fontsize=13, fontweight="bold", color=INK, va="center")
-        for i, line in enumerate(lines):
-            ax.text(x + 2.2, y + h - 11.0 - 4.8 * i, line, fontsize=10.5, color=INK2, va="center")
-
-    def arrow(x0, y0, x1, y1, color=INK2):
-        ax.add_patch(
-            FancyArrowPatch(
-                (x0, y0), (x1, y1), arrowstyle="-|>", mutation_scale=14, color=color, lw=1.4, shrinkA=0, shrinkB=0
-            )
-        )
-
-    box(1, 17, 17, 27, "Contingency", ["operating point", "with 2 to 20", "lines out"])
-    box(22, 17, 22, 27, "GENCO", ["one forward pass:", "every voltage and", "angle in ~70 ms"], accent=GENCO)
-    box(
-        48,
-        17,
-        24,
-        27,
-        "Newton-Raphson",
-        ["from GENCO's state,", "up to 3 classical fallbacks;", "mismatch below $10^{-8}$ p.u."],
-        accent=INK,
-    )
-    ax.add_patch(
-        FancyBboxPatch((22, 1.5), 22, 11, boxstyle="round,pad=0,rounding_size=1.4", fc="#eef4fc", ec=GENCO_PALE, lw=1.1)
-    )
-    ax.text(24.2, 8.9, "Warning head", fontsize=10.5, fontweight="bold", color=INK, va="center")
-    ax.text(24.2, 4.8, "“likely unresolved” score", fontsize=9.5, color=INK2, va="center")
-    arrow(18, 30.5, 22, 30.5)
-    arrow(44, 30.5, 48, 30.5)
-    arrow(33, 17, 33, 12.5)
-
-    outcomes = [
-        (39, "Verified safe", "AC solution, no limit violated", SAFE),
-        (26.5, "Verified violation", "AC solution, a limit violated", VIOLATION),
-        (14, "Unresolved", "no start converges: alarm", UNRESOLVED),
-    ]
-    for y, title, sub, color in outcomes:
-        ax.add_patch(
-            FancyBboxPatch((76, y - 5), 23, 10, boxstyle="round,pad=0,rounding_size=1.4", fc="white", ec=AXIS, lw=1.1)
-        )
-        ax.plot([76.15, 76.15], [y - 3.6, y + 3.6], color=color, lw=6, solid_capstyle="butt")
-        ax.text(78.4, y + 1.8, title, fontsize=11.5, fontweight="bold", color=INK, va="center")
-        ax.text(78.4, y - 2.2, sub, fontsize=9.5, color=INK2, va="center")
-        arrow(72, 30.5, 76, y, color=MUTED)
-    ax.text(
-        48,
-        7.5,
-        "GENCO alone has no third outcome:\nit returns a full state for every case.",
-        fontsize=10,
-        color=MUTED,
-        va="center",
-        style="italic",
-        linespacing=1.4,
-    )
-    save(fig, "fig1_workflow")
 
 
 # ---------------------------------------------------------------------------------------------------------- 2
@@ -571,7 +496,7 @@ def figure5():
     save(fig, "fig5_fine_tuning_and_warning")
 
 
-FIGURES = {1: figure1, 2: figure2, 3: figure3, 4: figure4, 5: figure5}
+FIGURES = {2: figure2, 3: figure3, 4: figure4, 5: figure5}
 
 if __name__ == "__main__":
     for i in [int(a) for a in sys.argv[1:]] or FIGURES:
