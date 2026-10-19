@@ -1,0 +1,75 @@
+{
+ "MODEL_REPO": "gridfm/genco-pf-datakit",
+ "MODEL_REVISION": "f5eb20ee798b9847b723c91874af85d32a96a468",
+ "MODEL_DIR": "case118_ieee/base/seed0",
+ "MODEL_CONFIG": "case118_ieee_base_seed0.yaml",
+ "EVAL_RUN": "mlflow/eval/case118_ieee/base/seed0/8289694ec85b4df080e584d18a815b57",
+ "DATA_REPO": "gridfm/pf_small_case118_ieee",
+ "DATA_REVISION": "3f5a6e266f759be15e3777bf4d70133ff40e6fa7",
+ "NETWORK": "case118_ieee",
+ "GRAPHKIT_DIR": "gridfm-graphkit",
+ "GRAPHKIT_COMMIT": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f",
+ "LOCAL_MODEL": "genco-pf-datakit",
+ "LOCAL_DATA": "pf_small_case118_ieee",
+ "OUT_DIR": "second_grid",
+ "N_PARTITIONS": 24,
+ "N_BASES": 150,
+ "FAMILIES": [
+  [
+   "uniform",
+   1
+  ],
+  [
+   "uniform",
+   3
+  ],
+  [
+   "uniform",
+   6
+  ],
+  [
+   "nearest",
+   3
+  ],
+  [
+   "nearest",
+   6
+  ],
+  [
+   "corridor",
+   6
+  ]
+ ],
+ "REGION_HOPS": 4,
+ "POLICY": {
+  "tol_pu": 1e-08,
+  "max_iter": 30,
+  "order": [
+   "genco",
+   "base",
+   "dc",
+   "flat"
+  ],
+  "line_limit": 1.0,
+  "voltage_buses": "pq",
+  "low_voltage_flag": 0.5,
+  "recovery": {
+   "max_iter": 100,
+   "homotopy_steps": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+   ]
+  },
+  "enforce_q_limits": false,
+  "q_limit_rounds": 15
+ },
+ "GROWTH": 0.02,
+ "N_GROWTH": 60,
+ "AUTHORS_RMSE_VM_PQ": 0.000275,
+ "MODEL_CHECK_FACTOR": 5,
+ "NETWORK_CHECK_PU": 0.0001,
+ "BOOTSTRAP": 1000,
+ "SEED": 0
+}

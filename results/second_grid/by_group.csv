@@ -1,0 +1,4 @@
+group,cases,resolved,unresolved,verified_decisions,false_alarms,missed_alarms,verified_with_a_different_decision,genco_alone_cases_with_a_miss,genco_alone_cases_with_a_miss_or_false_flag,ref_overloads,genco_missed_overloads,ref_vviol,genco_missed_vviol,genco_worst_err_median,iterations_classical_mean,iterations_from_genco_mean,genco_start_used,ms_classical_median,ms_verified_median
+one line,118.0,118.0,0.0,118.0,0.0,0.0,0.0,58.0,95.0,296.0,67.0,87.0,25.0,0.001037830321158617,2.9322033898305087,2.1440677966101696,118.0,0.9407679999924312,59.18306999996048
+random,236.0,235.0,1.0,235.0,0.0,0.0,0.0,90.0,154.0,843.0,97.0,210.0,38.0,0.0014643062802897067,3.2680851063829786,2.3659574468085105,235.0,0.9569414999646142,59.80146650000506
+clustered,354.0,326.0,28.0,326.0,0.0,0.0,0.0,208.0,274.0,1697.0,531.0,360.0,118.0,0.00379858799483046,3.7699386503067487,3.138036809815951,326.0,0.9809789999906116,59.617475000010245
