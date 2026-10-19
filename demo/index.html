@@ -398,7 +398,7 @@ svg text { font-family: inherit; }
     <div class="page method">
       <div>
         <p class="lede">GENCO proposes a state. Newton-Raphson decides.</p>
-        <p class="lede-sub">GENCO predicts every voltage and angle of a contingency in one forward pass. On its own it returns a plausible grid for every case, including cases past voltage collapse. The verifier turns that prediction into a starting point and lets the AC equations make the call.</p>
+        <p class="lede-sub">GENCO predicts every voltage and angle of a contingency in one forward pass. On its own it returns a plausible grid for every case, including severe cases for which none of the tested Newton starts converges. The verifier turns that prediction into a starting point and lets the AC equations make the call.</p>
       </div>
       <div class="figure">
         <h2>The workflow</h2>
@@ -408,7 +408,7 @@ svg text { font-family: inherit; }
           <div><h3>3. Newton-Raphson</h3><p>Starts from GENCO's state; if that fails, from the pre-contingency, DC and flat states. Converged means a power mismatch below 10<sup>−8</sup> p.u.</p></div>
           <div class="outs"><h3>4. Outcome</h3>
             <div><span class="dot safe"></span>Verified safe: an AC solution with no limit violated</div>
-            <div><span class="dot violation"></span>Verified violation: an overload or a voltage outside 0.9 to 1.1 p.u.</div>
+            <div><span class="dot violation"></span>Verified violation: an overload, or a bus voltage outside its limits</div>
             <div><span class="dot unresolved"></span>Unresolved: no start converged; the case goes to an engineer</div>
           </div>
         </div>
@@ -416,11 +416,11 @@ svg text { font-family: inherit; }
       <div class="figure">
         <h2>What the outcomes mean, and what they do not</h2>
         <ul class="limits">
-          <li><b>Unresolved</b> is a statement about the solver and its four starts, not a proof that no AC solution exists. In the storms studied, continuation confirmed that the solution folds below the actual load.</li>
+          <li><b>Unresolved</b> is a statement about the solver and its four starts, not a proof that no AC solution exists. In the storms studied, continuation placed the fold of the AC solution below the actual load for 32 of the 33 such cases and found no solution at any load for the last.</li>
           <li>The equations can have two solutions. In 2 of the 748 verified cases GENCO's start reached a high-voltage solution and the classical starts a low-voltage one. A static power flow cannot say which the grid would settle on.</li>
-          <li>The warning catches 95 % of unresolved cases at its preset threshold, with 16 % false alarms, and is close to chance right at a voltage-collapse point. The solver still runs on every case.</li>
+          <li>The warning catches 95 % of unresolved cases at its preset threshold, with 16 % false alarms, and is close to chance within 5 % of the fold. The solver still runs on every case.</li>
           <li>On this grid GENCO does not make screening faster: its start saves about one Newton iteration, but inference costs more than the classical solve.</li>
-          <li>One grid, three fine-tuning runs, research code. Not for operational use.</li>
+          <li>This explorer shows the Texas grid; the repository also repeats the workflow test on IEEE 118. Research code, not for operational use.</li>
         </ul>
       </div>
     </div>
@@ -597,7 +597,7 @@ function renderVerdict(c) {
   const q = ex && ex.q_limits ? `<div class="foot">With generator reactive limits enforced the outcome is the same: ${String(ex.q_limits.note || "").replace(/\.$/, "")}.</div>` : "";
   $("verdict").innerHTML = `<div class="panel-head"><h2>GENCO alone against the check</h2></div>
     <table><thead><tr><th></th><th>GENCO alone</th><th>Verified</th></tr></thead><tbody>${rows}</tbody></table>
-    <div class="foot">GENCO alone means taking its predicted state at face value: a line is overloaded at 100 % of its rating, a bus violates below 0.9 or above 1.1 p.u. Verified decisions come from the converged AC state.</div>${starts}${q}`;
+    <div class="foot">GENCO alone means taking its predicted state at face value: a line is overloaded at 100 % of its rating, a bus violates when its voltage is outside its limits Verified decisions come from the converged AC state.</div>${starts}${q}`;
 }
 
 // ------------------------------------------------------------------ map
@@ -692,7 +692,7 @@ const map = (() => {
     let html = `<div class="k"><span class="sw out"></span>Lines out</div>`;
     if (ex) {
       html += `<div class="k"><span class="sw over"></span>Overloaded line</div>
-        <div class="k"><span class="dot" style="background:var(--unresolved-dot)"></span>Bus below 0.90 p.u. (violation)</div>
+        <div class="k"><span class="dot" style="background:var(--unresolved-dot)"></span>Bus below 0.90 p.u.</div>
         <div class="k"><span class="dot" style="background:var(--violation-dot)"></span>Bus 0.90 to 0.93 p.u.</div>`;
     }
     html += `<div class="k"><span class="dot" style="background:none;border:1.3px solid var(--ink);width:11px;height:11px"></span>Outage centre</div>`;
