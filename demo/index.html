@@ -398,7 +398,7 @@ svg text { font-family: inherit; }
     <div class="page method">
       <div>
         <p class="lede">GENCO proposes a state. Newton-Raphson decides.</p>
-        <p class="lede-sub">GENCO predicts every voltage and angle of a contingency in one forward pass. On its own it returns a plausible grid for every case, including severe cases for which none of the tested Newton starts converges. The verifier turns that prediction into a starting point and lets the AC equations make the call.</p>
+        <p class="lede-sub">GENCO predicts every voltage and angle of a contingency in one forward pass. On its own it returns a full state for every case, including severe cases for which none of the tested Newton starts converges. The verifier turns that prediction into a starting point and lets the AC equations make the call.</p>
       </div>
       <div class="figure">
         <h2>The workflow</h2>
@@ -580,9 +580,9 @@ function renderVerdict(c) {
   let rows = "";
   const cell = (missed, ref) => missed ? `<span class="miss num">${missed} of ${ref} missed</span>` : (ref ? `<span class="ok num">all ${ref} found</span>` : `<span class="ok">none, correct</span>`);
   if (c.status === "unresolved") {
-    rows = `<tr><td>AC solution</td><td>shown anyway</td><td>none found</td></tr>
+    rows = `<tr><td>AC state</td><td>returned anyway</td><td>no converged state</td></tr>
       <tr><td>Lowest voltage</td><td class="num">${fmt(c.genco_min_vm)}</td><td>–</td></tr>
-      <tr><td>Outcome</td><td>looks ordinary</td><td><b style="color:var(--unresolved)">alarm</b></td></tr>`;
+      <tr><td>Outcome</td><td>a state, no alarm</td><td><b style="color:var(--unresolved)">alarm</b></td></tr>`;
   } else {
     rows = `<tr><td>Overloaded lines</td><td>${a ? cell(a.over_missed, a.over_ref) : "–"}</td><td class="num">${c.n_over}</td></tr>
       <tr><td>Voltage violations</td><td>${a ? cell(a.v_missed, a.v_ref) : "–"}</td><td class="num">${c.n_low_v}</td></tr>
@@ -728,7 +728,7 @@ const map = (() => {
     let body = `<b>Bus ${best}</b>, ${G.kv[best]} kV`;
     if (ex) {
       body += `<br>GENCO ${fmt(ex.vm_genco[best])} p.u.`;
-      body += ex.vm_ac ? `<br>Solver ${fmt(ex.vm_ac[best])} p.u.` : `<br>Solver: no solution`;
+      body += ex.vm_ac ? `<br>Solver ${fmt(ex.vm_ac[best])} p.u.` : `<br>Solver: no converged state`;
       body += `<br>Before the outage ${fmt(ex.vm_pre[best])} p.u.`;
     }
     tip.innerHTML = body; tip.style.display = "block"; tip.style.left = `${px}px`; tip.style.top = `${py}px`;

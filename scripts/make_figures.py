@@ -136,7 +136,7 @@ def figure1():
         24,
         27,
         "Newton-Raphson",
-        ["from GENCO's state,", "then 3 classical starts;", "mismatch below $10^{-8}$ p.u."],
+        ["from GENCO's state,", "up to 3 classical fallbacks;", "mismatch below $10^{-8}$ p.u."],
         accent=INK,
     )
     ax.add_patch(
@@ -164,7 +164,7 @@ def figure1():
     ax.text(
         48,
         7.5,
-        "GENCO alone has no third outcome:\nit returns a plausible grid for every case.",
+        "GENCO alone has no third outcome:\nit returns a full state for every case.",
         fontsize=10,
         color=MUTED,
         va="center",
@@ -176,11 +176,12 @@ def figure1():
 
 # ---------------------------------------------------------------------------------------------------------- 2
 def figure2():
-    """Storms beyond the collapse point: GENCO still answers."""
+    """Storms beyond the fold: GENCO still answers."""
     S = pd.read_csv(RES / "storms/sweep.csv")
     Z = np.load(RES / "storms/showcase.npz")
     storm = 910000057
-    fold, _, weak, centre = Z[f"{storm}_meta"]
+    _, _, weak, centre = Z[f"{storm}_meta"]
+    fold = float(pd.read_csv(RES / "fold_check/noses.csv").set_index("sid").loc[storm, "lam_fold"])  # by continuation
     weak, n_out = int(weak), len(Z[f"{storm}_removed"])
     lam = Z[f"{storm}_lams"]
     v_genco = Z[f"{storm}_vm_genco"][:, weak].astype(float)
@@ -190,8 +191,8 @@ def figure2():
     headline(
         fig,
         "GENCO never says “no solution”",
-        "120 clustered N-20 outages (“storms”) on the Texas 2,000-bus grid. In 33 of them no Newton start converges at the\n"
-        "actual load: the tracked AC solution folds (voltage collapse) below it. GENCO still returns an ordinary-looking grid.",
+        "120 clustered N-20 outages (“storms”) on the Texas 2,000-bus grid. In 33 no Newton start converges at the actual load;\n"
+        "for 32, continuation places the fold of the AC solution below it. GENCO still returns a full state for every one.",
     )
     gs = fig.add_gridspec(1, 2, left=0.075, right=0.975, top=0.69, bottom=0.17, wspace=0.28, width_ratios=[1.25, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -209,7 +210,7 @@ def figure2():
     a.text(
         fold - 0.006,
         v_ac[ok][-1],
-        f"fold at {fold:.3f}× load:\nthe AC solution ends",
+        f"fold at {fold:.3f}× load\n(continuation)",
         ha="right",
         va="center",
         fontsize=9.5,
@@ -255,7 +256,7 @@ def figure2():
     panel_title(b, "b", f"At the actual load: {len(solved)} solved, {len(unresolved)} unresolved")
     source(
         fig,
-        "Notebook `storms` (lightsim2grid Newton-Raphson); folds confirmed by continuation in notebook `fold_check`. Bars: medians.",
+        "Notebook `storms` (lightsim2grid Newton-Raphson); folds located by continuation in notebook `fold_check`. Bars: medians.",
     )
     save(fig, "fig2_never_says_no")
 
@@ -270,9 +271,9 @@ def figure3():
     fig = plt.figure(figsize=(WIDTH, 5.1))
     headline(
         fig,
-        "Where GENCO goes wrong, and a likely reason",
+        "Where GENCO goes wrong, and how its response differs",
         "Its errors grow when outages cluster in one area, the pattern of storms and wildfires. Probing it with small,\n"
-        "realistic changes points to a reason: it tracks AC closely under local changes but under-reacts to system-wide growth.",
+        "realistic changes: it tracks AC closely under local changes but under-reacts to system-wide load growth.",
     )
     gs = fig.add_gridspec(1, 2, left=0.085, right=0.975, top=0.69, bottom=0.2, wspace=0.3, width_ratios=[1.15, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -483,7 +484,7 @@ def figure5():
     fig = plt.figure(figsize=(WIDTH, 5.3))
     headline(
         fig,
-        "Teaching GENCO where it fails, and to warn when the solver will",
+        "Fine-tuning GENCO for hard contingencies, and a warning for unresolved ones",
         "Fine-tuned on 6,737 solver-labelled contingencies, GENCO misses fewer decisions on cases it never saw, also in a second\n"
         "seed and in a first run made before a fix, at a price on ordinary ones. A head on its embeddings flags unresolved cases.",
     )
@@ -507,10 +508,12 @@ def figure5():
         a.text(
             xi, top + 0.22, f"{r.diff_mean:+.2f}", ha="center", va="bottom", fontsize=10.5, color=INK, fontweight="bold"
         )
+    marks = {"seed1": dict(color=INK, lw=0), "as_run": dict(facecolor="white", edgecolor=INK, lw=1)}
     for r in runs[1:]:
         other = E[r][E[r].metric == "missed"].set_index("group")
-        a.scatter(x + 0.19, [other.loc[g, "fine_tuned_mean"] for g, _ in groups], s=14, color=INK, zorder=3, lw=0)
-    a.scatter([], [], s=14, color=INK, lw=0, label="other runs")
+        a.scatter(x + 0.19, [other.loc[g, "fine_tuned_mean"] for g, _ in groups], s=16, zorder=3, **marks[r])
+    a.scatter([], [], s=16, label="seed 1", **marks["seed1"])
+    a.scatter([], [], s=16, label="first run, before the fix", **marks["as_run"])
     a.set_xticks(x)
     a.set_xticklabels([lab for _, lab in groups], fontsize=9.5)
     a.set_ylim(0, 7.4)
@@ -523,7 +526,7 @@ def figure5():
     b.bar(xs - 0.19, f0.released_median_err * 1000, 0.36, color=GENCO)
     b.bar(xs + 0.19, f0.fine_tuned_median_err * 1000, 0.36, color=TUNED)
     for r in runs[1:]:
-        b.scatter(xs + 0.19, F[r].fine_tuned_median_err * 1000, s=14, color=INK, zorder=3, lw=0)
+        b.scatter(xs + 0.19, F[r].fine_tuned_median_err * 1000, s=16, zorder=3, **marks[r])
     b.set_xticks(xs)
     b.set_xticklabels(f0.level)
     b.set_ylim(0, 7.4)
@@ -562,8 +565,8 @@ def figure5():
     panel_title(c, "c", "Warning, frozen test")
     source(
         fig,
-        "Bars: the published run (seed 0); dots: seed 1 and the first run. a: 401 clustered, 153 held-out, 347 random cases. "
-        "b: released test scenarios. c: 870 frozen-test cases.",
+        "Bars: seed 0 (published); dots: seed 1 (filled), first run before the fix (open). a: 401 clustered, 153 held-out, 347 "
+        "random cases. b: released scenarios. c: 870 frozen-test cases.",
     )
     save(fig, "fig5_fine_tuning_and_warning")
 
