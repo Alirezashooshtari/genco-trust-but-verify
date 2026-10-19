@@ -89,6 +89,20 @@ needs the feature matrices published with the model:
 python scripts/warning_ablation.py --features-dir <folder with features_released.npz and features_finetuned.npz>
 ```
 
+## Limitations
+
+- **Steady state only.** The check is an AC power flow: no dynamics, protection or remedial actions.
+- **Unresolved is not infeasible.** It means none of the tested starts converged within the iteration cap. For the storms,
+  continuation places the fold of the AC solution below the actual load in 32 of the 33 such cases.
+- **More than one AC solution.** In 2 of the 748 verified frozen-test cases the starts reached different solutions; the
+  module reports such cases instead of choosing silently.
+- **No speed-up on this grid.** GENCO plus verification takes 86 ms per case (median), the classical solve 13 ms.
+- **The warning fades near the fold.** Within 5 % of it the AUROC is 0.57. The warning orders the work; the solver still
+  runs on every case.
+- **The fine-tuned model is a specialist.** It is less accurate on ordinary scenarios (median worst-bus error 0.0013 to
+  0.0036 p.u.), so ordinary outages should stay with the released model.
+- **Two grids.** Texas 2,000-bus and IEEE 118; on IEEE 118 every operating point already has one generator out.
+
 ## Credits and licence
 
 GENCO, gridfm-graphkit and the Texas test data are by the GridFM team (`gridfm/genco-pf-contingency`, Apache-2.0).

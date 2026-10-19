@@ -32,5 +32,7 @@ jobs:
         run: |
           python scripts/make_figures.py
           python scripts/build_demo.py
+      # figures/ is redrawn as a smoke test but not compared byte for byte: image bytes vary with the Matplotlib build
+      # and the fonts installed, while the numbers behind every figure are in results/ and are compared.
       - name: The committed numbers and the demo are reproduced exactly
         run: git diff --exit-code -- results/ demo/index.html

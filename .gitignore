@@ -6,9 +6,15 @@ __pycache__/
 .venv/
 build/
 dist/
-# notebook outputs downloaded from Colab before they are moved into results/
-/step*_outputs/
-/step*_outputs.zip
+# notebook outputs and downloads kept outside results/
+outputs/
+artifacts/
+checkpoints/
+/*.zip
 *.pt
 *.npz
 !results/**/*.npz
+.env
+.DS_Store
+.vscode/
+.idea/
