@@ -2,7 +2,8 @@
 
 Every notebook runs top to bottom on a fresh Google Colab runtime. It installs what it needs, downloads the public data
 and the released checkpoint from Hugging Face (`gridfm/genco-pf-contingency`), and ends by zipping its output folder
-(for example `storms.zip`). The folders in `results/` are those outputs.
+(for example `storms.zip`). The folders in `results/` hold the parts of those outputs that the numbers and figures
+need; large files (checkpoints, feature matrices) are left out, and the fine-tuned model's are on Hugging Face.
 
 1. Open the notebook in Colab. For a notebook that needs a GPU (see `notebooks/README.md`) choose *Runtime → Change
    runtime type → T4 GPU*.
