@@ -416,7 +416,7 @@ svg text { font-family: inherit; }
       <div class="figure">
         <h2>What the outcomes mean, and what they do not</h2>
         <ul class="limits">
-          <li><b>Unresolved</b> is a statement about the solver and its four starts, not a proof that no AC solution exists. In the storms studied, continuation placed the fold of the AC solution below the actual load for 32 of the 33 such cases for the remaining case, no start converged anywhere in the tested load-factor range, so no fold was identified.</li>
+          <li><b>Unresolved</b> is a statement about the solver and its four starts, not a proof that no AC solution exists. In the storms studied, continuation placed the fold of the AC solution below the actual load for 32 of the 33 such cases; for the remaining case, no start converged anywhere in the tested load-factor range, so no fold was identified.</li>
           <li>The equations can have two solutions. In 2 of the 748 verified cases GENCO's start reached a high-voltage solution and the classical starts a low-voltage one. A static power flow cannot say which the grid would settle on.</li>
           <li>The warning catches 95 % of unresolved cases at its preset threshold, with 16 % false alarms, and is close to chance within 5 % of the fold. The solver still runs on every case.</li>
           <li>On this grid GENCO does not make screening faster: its start saves about one Newton iteration, but inference costs more than the classical solve.</li>
@@ -700,7 +700,7 @@ const map = (() => {
     const ex2 = ex;
     let msg = "";
     if (!ex2) msg = "Bus voltages are stored for the four example cases. Here the map shows where the lines went out.";
-    else if (state.mode === "ac" && !ex2.vm_ac) msg = "No AC solution: no start converged.";
+    else if (state.mode === "ac" && !ex2.vm_ac) msg = "Unresolved: none of the tested starts converged.";
     $("mapmsg").textContent = msg;
   }
 
