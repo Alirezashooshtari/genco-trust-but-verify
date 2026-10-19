@@ -272,7 +272,7 @@ def figure3():
         fig,
         "Where GENCO goes wrong, and why",
         "Its errors grow when outages cluster in one area, the pattern of storms and wildfires. Probing it with small,\n"
-        "realistic changes shows why: GENCO follows local physics, but under-reacts when the whole system is stressed.",
+        "realistic changes shows why: GENCO largely follows local physics, but under-reacts when the whole system is stressed.",
     )
     gs = fig.add_gridspec(1, 2, left=0.085, right=0.975, top=0.69, bottom=0.2, wspace=0.3, width_ratios=[1.15, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -356,8 +356,8 @@ def figure3():
     panel_title(b, "b", "Every load grows by 1 %")
     source(
         fig,
-        "a: notebook `clustered_outages`, 42 to 60 cases per group; bars are medians.   b: notebook `load_response`, 129 scenarios; the line is the "
-        "median slope over scenarios.",
+        "a: notebook `clustered_outages`, 42 to 60 cases per group; bars are medians.   b: notebook `load_response`, 129 scenarios, "
+        "linearised from ±2 % changes; line: median slope.",
     )
     save(fig, "fig3_where_and_why")
 
