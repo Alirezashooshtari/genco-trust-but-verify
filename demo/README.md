@@ -7,7 +7,7 @@ sdk: static
 app_file: index.html
 pinned: false
 license: mit
-short_description: What GENCO predicted, what its warning said, what the solver decided.
+short_description: What GENCO predicted and what the solver decided
 ---
 
 # GENCO Contingency Verifier
