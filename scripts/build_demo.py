@@ -2,7 +2,7 @@
 
     python scripts/build_demo.py
 
-Reads results/ and demo/app.html, writes demo/index.html: one self-contained page (also the Hugging Face Space).
+Reads results/ and demo/app.html, writes demo/index.html: one static page with the data built in (also the Hugging Face Space).
 """
 
 import json

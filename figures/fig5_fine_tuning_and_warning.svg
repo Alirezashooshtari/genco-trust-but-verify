@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-19T14:34:24.871213</dc:date>
+    <dc:date>2026-10-19T15:41:26.794341</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -63,7 +63,7 @@ z
      <g id="line2d_4">
       <path d="M 50.4 316.728 
 L 245.540625 316.728 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_5"/>
      <g id="text_4">
@@ -74,7 +74,7 @@ L 245.540625 316.728
      <g id="line2d_6">
       <path d="M 50.4 290.428541 
 L 245.540625 290.428541 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_7"/>
      <g id="text_5">
@@ -85,7 +85,7 @@ L 245.540625 290.428541
      <g id="line2d_8">
       <path d="M 50.4 264.129081 
 L 245.540625 264.129081 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_9"/>
      <g id="text_6">
@@ -96,7 +96,7 @@ L 245.540625 264.129081
      <g id="line2d_10">
       <path d="M 50.4 237.829622 
 L 245.540625 237.829622 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_11"/>
      <g id="text_7">
@@ -107,7 +107,7 @@ L 245.540625 237.829622
      <g id="line2d_12">
       <path d="M 50.4 211.530162 
 L 245.540625 211.530162 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_13"/>
      <g id="text_8">
@@ -118,7 +118,7 @@ L 245.540625 211.530162
      <g id="line2d_14">
       <path d="M 50.4 185.230703 
 L 245.540625 185.230703 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_15"/>
      <g id="text_9">
@@ -129,7 +129,7 @@ L 245.540625 185.230703
      <g id="line2d_16">
       <path d="M 50.4 158.931243 
 L 245.540625 158.931243 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_17"/>
      <g id="text_10">
@@ -140,7 +140,7 @@ L 245.540625 158.931243
      <g id="line2d_18">
       <path d="M 50.4 132.631784 
 L 245.540625 132.631784 
-" clip-path="url(#p479516c1b4)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p8257ca1591)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_19"/>
      <g id="text_11">
@@ -157,7 +157,7 @@ L 82.578132 316.728
 L 82.578132 155.455255 
 L 59.270028 155.455255 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #2a78d6"/>
+" clip-path="url(#p8257ca1591)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_4">
     <path d="M 124.014761 316.728 
@@ -165,7 +165,7 @@ L 147.322865 316.728
 L 147.322865 263.957189 
 L 124.014761 263.957189 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #2a78d6"/>
+" clip-path="url(#p8257ca1591)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_5">
     <path d="M 188.759494 316.728 
@@ -173,7 +173,7 @@ L 212.067598 316.728
 L 212.067598 313.090034 
 L 188.759494 313.090034 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #2a78d6"/>
+" clip-path="url(#p8257ca1591)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_6">
     <path d="M 83.873027 316.728 
@@ -181,7 +181,7 @@ L 107.181131 316.728
 L 107.181131 190.739816 
 L 83.873027 190.739816 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #4a3aa7"/>
+" clip-path="url(#p8257ca1591)" style="fill: #4a3aa7"/>
    </g>
    <g id="patch_7">
     <path d="M 148.61776 316.728 
@@ -189,7 +189,7 @@ L 171.925864 316.728
 L 171.925864 275.645838 
 L 148.61776 275.645838 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #4a3aa7"/>
+" clip-path="url(#p8257ca1591)" style="fill: #4a3aa7"/>
    </g>
    <g id="patch_8">
     <path d="M 213.362493 316.728 
@@ -197,9 +197,10 @@ L 236.670597 316.728
 L 236.670597 313.014243 
 L 213.362493 313.014243 
 z
-" clip-path="url(#p479516c1b4)" style="fill: #4a3aa7"/>
+" clip-path="url(#p8257ca1591)" style="fill: #4a3aa7"/>
    </g>
    <g id="PathCollection_1"/>
+   <g id="PathCollection_2"/>
    <g id="patch_9">
     <path d="M 50.4 316.728 
 L 50.4 122.112 
@@ -219,66 +220,87 @@ L 245.540625 316.728
    <g id="text_15">
     <text style="font-weight: 700; font-size: 10.5px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #1f1f1d" x="212.715045" y="304.960362" transform="rotate(-0 212.715045 304.960362)">+0.00</text>
    </g>
-   <g id="PathCollection_2">
+   <g id="PathCollection_3">
     <defs>
-     <path id="m7a73792e3d" d="M 0 1.870829 
-C 0.49615 1.870829 0.972045 1.673706 1.322876 1.322876 
-C 1.673706 0.972045 1.870829 0.49615 1.870829 0 
-C 1.870829 -0.49615 1.673706 -0.972045 1.322876 -1.322876 
-C 0.972045 -1.673706 0.49615 -1.870829 0 -1.870829 
-C -0.49615 -1.870829 -0.972045 -1.673706 -1.322876 -1.322876 
-C -1.673706 -0.972045 -1.870829 -0.49615 -1.870829 0 
-C -1.870829 0.49615 -1.673706 0.972045 -1.322876 1.322876 
-C -0.972045 1.673706 -0.49615 1.870829 0 1.870829 
+     <path id="m60faf41472" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
 z
 "/>
     </defs>
-    <g clip-path="url(#p479516c1b4)">
-     <use xlink:href="#m7a73792e3d" x="95.527079" y="188.444352" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="160.271812" y="274.786378" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="225.016545" y="312.71108" style="fill: #1f1f1d"/>
+    <g clip-path="url(#p8257ca1591)">
+     <use xlink:href="#m60faf41472" x="95.527079" y="188.444352" style="fill: #1f1f1d"/>
+     <use xlink:href="#m60faf41472" x="160.271812" y="274.786378" style="fill: #1f1f1d"/>
+     <use xlink:href="#m60faf41472" x="225.016545" y="312.71108" style="fill: #1f1f1d"/>
     </g>
    </g>
-   <g id="PathCollection_3">
-    <g clip-path="url(#p479516c1b4)">
-     <use xlink:href="#m7a73792e3d" x="95.527079" y="193.16645" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="160.271812" y="275.302054" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="225.016545" y="311.95317" style="fill: #1f1f1d"/>
+   <g id="PathCollection_4">
+    <defs>
+     <path id="m3a2e1de06b" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #1f1f1d"/>
+    </defs>
+    <g clip-path="url(#p8257ca1591)">
+     <use xlink:href="#m3a2e1de06b" x="95.527079" y="193.16645" style="fill: #ffffff; stroke: #1f1f1d"/>
+     <use xlink:href="#m3a2e1de06b" x="160.271812" y="275.302054" style="fill: #ffffff; stroke: #1f1f1d"/>
+     <use xlink:href="#m3a2e1de06b" x="225.016545" y="311.95317" style="fill: #ffffff; stroke: #1f1f1d"/>
     </g>
    </g>
    <g id="text_16">
     <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="50.4" y="110.112" transform="rotate(-0 50.4 110.112)">a   Unseen hard cases</text>
    </g>
    <g id="legend_1">
-    <g id="PathCollection_4">
+    <g id="PathCollection_5">
      <g>
-      <use xlink:href="#m7a73792e3d" x="179.675" y="136.327" style="fill: #1f1f1d"/>
+      <use xlink:href="#m60faf41472" x="128.089062" y="136.327" style="fill: #1f1f1d"/>
      </g>
     </g>
     <g id="text_17">
-     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="191.675" y="138.952" transform="rotate(-0 191.675 138.952)">other runs</text>
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="140.089062" y="138.952" transform="rotate(-0 140.089062 138.952)">seed 1</text>
+    </g>
+    <g id="PathCollection_6">
+     <g>
+      <use xlink:href="#m3a2e1de06b" x="128.089062" y="151.327" style="fill: #ffffff; stroke: #1f1f1d"/>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="140.089062" y="153.952" transform="rotate(-0 140.089062 153.952)">first run, before the fix</text>
     </g>
     <g id="patch_11">
-     <path d="M 172.675 153.952 
-L 186.675 153.952 
-L 186.675 146.952 
-L 172.675 146.952 
+     <path d="M 121.089062 168.952 
+L 135.089062 168.952 
+L 135.089062 161.952 
+L 121.089062 161.952 
 z
 " style="fill: #2a78d6"/>
     </g>
-    <g id="text_18">
-     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="191.675" y="153.952" transform="rotate(-0 191.675 153.952)">released</text>
+    <g id="text_19">
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="140.089062" y="168.952" transform="rotate(-0 140.089062 168.952)">released</text>
     </g>
     <g id="patch_12">
-     <path d="M 172.675 168.952 
-L 186.675 168.952 
-L 186.675 161.952 
-L 172.675 161.952 
+     <path d="M 121.089062 183.952 
+L 135.089062 183.952 
+L 135.089062 176.952 
+L 121.089062 176.952 
 z
 " style="fill: #4a3aa7"/>
     </g>
-    <g id="text_19">
-     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="191.675" y="168.952" transform="rotate(-0 191.675 168.952)">fine-tuned</text>
+    <g id="text_20">
+     <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="140.089062" y="183.952" transform="rotate(-0 140.089062 183.952)">fine-tuned</text>
     </g>
    </g>
   </g>
@@ -294,19 +316,19 @@ z
    <g id="matplotlib.axis_3">
     <g id="xtick_4">
      <g id="line2d_20"/>
-     <g id="text_20">
+     <g id="text_21">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="341.07176" y="330.568" transform="rotate(-0 341.07176 330.568)">N-2</text>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_21"/>
-     <g id="text_21">
+     <g id="text_22">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="388.926563" y="330.568" transform="rotate(-0 388.926563 330.568)">N-10</text>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_22"/>
-     <g id="text_22">
+     <g id="text_23">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="436.781365" y="330.568" transform="rotate(-0 436.781365 330.568)">N-20</text>
      </g>
     </g>
@@ -316,10 +338,10 @@ z
      <g id="line2d_23">
       <path d="M 316.809375 316.728 
 L 461.04375 316.728 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_24"/>
-     <g id="text_23">
+     <g id="text_24">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="320.648" transform="rotate(-0 310.809375 320.648)">0</text>
      </g>
     </g>
@@ -327,10 +349,10 @@ L 461.04375 316.728
      <g id="line2d_25">
       <path d="M 316.809375 290.428541 
 L 461.04375 290.428541 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_26"/>
-     <g id="text_24">
+     <g id="text_25">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="294.348541" transform="rotate(-0 310.809375 294.348541)">1</text>
      </g>
     </g>
@@ -338,10 +360,10 @@ L 461.04375 290.428541
      <g id="line2d_27">
       <path d="M 316.809375 264.129081 
 L 461.04375 264.129081 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_28"/>
-     <g id="text_25">
+     <g id="text_26">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="268.049081" transform="rotate(-0 310.809375 268.049081)">2</text>
      </g>
     </g>
@@ -349,10 +371,10 @@ L 461.04375 264.129081
      <g id="line2d_29">
       <path d="M 316.809375 237.829622 
 L 461.04375 237.829622 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_30"/>
-     <g id="text_26">
+     <g id="text_27">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="241.749622" transform="rotate(-0 310.809375 241.749622)">3</text>
      </g>
     </g>
@@ -360,10 +382,10 @@ L 461.04375 237.829622
      <g id="line2d_31">
       <path d="M 316.809375 211.530162 
 L 461.04375 211.530162 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_32"/>
-     <g id="text_27">
+     <g id="text_28">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="215.450162" transform="rotate(-0 310.809375 215.450162)">4</text>
      </g>
     </g>
@@ -371,10 +393,10 @@ L 461.04375 211.530162
      <g id="line2d_33">
       <path d="M 316.809375 185.230703 
 L 461.04375 185.230703 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_34"/>
-     <g id="text_28">
+     <g id="text_29">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="189.150703" transform="rotate(-0 310.809375 189.150703)">5</text>
      </g>
     </g>
@@ -382,10 +404,10 @@ L 461.04375 185.230703
      <g id="line2d_35">
       <path d="M 316.809375 158.931243 
 L 461.04375 158.931243 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_36"/>
-     <g id="text_29">
+     <g id="text_30">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="162.851243" transform="rotate(-0 310.809375 162.851243)">6</text>
      </g>
     </g>
@@ -393,14 +415,14 @@ L 461.04375 158.931243
      <g id="line2d_37">
       <path d="M 316.809375 132.631784 
 L 461.04375 132.631784 
-" clip-path="url(#p3c6b50f002)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_38"/>
-     <g id="text_30">
+     <g id="text_31">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="310.809375" y="136.551784" transform="rotate(-0 310.809375 136.551784)">7</text>
      </g>
     </g>
-    <g id="text_31">
+    <g id="text_32">
      <!-- Median worst-bus error ($10^{-3}$ p.u.) -->
      <g style="fill: #57564f" transform="translate(298.83 302.58) rotate(-90)">
       <text>
@@ -448,7 +470,7 @@ L 340.593212 316.728
 L 340.593212 283.112553 
 L 323.365483 283.112553 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #2a78d6"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_15">
     <path d="M 371.220286 316.728 
@@ -456,7 +478,7 @@ L 388.448014 316.728
 L 388.448014 265.657736 
 L 371.220286 265.657736 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #2a78d6"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_16">
     <path d="M 419.075088 316.728 
@@ -464,7 +486,7 @@ L 436.302817 316.728
 L 436.302817 245.24066 
 L 419.075088 245.24066 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #2a78d6"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #2a78d6"/>
    </g>
    <g id="patch_17">
     <path d="M 341.550308 316.728 
@@ -472,7 +494,7 @@ L 358.778037 316.728
 L 358.778037 222.639592 
 L 341.550308 222.639592 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #4a3aa7"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #4a3aa7"/>
    </g>
    <g id="patch_18">
     <path d="M 389.405111 316.728 
@@ -480,7 +502,7 @@ L 406.632839 316.728
 L 406.632839 187.017072 
 L 389.405111 187.017072 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #4a3aa7"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #4a3aa7"/>
    </g>
    <g id="patch_19">
     <path d="M 437.259913 316.728 
@@ -488,7 +510,7 @@ L 454.487642 316.728
 L 454.487642 169.419432 
 L 437.259913 169.419432 
 z
-" clip-path="url(#p3c6b50f002)" style="fill: #4a3aa7"/>
+" clip-path="url(#pf3f6a0154f)" style="fill: #4a3aa7"/>
    </g>
    <g id="patch_20">
     <path d="M 316.809375 316.728 
@@ -500,21 +522,21 @@ L 316.809375 122.112
 L 461.04375 316.728 
 " style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
-   <g id="PathCollection_5">
-    <g clip-path="url(#p3c6b50f002)">
-     <use xlink:href="#m7a73792e3d" x="350.164172" y="203.973568" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="398.018975" y="153.990552" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="445.873778" y="138.620519" style="fill: #1f1f1d"/>
+   <g id="PathCollection_7">
+    <g clip-path="url(#pf3f6a0154f)">
+     <use xlink:href="#m60faf41472" x="350.164172" y="203.973568" style="fill: #1f1f1d"/>
+     <use xlink:href="#m60faf41472" x="398.018975" y="153.990552" style="fill: #1f1f1d"/>
+     <use xlink:href="#m60faf41472" x="445.873778" y="138.620519" style="fill: #1f1f1d"/>
     </g>
    </g>
-   <g id="PathCollection_6">
-    <g clip-path="url(#p3c6b50f002)">
-     <use xlink:href="#m7a73792e3d" x="350.164172" y="225.922517" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="398.018975" y="183.97562" style="fill: #1f1f1d"/>
-     <use xlink:href="#m7a73792e3d" x="445.873778" y="162.854768" style="fill: #1f1f1d"/>
+   <g id="PathCollection_8">
+    <g clip-path="url(#pf3f6a0154f)">
+     <use xlink:href="#m3a2e1de06b" x="350.164172" y="225.922517" style="fill: #ffffff; stroke: #1f1f1d"/>
+     <use xlink:href="#m3a2e1de06b" x="398.018975" y="183.97562" style="fill: #ffffff; stroke: #1f1f1d"/>
+     <use xlink:href="#m3a2e1de06b" x="445.873778" y="162.854768" style="fill: #ffffff; stroke: #1f1f1d"/>
     </g>
    </g>
-   <g id="text_32">
+   <g id="text_33">
     <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="316.809375" y="110.112" transform="rotate(-0 316.809375 110.112)">b   The price</text>
    </g>
   </g>
@@ -532,10 +554,10 @@ z
      <g id="line2d_39">
       <path d="M 532.3125 316.728 
 L 532.3125 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_40"/>
-     <g id="text_33">
+     <g id="text_34">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="532.3125" y="330.568" transform="rotate(-0 532.3125 330.568)">0.0</text>
      </g>
     </g>
@@ -543,10 +565,10 @@ L 532.3125 122.112
      <g id="line2d_41">
       <path d="M 566.25 316.728 
 L 566.25 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_42"/>
-     <g id="text_34">
+     <g id="text_35">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="566.25" y="330.568" transform="rotate(-0 566.25 330.568)">0.2</text>
      </g>
     </g>
@@ -554,10 +576,10 @@ L 566.25 122.112
      <g id="line2d_43">
       <path d="M 600.1875 316.728 
 L 600.1875 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_44"/>
-     <g id="text_35">
+     <g id="text_36">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="600.1875" y="330.568" transform="rotate(-0 600.1875 330.568)">0.4</text>
      </g>
     </g>
@@ -565,10 +587,10 @@ L 600.1875 122.112
      <g id="line2d_45">
       <path d="M 634.125 316.728 
 L 634.125 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_46"/>
-     <g id="text_36">
+     <g id="text_37">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="634.125" y="330.568" transform="rotate(-0 634.125 330.568)">0.6</text>
      </g>
     </g>
@@ -576,10 +598,10 @@ L 634.125 122.112
      <g id="line2d_47">
       <path d="M 668.0625 316.728 
 L 668.0625 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_48"/>
-     <g id="text_37">
+     <g id="text_38">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="668.0625" y="330.568" transform="rotate(-0 668.0625 330.568)">0.8</text>
      </g>
     </g>
@@ -587,14 +609,14 @@ L 668.0625 122.112
      <g id="line2d_49">
       <path d="M 702 316.728 
 L 702 122.112 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_50"/>
-     <g id="text_38">
+     <g id="text_39">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="702" y="330.568" transform="rotate(-0 702 330.568)">1.0</text>
      </g>
     </g>
-    <g id="text_39">
+    <g id="text_40">
      <text style="font-size: 11px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="617.15625" y="345.352" transform="rotate(-0 617.15625 345.352)">False-alarm rate</text>
     </g>
    </g>
@@ -603,10 +625,10 @@ L 702 122.112
      <g id="line2d_51">
       <path d="M 532.3125 316.728 
 L 702 316.728 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_52"/>
-     <g id="text_40">
+     <g id="text_41">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="320.648" transform="rotate(-0 526.3125 320.648)">0.0</text>
      </g>
     </g>
@@ -614,10 +636,10 @@ L 702 316.728
      <g id="line2d_53">
       <path d="M 532.3125 278.568 
 L 702 278.568 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_54"/>
-     <g id="text_41">
+     <g id="text_42">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="282.488" transform="rotate(-0 526.3125 282.488)">0.2</text>
      </g>
     </g>
@@ -625,10 +647,10 @@ L 702 278.568
      <g id="line2d_55">
       <path d="M 532.3125 240.408 
 L 702 240.408 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_56"/>
-     <g id="text_42">
+     <g id="text_43">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="244.328" transform="rotate(-0 526.3125 244.328)">0.4</text>
      </g>
     </g>
@@ -636,10 +658,10 @@ L 702 240.408
      <g id="line2d_57">
       <path d="M 532.3125 202.248 
 L 702 202.248 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_58"/>
-     <g id="text_43">
+     <g id="text_44">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="206.168" transform="rotate(-0 526.3125 206.168)">0.6</text>
      </g>
     </g>
@@ -647,10 +669,10 @@ L 702 202.248
      <g id="line2d_59">
       <path d="M 532.3125 164.088 
 L 702 164.088 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_60"/>
-     <g id="text_44">
+     <g id="text_45">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="168.008" transform="rotate(-0 526.3125 168.008)">0.8</text>
      </g>
     </g>
@@ -658,14 +680,14 @@ L 702 164.088
      <g id="line2d_61">
       <path d="M 532.3125 125.928 
 L 702 125.928 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-width: 0.9; stroke-linecap: round"/>
      </g>
      <g id="line2d_62"/>
-     <g id="text_45">
+     <g id="text_46">
       <text style="font-size: 10px; font-family: 'TeX Gyre Heros'; text-anchor: end; fill: #57564f" x="526.3125" y="129.848" transform="rotate(-0 526.3125 129.848)">1.0</text>
      </g>
     </g>
-    <g id="text_46">
+    <g id="text_47">
      <text style="font-size: 11px; font-family: 'TeX Gyre Heros'; text-anchor: middle; fill: #57564f" x="506.016406" y="219.42" transform="rotate(-90 506.016406 219.42)">Unresolved cases caught</text>
     </g>
    </g>
@@ -749,7 +771,7 @@ L 606.040358 127.491934
 L 655.494736 127.491934 
 L 655.494736 125.928 
 L 702 125.928 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #2a78d6; stroke-width: 2; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #2a78d6; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_64">
     <path d="M 532.3125 316.728 
@@ -881,7 +903,7 @@ L 650.957637 127.491934
 L 650.957637 125.928 
 L 702 125.928 
 L 702 125.928 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #a9a8a1; stroke-width: 2; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #a9a8a1; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_65">
     <path d="M 532.3125 316.728 
@@ -1061,12 +1083,12 @@ L 649.596507 127.491934
 L 649.596507 125.928 
 L 702 125.928 
 L 702 125.928 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke-dasharray: 3.2,3.2; stroke-dashoffset: 0; stroke: #8d8c86; stroke-width: 1.6"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke-dasharray: 3.2,3.2; stroke-dashoffset: 0; stroke: #8d8c86; stroke-width: 1.6"/>
    </g>
    <g id="line2d_66">
     <path d="M 532.3125 316.728 
 L 702 125.928 
-" clip-path="url(#p5a8589ddbe)" style="fill: none; stroke: #ebeae5; stroke-linecap: round"/>
+" clip-path="url(#p2aae80ca3c)" style="fill: none; stroke: #ebeae5; stroke-linecap: round"/>
    </g>
    <g id="patch_23">
     <path d="M 532.3125 316.728 
@@ -1078,11 +1100,11 @@ L 532.3125 122.112
 L 702 316.728 
 " style="fill: none; stroke: #bdbcb4; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
-   <g id="text_47">
+   <g id="text_48">
     <text style="font-weight: 700; font-size: 11.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="532.3125" y="110.112" transform="rotate(-0 532.3125 110.112)">c   Warning, frozen test</text>
    </g>
    <g id="legend_2">
-    <g id="text_48">
+    <g id="text_49">
      <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="661.850156" y="266.148562" transform="rotate(-0 661.850156 266.148562)">AUROC</text>
     </g>
     <g id="line2d_67">
@@ -1091,7 +1113,7 @@ L 575.173125 276.498562
 L 581.473125 276.498562 
 " style="fill: none; stroke: #2a78d6; stroke-width: 2; stroke-linecap: round"/>
     </g>
-    <g id="text_49">
+    <g id="text_50">
      <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="279.648562" transform="rotate(-0 585.973125 279.648562)">GENCO warning   0.96</text>
     </g>
     <g id="line2d_68">
@@ -1100,7 +1122,7 @@ L 575.173125 290.016281
 L 581.473125 290.016281 
 " style="fill: none; stroke: #a9a8a1; stroke-width: 2; stroke-linecap: round"/>
     </g>
-    <g id="text_50">
+    <g id="text_51">
      <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="293.166281" transform="rotate(-0 585.973125 293.166281)">outage topology only   0.90</text>
     </g>
     <g id="line2d_69">
@@ -1109,30 +1131,30 @@ L 575.173125 303.534
 L 581.473125 303.534 
 " style="fill: none; stroke-dasharray: 3.2,3.2; stroke-dashoffset: 0; stroke: #8d8c86; stroke-width: 1.6"/>
     </g>
-    <g id="text_51">
+    <g id="text_52">
      <text style="font-size: 9px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="585.973125" y="306.684" transform="rotate(-0 585.973125 306.684)">GENCO residual   0.81</text>
     </g>
    </g>
   </g>
-  <g id="text_52">
-   <text style="font-weight: 700; font-size: 17px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="25.2" y="22.868" transform="rotate(-0 25.2 22.868)">Teaching GENCO where it fails, and to warn when the solver will</text>
-  </g>
   <g id="text_53">
+   <text style="font-weight: 700; font-size: 17px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #1f1f1d" x="25.2" y="22.868" transform="rotate(-0 25.2 22.868)">Fine-tuning GENCO for hard contingencies, and a warning for unresolved ones</text>
+  </g>
+  <g id="text_54">
    <text style="font-size: 11.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(25.2 48.964609)">Fine-tuned on 6,737 solver-labelled contingencies, GENCO misses fewer decisions on cases it never saw, also in a second</text>
    <text style="font-size: 11.5px; font-family: 'TeX Gyre Heros'; fill: #57564f" transform="translate(25.2 64.403359)">seed and in a first run made before a fix, at a price on ordinary ones. A head on its embeddings flags unresolved cases.</text>
   </g>
-  <g id="text_54">
-   <text style="font-size: 8.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #8d8c86" x="25.2" y="374.404866" transform="rotate(-0 25.2 374.404866)">Bars: the published run (seed 0); dots: seed 1 and the first run. a: 401 clustered, 153 held-out, 347 random cases. b: released test scenarios. c: 870 frozen-test cases.</text>
+  <g id="text_55">
+   <text style="font-size: 8.5px; font-family: 'TeX Gyre Heros'; text-anchor: start; fill: #8d8c86" x="25.2" y="374.404866" transform="rotate(-0 25.2 374.404866)">Bars: seed 0 (published); dots: seed 1 (filled), first run before the fix (open). a: 401 clustered, 153 held-out, 347 random cases. b: released scenarios. c: 870 frozen-test cases.</text>
   </g>
  </g>
  <defs>
-  <clipPath id="p479516c1b4">
+  <clipPath id="p8257ca1591">
    <rect x="50.4" y="122.112" width="195.140625" height="194.616"/>
   </clipPath>
-  <clipPath id="p3c6b50f002">
+  <clipPath id="pf3f6a0154f">
    <rect x="316.809375" y="122.112" width="144.234375" height="194.616"/>
   </clipPath>
-  <clipPath id="p5a8589ddbe">
+  <clipPath id="p2aae80ca3c">
    <rect x="532.3125" y="122.112" width="169.6875" height="194.616"/>
   </clipPath>
  </defs>

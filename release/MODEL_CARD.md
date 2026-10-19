@@ -31,6 +31,9 @@ Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC)
 | `data/features_released.npz`, `data/features_finetuned.npz` | features and labels of every training, validation and test case |
 | `training/finetune.ipynb` | the notebook that produced the weights (`TRAIN_SEED = 0`) |
 
+The `.joblib` heads were saved with scikit-learn 1.6.1 (the Colab version at the time); with other versions use the
+JSON files, which hold the same parameters as plain numbers.
+
 `model.safetensors` SHA-256: `a20b05e4dd4f1739fd8170596fc71b89eed305bc4ca9383f59dba5e31da75352`. It is converted from the notebook's `genco_finetuned_state_dict.pt`
 (SHA-256 `cf705d23b87cc0fd1b6ede6a9028925584bd9b00b936a76244a90a75fcb353a2`).
 

@@ -2,7 +2,8 @@
 
 Every notebook runs top to bottom on a fresh Google Colab runtime. It installs what it needs, downloads the public data
 and the released checkpoint from Hugging Face (`gridfm/genco-pf-contingency`), and ends by zipping its output folder
-(for example `storms.zip`). The folders in `results/` are those outputs.
+(for example `storms.zip`). The folders in `results/` hold the parts of those outputs that the numbers and figures
+need; large files (checkpoints, feature matrices) are left out, and the fine-tuned model's are on Hugging Face.
 
 1. Open the notebook in Colab. For a notebook that needs a GPU (see `notebooks/README.md`) choose *Runtime → Change
    runtime type → T4 GPU*.
@@ -26,6 +27,12 @@ long run is not lost if the runtime disconnects.
 | Colab runtime (October 2026) | Python 3.13, torch 2.11.0+cu130, numpy 2.1.3, pandas 2.2.3, lightsim2grid 1.1.0; full list in `colab_pip_freeze.txt` |
 
 `data_sha256.csv` and `checkpoint_sha256.csv` list the server-side SHA-256 of every file of the Hugging Face repository.
+
+Every notebook checks out this commit and downloads this revision. The Texas notebooks first ran against the head of the
+branch and the latest revision; these were the same versions throughout (the commit was the branch head from 1 to
+14 October 2026, the revision the latest from 1 October), and the runs that record them show this commit. The pins were
+added afterwards so that a new run uses the same versions. `finetune_as_run.ipynb` is kept unpinned, as it ran.
+`second_grid.ipynb` pins its own model and data revisions.
 
 ## Installing gridfm-graphkit on Colab
 

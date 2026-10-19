@@ -11,9 +11,9 @@ Entry to the [GENCO Challenge](https://huggingface.co/spaces/gridfm/genco-challe
 GENCO predicts the AC power flow of a contingency in one forward pass. This repository asks when that answer can be trusted
 for N-k screening on the released Texas 2,000-bus grid, and what to do when it cannot.
 
-- **Where GENCO fails.** Under clustered outages its voltage errors grow 4 to 17 times. On 33 of 120 storms no Newton start
-  converges at the actual load (continuation places the fold of the AC solution below it for 32), yet GENCO returns an
-  ordinary-looking grid.
+- **Where GENCO fails.** Under clustered outages its voltage errors grow 4 to 17 times. On 33 of 120 storms no Newton
+  start converges at the actual load (continuation places the fold of the AC solution below it for 32), yet GENCO
+  returns a full state for every one, with nothing to mark it as unresolved.
 - **A workflow with three outcomes.** GENCO proposes a state and Newton-Raphson decides: *verified safe*, *verified
   violation* or *unresolved* (an alarm, never a pass). On a frozen test of 870 unseen contingencies it gives an AC decision
   for all 748 cases a classical solver resolves and an alarm for the 122 it cannot; GENCO alone would have been wrong in 260.
@@ -70,7 +70,7 @@ result.history            # every start tried: iterations, mismatch, time
 src/genco_verify/   the verification workflow (numpy, scipy; lightsim2grid optional)
 tests/              tests of every outcome and option on a three-bus grid
 notebooks/          the Colab notebooks that produced the results (see notebooks/README.md)
-results/            their outputs, one folder per notebook, plus the analyses in results/analysis/
+results/            what the numbers and figures need from each notebook run, plus the analyses in results/analysis/
 scripts/            headline numbers, figures, demo, warning ablation, Hugging Face upload
 figures/            the five figures of the write-up (PNG and SVG)
 demo/               the case explorer (also the Hugging Face Space)
