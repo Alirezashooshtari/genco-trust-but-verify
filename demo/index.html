@@ -557,7 +557,7 @@ function renderPipe(c) {
       <div class="small">lowest voltage it shows; power residual ${fmt(c.residual_mw, 1)} MW</div></div>`;
   const warn = `<div class="step"><h3><em>2</em>Warning score</h3>
       <div class="big num">${(100 * c.warning).toFixed(0)} %</div>
-      <div class="small">${flagged ? "above" : "below"} the ${(100 * threshold).toFixed(0)} % threshold: ${flagged ? "likely unresolved" : "likely solvable"}</div></div>`;
+      <div class="small">${flagged ? "above" : "below"} the ${(100 * threshold).toFixed(0)} % threshold: ${flagged ? "likely unresolved" : "likely resolved"}</div></div>`;
   let newton;
   if (c.status === "unresolved") {
     newton = `<div class="step"><h3><em>3</em>Newton-Raphson</h3><div class="big">No start converged</div>
@@ -755,7 +755,7 @@ function renderOverview() {
   $("facts").innerHTML = [
     [O.verified, "cases verified with an AC solution"],
     [O.unresolved, "cases unresolved, each raised as an alarm"],
-    [O.false_alarms, "solvable cases wrongly flagged unresolved"],
+    [O.false_alarms, "resolved cases wrongly flagged unresolved"],
     [O.auroc.toFixed(2), "AUROC of GENCO's warning for unresolved cases"],
   ].map(([v, l]) => `<div class="fact"><b class="num">${v}</b><span>${l}</span></div>`).join("");
 
