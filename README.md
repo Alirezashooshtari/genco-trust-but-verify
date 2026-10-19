@@ -16,6 +16,10 @@ for N-k screening on the released Texas 2,000-bus grid, and what to do when it c
 - **A workflow with three outcomes.** GENCO proposes a state and Newton-Raphson decides: *verified safe*, *verified
   violation* or *unresolved* (an alarm, never a pass). On a frozen test of 870 unseen contingencies it gives an AC decision
   for all 748 cases a classical solver resolves and an alarm for the 122 it cannot; GENCO alone would have been wrong in 260.
+- **A second grid.** On IEEE 118, with the GENCO released for it and 708 contingencies on operating points from the
+  authors' test split, the workflow again gives an AC decision for every case the classical solver resolves and an alarm
+  for the 29 it cannot, with no false alarms; GENCO alone misses a decision in 52 % of cases. Clustered outages raise its
+  errors less than on Texas (2.6 times), and its response to load growth is less damped (0.83 of the AC response).
 - **Extending GENCO.** Fine-tuning on solver-labelled contingencies cuts missed decisions on unseen clustered outages by
   22 % (20 to 23 % over three training runs). A rule on the outage alone sends only clustered outages to the fine-tuned
   model, so ordinary cases keep the released one. A warning head on GENCO's embeddings predicts unresolved cases with
