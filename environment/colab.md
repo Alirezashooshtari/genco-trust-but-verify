@@ -27,6 +27,12 @@ long run is not lost if the runtime disconnects.
 
 `data_sha256.csv` and `checkpoint_sha256.csv` list the server-side SHA-256 of every file of the Hugging Face repository.
 
+Every notebook checks out this commit and downloads this revision. The Texas notebooks first ran against the head of the
+branch and the latest revision; these were the same versions throughout (the commit was the branch head from 1 to
+14 October 2026, the revision the latest from 1 October), and the runs that record them show this commit. The pins were
+added afterwards so that a new run uses the same versions. `finetune_as_run.ipynb` is kept unpinned, as it ran.
+`second_grid.ipynb` pins its own model and data revisions.
+
 ## Installing gridfm-graphkit on Colab
 
 At the pinned commit gridfm-graphkit declares `python <3.13` and `torch <2.9`, which Colab no longer provides, so `pip`
