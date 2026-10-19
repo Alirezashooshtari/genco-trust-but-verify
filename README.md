@@ -38,7 +38,7 @@ pip install -r requirements.txt && pip install -e .
 
 pytest                                # tests of the verification module (no data needed)
 python scripts/headline_numbers.py    # every number in the write-up, recomputed from results/
-python scripts/make_figures.py        # the five figures
+python scripts/make_figures.py        # figures 2 to 5 (figure 1 is a draw.io diagram)
 python scripts/build_demo.py          # the case explorer, demo/index.html
 ```
 
