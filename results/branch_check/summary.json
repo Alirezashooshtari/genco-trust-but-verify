@@ -203,5 +203,5 @@
   "device": "cuda",
   "lightsim2grid": true
  },
- "_note": "Second run of notebook B1 (8 October 2026, module 0.4.3: complex-voltage comparison aligned to the slack angle, decisions compared for every converged start). The first run (module 0.4.1: voltage magnitudes, decisions of each group's representative) is kept in first_run_module_0.4.1/; both runs give the same counts (2 of 748 verified cases with two solutions among four starts, 1 of 748 among the three classical starts, decisions differing in all of them, the highest-voltage rule changing case 12742 only) and reproduce every frozen status and start of F1."
+ "_note": "Second run of notebook B1 (8 October 2026, module 0.4.3: complex-voltage comparison aligned to the slack angle, decisions compared for every converged start). The first run (module 0.4.1: voltage magnitudes, decisions of each group's representative) was not kept in this repository; both runs give the same counts (2 of 748 verified cases with two solutions among four starts, 1 of 748 among the three classical starts, decisions differing in all of them, the highest-voltage rule changing case 12742 only) and reproduce every frozen status and start of F1."
 }

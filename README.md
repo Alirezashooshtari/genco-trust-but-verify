@@ -22,9 +22,10 @@ for N-k screening on the released Texas 2,000-bus grid, and what to do when it c
   for the 29 it cannot, with no false alarms; GENCO alone misses a decision in 52 % of cases. Clustered outages raise its
   errors less than on Texas (2.6 times), and its response to load growth is less damped (0.83 of the AC response).
 - **Extending GENCO.** Fine-tuning on solver-labelled contingencies cuts missed decisions on unseen clustered outages by
-  22 % (20 to 23 % over three training runs). A rule on the outage alone sends only clustered outages to the fine-tuned
-  model, so ordinary cases keep the released one. A warning head on GENCO's embeddings predicts unresolved cases with
-  AUROC 0.96.
+  22 % for the published training seed (20 % for a second seed; the first run, made before a fix to gradient
+  accumulation and kept for the record, gave 23 %). A rule on the outage alone sends only clustered outages to the
+  fine-tuned model, so ordinary cases keep the released one. A warning head on GENCO's embeddings predicts unresolved
+  cases with AUROC 0.96.
 
 ![The verified workflow](figures/fig1_workflow.png)
 
