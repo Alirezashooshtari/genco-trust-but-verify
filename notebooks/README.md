@@ -20,3 +20,7 @@ Each notebook is self-contained and runs on a fresh Colab runtime (see `../envir
 
 Inside the notebooks the data sets keep the short tags used while the work was done: `F1` is the frozen test, `K1` the
 storms, `T1` the fine-tuning set and `C1` the overload-margin calibration. The tags also appear in some result files.
+
+Some names in the result files date from the first runs and are kept so that the files stay as the notebooks wrote
+them: `solvable_at_1`, `unsolvable` and `no solution` there mean that none of the tested Newton starts converged at
+that load, not that no AC solution exists. Where a fold is reported, it comes from the continuation in `fold_check`.

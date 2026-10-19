@@ -225,7 +225,7 @@ def figure2():
         fontsize=9.5,
         color=INK2,
     )
-    a.text(fold + 0.006, 0.985, "no AC solution found", color=UNRESOLVED, fontsize=9.5, va="top")
+    a.text(fold + 0.006, 0.985, "beyond the tracked fold", color=UNRESOLVED, fontsize=9.5, va="top")
     a.set_xlim(lam.min() - 0.005, lam.max() + 0.005)
     a.set_ylim(0.5, 1.0)
     a.set_xlabel("Load factor (1 = actual load)")
@@ -263,7 +263,7 @@ def figure2():
 
 # ---------------------------------------------------------------------------------------------------------- 3
 def figure3():
-    """Where GENCO goes wrong (clustered outages) and why (damped response to system-wide stress)."""
+    """Where GENCO goes wrong (clustered outages) and how its response differs (weaker under system-wide load growth)."""
     C = pd.read_csv(RES / "clustered_outages/storm_cases.csv")
     T = pd.read_csv(RES / "load_response/load_growth_targets.csv")
     B = pd.read_csv(RES / "load_response/load_growth_all_buses.csv")
@@ -272,8 +272,8 @@ def figure3():
     headline(
         fig,
         "Where GENCO goes wrong, and how its response differs",
-        "Its errors grow when outages cluster in one area, the pattern of storms and wildfires. Probing it with small,\n"
-        "realistic changes: it tracks AC closely under local changes but under-reacts to system-wide load growth.",
+        "Its errors grow when outages cluster in one area, as storms and wildfires do. Under small, realistic changes its\n"
+        "response is closer to AC for several local changes and systematically weaker for system-wide load growth.",
     )
     gs = fig.add_gridspec(1, 2, left=0.085, right=0.975, top=0.69, bottom=0.2, wspace=0.3, width_ratios=[1.15, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])

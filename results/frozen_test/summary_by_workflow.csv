@@ -1,4 +1,4 @@
-,cases,verified,unresolved,false_alarms,cases_with_a_reference,verified_with_a_missed_decision,missed_decisions,reference_decisions,resolved_only_with_genco,low_voltage_flags,ms_median,ms_p95,ms_mean,difficult_cases,difficult_ms_median,difficult_ms_p95
+workflow,cases,verified,unresolved,false_alarms,cases_with_a_reference,verified_with_a_missed_decision,missed_decisions,reference_decisions,resolved_only_with_genco,low_voltage_flags,ms_median,ms_p95,ms_mean,difficult_cases,difficult_ms_median,difficult_ms_p95
 classical,870.0,748.0,122.0,0.0,748.0,0.0,0.0,3869.0,0.0,2.0,12.734636499999397,175.78952414999094,40.558189212646504,122.0,168.601097499959,330.8509546500202
 classical_first,870.0,748.0,122.0,0.0,748.0,0.0,0.0,3869.0,0.0,2.0,13.313843999981145,311.44168570006053,58.628892462065096,122.0,302.9099785001108,438.6028565499145
 classical_recovery,870.0,748.0,122.0,0.0,748.0,0.0,0.0,3869.0,0.0,2.0,11.898936999955367,810.7535347999601,130.1339749953994,122.0,798.2699654999124,1220.7907185000067
