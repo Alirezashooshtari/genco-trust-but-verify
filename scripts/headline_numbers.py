@@ -326,6 +326,84 @@ claim(
     " / ".join(f"{100 * routing['random_outages_routed_to_fine_tuned'][k]:.0f} %" for k in ("N-2", "N-10", "N-20")),
     "analysis/routing.json",
 )
+# ------------------------------------------------------------------ a second grid (IEEE 118, its released GENCO)
+g2 = json.loads((RES / "second_grid/summary.json").read_text())
+g2c = pd.read_csv(RES / "second_grid/cases.csv")
+g2r = g2c[g2c.resolved]
+src = "second_grid/summary.json"
+claim(
+    "grid2",
+    "operating points from the authors' test split / contingencies / resolved by the classical solver / unresolved",
+    f"{g2['selection']['base_points']} / {g2['cases']} / {g2['total']['resolved']:.0f} / {g2['total']['unresolved']:.0f}",
+    src,
+)
+claim(
+    "grid2",
+    "model check: GENCO's RMSE of Vm at PQ buses, ours / the authors' (p.u.)",
+    f"{g2['model_check']['genco_rmse_vm_pq']:.5f} / {g2['model_check']['authors_rmse_vm_pq']:.5f}",
+    src,
+)
+claim(
+    "grid2",
+    "verified workflow: AC decisions / false alarms / unresolved cases passed / decisions differing from the classical solution",
+    f"{g2['total']['verified_decisions']:.0f} / {g2['total']['false_alarms']:.0f} / {g2['total']['missed_alarms']:.0f} / "
+    f"{g2['total']['verified_with_a_different_decision']:.0f}",
+    src,
+)
+miss = (g2r.genco_missed_overloads > 0) | (g2r.genco_missed_vviol > 0)
+claim(
+    "grid2",
+    "GENCO alone: resolved cases with a missed decision",
+    pct(int(miss.sum()), len(g2r)),
+    "second_grid/cases.csv",
+)
+groups = {
+    "one line": ["uniform-N1"],
+    "random, 3 and 6 lines": ["uniform-N3", "uniform-N6"],
+    "clustered, 3 and 6 lines": ["nearest-N3", "nearest-N6", "corridor-N6"],
+}
+claim(
+    "grid2",
+    "median worst-bus error of GENCO alone (p.u.): " + " / ".join(groups),
+    " / ".join(f"{g2r[g2r.family.isin(f)].genco_worst_err.median():.4f}" for f in groups.values()),
+    "second_grid/cases.csv",
+)
+lo, hi = g2["ci95"]["clustered_over_random_err_ratio"]
+claim(
+    "grid2",
+    "median worst-bus error, clustered / random outages (95 % CI)",
+    f"x{g2['clustered_over_random_err_ratio']:.1f} (x{lo:.1f} to x{hi:.1f})",
+    src,
+)
+fam_err = g2r.groupby("family").genco_worst_err.median()
+claim(
+    "grid2",
+    "median worst-bus error, clustered / random: N-3, N-6, six-line corridor against six random lines",
+    f"x{fam_err['nearest-N3'] / fam_err['uniform-N3']:.1f}, x{fam_err['nearest-N6'] / fam_err['uniform-N6']:.1f}, "
+    f"x{fam_err['corridor-N6'] / fam_err['uniform-N6']:.1f}",
+    "second_grid/cases.csv",
+)
+u2 = g2c[~g2c.resolved]
+claim(
+    "grid2",
+    "unresolved cases where GENCO predicts at least one violation; median overloads it predicts",
+    f"{g2['unresolved']['cases'] - g2['unresolved']['genco_predicts_no_violation']} of {g2['unresolved']['cases']}; "
+    f"{u2.genco_n_over.median():.0f}",
+    src,
+)
+lg = g2["load_growth"]
+claim(
+    "grid2",
+    "GENCO response to uniform load growth relative to AC (median slope, interquartile range)",
+    f"{lg['slope_median']:.2f} ({lg['slope_iqr'][0]:.2f} to {lg['slope_iqr'][1]:.2f}), {lg['operating_points']} operating points",
+    src,
+)
+claim(
+    "grid2",
+    "mean Newton iterations: classical / from GENCO's state",
+    f"{g2r.classical_iterations.mean():.2f} / {g2r[g2r.verified_start == 'genco'].verified_iterations.mean():.2f}",
+    "second_grid/cases.csv",
+)
 v1 = json.loads((RES / "independent_check/summary.json").read_text())["released_cases"]
 claim(
     "check",

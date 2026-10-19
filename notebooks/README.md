@@ -15,6 +15,7 @@ Each notebook is self-contained and runs on a fresh Colab runtime (see `../envir
 | `finetune` | Fine-tuning GENCO on solver-labelled contingencies, one run per `TRAIN_SEED` (seed 0 is published) | T4, ~2 h | `finetune_seed0`, `finetune_seed1` |
 | `finetune_as_run` | The first fine-tuning run, before the gradient-accumulation fix | T4, ~2 h | `finetune_as_run` |
 | `evaluate_finetuned` | Paired test of a fine-tuned run and the unresolved-case warning (Figure 5) | T4, ~1 h | `evaluate_finetuned_seed0`, `_seed1`, `_as_run` |
+| `second_grid` | The verified workflow, GENCO alone and the load-growth probe on IEEE 118, with its released GENCO | CPU, ~15 min | `second_grid` |
 | `independent_check` | PYPOWER built from the raw network parameters as an independent check | CPU, ~40 min | `independent_check` |
 
 Inside the notebooks the data sets keep the short tags used while the work was done: `F1` is the frozen test, `K1` the

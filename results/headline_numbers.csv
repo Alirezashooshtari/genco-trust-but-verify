@@ -50,4 +50,14 @@ routing,"frozen test, random outages: routed to fine-tuned; decisions missed per
 routing,"held-out construction outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",111 of 153; 2.01 -> 1.61 (-0.61 to -0.20),analysis/routing.json
 runs,"routing, clustered outages: decisions missed per case, routed, seed 0 / seed 1 / first run",4.79 / 4.88 / 4.70,analysis/routing.json
 routing,random N-2 / N-10 / N-20 outages routed to the fine-tuned model,0 % / 0 % / 0 %,analysis/routing.json
+grid2,operating points from the authors' test split / contingencies / resolved by the classical solver / unresolved,118 / 708 / 679 / 29,second_grid/summary.json
+grid2,"model check: GENCO's RMSE of Vm at PQ buses, ours / the authors' (p.u.)",0.00031 / 0.00028,second_grid/summary.json
+grid2,verified workflow: AC decisions / false alarms / unresolved cases passed / decisions differing from the classical solution,679 / 0 / 0 / 0,second_grid/summary.json
+grid2,GENCO alone: resolved cases with a missed decision,356 of 679 (52 %),second_grid/cases.csv
+grid2,"median worst-bus error of GENCO alone (p.u.): one line / random, 3 and 6 lines / clustered, 3 and 6 lines",0.0010 / 0.0015 / 0.0038,second_grid/cases.csv
+grid2,"median worst-bus error, clustered / random outages (95 % CI)",x2.6 (x2.0 to x3.4),second_grid/summary.json
+grid2,"median worst-bus error, clustered / random: N-3, N-6, six-line corridor against six random lines","x1.1, x1.8, x7.4",second_grid/cases.csv
+grid2,unresolved cases where GENCO predicts at least one violation; median overloads it predicts,29 of 29; 5,second_grid/summary.json
+grid2,"GENCO response to uniform load growth relative to AC (median slope, interquartile range)","0.83 (0.78 to 0.89), 60 operating points",second_grid/summary.json
+grid2,mean Newton iterations: classical / from GENCO's state,3.45 / 2.70,second_grid/cases.csv
 check,PYPOWER from raw parameters vs released solutions: largest |dVm| (p.u.); decisions agreeing,2.0e-09; 46 of 46,independent_check/summary.json

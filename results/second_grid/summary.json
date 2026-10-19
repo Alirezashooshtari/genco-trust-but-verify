@@ -1,0 +1,182 @@
+{
+ "protocol": {
+  "MODEL_REPO": "gridfm/genco-pf-datakit",
+  "MODEL_REVISION": "f5eb20ee798b9847b723c91874af85d32a96a468",
+  "MODEL_DIR": "case118_ieee/base/seed0",
+  "MODEL_CONFIG": "case118_ieee_base_seed0.yaml",
+  "EVAL_RUN": "mlflow/eval/case118_ieee/base/seed0/8289694ec85b4df080e584d18a815b57",
+  "DATA_REPO": "gridfm/pf_small_case118_ieee",
+  "DATA_REVISION": "3f5a6e266f759be15e3777bf4d70133ff40e6fa7",
+  "NETWORK": "case118_ieee",
+  "GRAPHKIT_DIR": "gridfm-graphkit",
+  "GRAPHKIT_COMMIT": "95b90eecc7f5c2c86a9dd776f0c3f40434def22f",
+  "LOCAL_MODEL": "genco-pf-datakit",
+  "LOCAL_DATA": "pf_small_case118_ieee",
+  "OUT_DIR": "second_grid",
+  "N_PARTITIONS": 24,
+  "N_BASES": 150,
+  "FAMILIES": [
+   [
+    "uniform",
+    1
+   ],
+   [
+    "uniform",
+    3
+   ],
+   [
+    "uniform",
+    6
+   ],
+   [
+    "nearest",
+    3
+   ],
+   [
+    "nearest",
+    6
+   ],
+   [
+    "corridor",
+    6
+   ]
+  ],
+  "REGION_HOPS": 4,
+  "POLICY": {
+   "tol_pu": 1e-08,
+   "max_iter": 30,
+   "order": [
+    "genco",
+    "base",
+    "dc",
+    "flat"
+   ],
+   "line_limit": 1.0,
+   "voltage_buses": "pq",
+   "low_voltage_flag": 0.5,
+   "recovery": {
+    "max_iter": 100,
+    "homotopy_steps": [
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ]
+   },
+   "enforce_q_limits": false,
+   "q_limit_rounds": 15
+  },
+  "GROWTH": 0.02,
+  "N_GROWTH": 60,
+  "AUTHORS_RMSE_VM_PQ": 0.000275,
+  "MODEL_CHECK_FACTOR": 5,
+  "NETWORK_CHECK_PU": 0.0001,
+  "BOOTSTRAP": 1000,
+  "SEED": 0
+ },
+ "selection": {
+  "splits": {
+   "train": 175284,
+   "val": 21911,
+   "test": 21908
+  },
+  "scenarios_on_disk": 4703,
+  "on_disk_in_test_split": 504,
+  "test_with_every_line_in_service": 118,
+  "base_points": 118,
+  "generators_out_of_service": 118
+ },
+ "model_check": {
+  "network_max_mismatch_pu": 5.633876571818976e-10,
+  "network_check_pu": 0.0001,
+  "genco_rmse_vm_pq": 0.00031446519217065183,
+  "authors_rmse_vm_pq": 0.0002751687917965,
+  "base_points": 118
+ },
+ "cases": 708,
+ "skipped_constructions": 0,
+ "total": {
+  "cases": 708.0,
+  "resolved": 679.0,
+  "unresolved": 29.0,
+  "verified_decisions": 679.0,
+  "false_alarms": 0.0,
+  "missed_alarms": 0.0,
+  "verified_with_a_different_decision": 0.0,
+  "genco_alone_cases_with_a_miss": 356.0,
+  "genco_alone_cases_with_a_miss_or_false_flag": 523.0,
+  "ref_overloads": 2836.0,
+  "genco_missed_overloads": 695.0,
+  "ref_vviol": 657.0,
+  "genco_missed_vviol": 181.0,
+  "genco_worst_err_median": 0.0019616761948932915,
+  "iterations_classical_mean": 3.4506627393225333,
+  "iterations_from_genco_mean": 2.6980854197349045,
+  "genco_start_used": 679.0,
+  "ms_classical_median": 0.9660765000205629,
+  "ms_verified_median": 59.62829649999435
+ },
+ "clustered_over_random_err_ratio": 2.594121220376741,
+ "ci95": {
+  "one line": {
+   "miss_rate": [
+    0.4067796610169492,
+    0.5847457627118644
+   ],
+   "err_median": [
+    0.0008791493559105468,
+    0.001321861638232659
+   ]
+  },
+  "random": {
+   "miss_rate": [
+    0.31060539127298953,
+    0.4576271186440678
+   ],
+   "err_median": [
+    0.001248299147104781,
+    0.0016786184503172485
+   ]
+  },
+  "clustered": {
+   "miss_rate": [
+    0.5813234186746988,
+    0.6916522966724777
+   ],
+   "err_median": [
+    0.0030647963961896066,
+    0.004792556881640708
+   ]
+  },
+  "clustered_over_random_err_ratio": [
+   2.0242712117832067,
+   3.378950924770372
+  ]
+ },
+ "unresolved": {
+  "cases": 29,
+  "genco_min_vm_pq_median_unresolved": 0.9631050825119019,
+  "genco_min_vm_pq_median_resolved": 0.9793323278427124,
+  "genco_predicts_no_violation": 0,
+  "verified_workflow_alarm": 29
+ },
+ "load_growth": {
+  "operating_points": 60,
+  "slope_median": 0.82928731938377,
+  "slope_iqr": [
+   0.7827709169613057,
+   0.8868808271899169
+  ],
+  "corr_median": 0.821215625437456
+ },
+ "versions": {
+  "python": "3.13.15",
+  "torch": "2.11.0+cu130",
+  "torch_geometric": "2.8.1",
+  "numpy": "2.1.3",
+  "lightsim2grid": true,
+  "genco_verify": "1.1.0",
+  "device": "cuda",
+  "gpu": "Tesla T4"
+ }
+}
