@@ -6,13 +6,13 @@ abstract: >-
   An audit of GENCO, the GridFM power-flow foundation model, for N-k contingency screening on the Texas 2,000-bus grid;
   a verification workflow in which Newton-Raphson decides and every case ends verified safe, verified violation or
   unresolved; and two extensions of GENCO: fine-tuning on solver-labelled contingencies and a warning head that predicts
-  unresolved cases from GENCO's embeddings.
+  unresolved cases from GENCO's embeddings. The workflow test is repeated on IEEE 118 with the GENCO released for it.
 authors:
   - family-names: "Shooshtari"
     given-names: "Alireza"
     affiliation: "Institut de Recerca en Energia de Catalunya (IREC)"
     email: "a.shooshtari1996@gmail.com"
-version: 1.1.0
+version: 1.2.0
 date-released: "2026-10-24"
 repository-code: "https://github.com/Alirezashooshtari/genco-trust-but-verify"
 license: MIT
