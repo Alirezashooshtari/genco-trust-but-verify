@@ -36,6 +36,10 @@ fix,"ordinary N-2 scenarios: median worst-bus error, released -> fine-tuned (p.u
 runs,"ordinary N-2 scenarios: fine-tuned median worst-bus error (p.u.), seed 0 / seed 1 / first run",0.0036 / 0.0043 / 0.0035,evaluate_finetuned_*/endpoint_forgetting.csv
 fix,load points beyond a fold where Newton from the fine-tuned state converged,0 of 1689,evaluate_finetuned_seed0/endpoint_near_fold.json
 runs,"warning on the fine-tuned model, frozen-test AUROC, seed 0 / seed 1 / first run",0.977 / 0.979 / 0.973,evaluate_finetuned_*/endpoint_head.csv
+replay,"replay run: checkpoints within 10 % of the released ordinary error, of those evaluated; selected model",0 of 20; the released model,finetune_replay_seed0/summary.json
+replay,"validation, random and base cases: mean rise of the median worst-bus error over the released model (p.u.), published / replay",0.0023 / 0.0004 (-83 %),"finetune_seed0, finetune_replay_seed0/training_log.csv"
+replay,"validation, clustered cases: median worst-bus error (p.u.), released / range over checkpoints, published / replay",0.0223 / 0.0142 to 0.0188 / 0.0193 to 0.0224,"finetune_seed0, finetune_replay_seed0/training_log.csv"
+replay,"replay evaluation, clustered outages: change in decisions missed per case (95 % CI)",+0.00 (+0.00 to +0.00),evaluate_finetuned_replay_seed0/endpoints_cases.csv
 warning,"released GENCO, frozen test: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.962 (0.944 to 0.977); 0.95 / 0.16,evaluate_finetuned_seed0/endpoint_head.csv
 warning,"released GENCO, held-out construction: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.938 (0.886 to 0.980); 0.84 / 0.18,evaluate_finetuned_seed0/endpoint_head.csv
 warning,"released GENCO, storms at the actual load: AUROC (95 % CI); recall / false alarms at the frozen threshold",0.940 (0.894 to 0.979); 0.91 / 0.26,evaluate_finetuned_seed0/endpoint_head.csv
