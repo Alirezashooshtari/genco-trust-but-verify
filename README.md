@@ -5,29 +5,40 @@
 Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC) · a.shooshtari1996@gmail.com
 
 Entry to the [GENCO Challenge](https://huggingface.co/spaces/gridfm/genco-challenge) (GridFM Porto 2026).
-[Model](https://huggingface.co/Alirezashooshtari/genco-texas-clustered) ·
-[Demo](https://huggingface.co/spaces/Alirezashooshtari/genco-contingency-verifier)
+**Start here:** [fine-tuned model and warning](https://huggingface.co/Alirezashooshtari/genco-texas-clustered) ·
+[case explorer](https://huggingface.co/spaces/Alirezashooshtari/genco-contingency-verifier) ·
+[notebooks and results](notebooks/README.md)
 
-GENCO predicts the AC power flow of a contingency in one forward pass. This repository asks when that answer can be trusted
-for N-k screening on the released Texas 2,000-bus grid, and what to do when it cannot.
-
-- **Where GENCO fails.** Under clustered outages its voltage errors grow 4 to 17 times. On 33 of 120 storms no Newton
-  start converges at the actual load (continuation places the fold of the AC solution below it for 32), yet GENCO
-  returns a full state for every one, with nothing to mark it as unresolved.
-- **A workflow with three outcomes.** GENCO proposes a state and Newton-Raphson decides: *verified safe*, *verified
-  violation* or *unresolved* (an alarm, never a pass). On a frozen test of 870 unseen contingencies it gives an AC decision
-  for all 748 cases a classical solver resolves and an alarm for the 122 it cannot; GENCO alone would have been wrong in 260.
-- **A second grid.** On IEEE 118, with the GENCO released for it and 708 contingencies on operating points from the
-  authors' test split, the workflow again gives an AC decision for every case the classical solver resolves and an alarm
-  for the 29 it cannot, with no false alarms; GENCO alone misses a decision in 52 % of cases. Clustered outages raise its
-  errors less than on Texas (2.6 times), and its response to load growth is less damped (0.83 of the AC response).
-- **Extending GENCO.** Fine-tuning on solver-labelled contingencies cuts missed decisions on unseen clustered outages by
-  22 % for the published training seed (20 % for a second seed; the first run, made before a fix to gradient
-  accumulation and kept for the record, gave 23 %). A rule on the outage alone sends only clustered outages to the
-  fine-tuned model, so ordinary cases keep the released one. A warning head on GENCO's embeddings predicts unresolved
-  cases with AUROC 0.96.
+GENCO predicts the AC power flow of a contingency in one forward pass, which makes it attractive for screening
+thousands of N-k cases. The cases that matter most are the rare, severe ones, and there a confident wrong answer is the
+worst outcome. This project measures where GENCO fails on the released Texas 2,000-bus grid, wraps it in a verification
+step that always ends in an AC solution or an explicit alarm, and extends GENCO with fine-tuning and a warning head.
 
 ![The verified workflow](figures/fig1_workflow.png)
+
+## Results
+
+Under clustered outages, as storms and wildfires cause them, GENCO's voltage errors grow 4 to 17 times. On 33 of 120 such
+storms no Newton start converges at the actual load, yet GENCO returns a full state for every one. With verification,
+every case ends in an AC decision or an alarm:
+
+| Frozen test | Texas 2,000-bus | IEEE 118 |
+|---|---|---|
+| Contingencies | 870 | 708 |
+| Resolved by a classical solver: AC decision from the workflow | 748 of 748 | 679 of 679 |
+| Not resolved: alarm | 122 | 29 |
+| False alarms | 0 | 0 |
+| GENCO alone: resolved cases with at least one missed decision | 260 (35 %) | 356 (52 %) |
+| GENCO's voltage error on clustered outages, relative to random ones | ×4.0 (N-10), ×16.5 (N-20) | ×2.6 |
+| GENCO's response to system-wide load growth, relative to AC | 0.60 | 0.83 |
+
+On IEEE 118 the model is the one the authors released for that grid, and the operating points come from their test split.
+
+Fine-tuning the released checkpoint on 6,737 solver-labelled contingencies cuts missed decisions on unseen clustered
+outages from 6.13 to 4.79 per case (−22 %; −20 % with a second training seed). The fine-tuned model is a specialist, so a
+rule on the outage alone (at least 5 lines out, spread over at most 11 hops) sends clustered outages to it and leaves
+ordinary ones with the released model. A warning head on GENCO's embeddings flags the cases the solver will not resolve,
+with AUROC 0.96.
 
 ## Quick start
 
@@ -72,7 +83,7 @@ tests/              tests of every outcome and option on a three-bus grid
 notebooks/          the Colab notebooks that produced the results (see notebooks/README.md)
 results/            what the numbers and figures need from each notebook run, plus the analyses in results/analysis/
 scripts/            headline numbers, figures, demo, warning ablation, Hugging Face upload
-figures/            the five figures of the write-up (PNG and SVG)
+figures/            the five figures of the write-up (figure 1 is a draw.io file)
 demo/               the case explorer (also the Hugging Face Space)
 environment/        Colab setup, pinned upstream revisions, data and checkpoint hashes
 release/            the model card of the fine-tuned model
@@ -89,19 +100,13 @@ needs the feature matrices published with the model:
 python scripts/warning_ablation.py --features-dir <folder with features_released.npz and features_finetuned.npz>
 ```
 
-## Limitations
+## Scope
 
-- **Steady state only.** The check is an AC power flow: no dynamics, protection or remedial actions.
-- **Unresolved is not infeasible.** It means none of the tested starts converged within the iteration cap. For the storms,
-  continuation places the fold of the AC solution below the actual load in 32 of the 33 such cases.
-- **More than one AC solution.** In 2 of the 748 verified frozen-test cases the starts reached different solutions; the
-  module reports such cases instead of choosing silently.
-- **No speed-up on this grid.** GENCO plus verification takes 86 ms per case (median), the classical solve 13 ms.
-- **The warning fades near the fold.** Within 5 % of it the AUROC is 0.57. The warning orders the work; the solver still
-  runs on every case.
-- **The fine-tuned model is a specialist.** It is less accurate on ordinary scenarios (median worst-bus error 0.0013 to
-  0.0036 p.u.), so ordinary outages should stay with the released model.
-- **Two grids.** Texas 2,000-bus and IEEE 118; on IEEE 118 every operating point already has one generator out.
+The check is a steady-state AC power flow; dynamics, protection and remedial actions are outside it. *Unresolved* means
+that none of the tested Newton starts converged, not that no AC solution exists; for the storms, continuation places the
+fold of the AC solution below the actual load in 32 of 33 cases. On Texas, GENCO does not make screening faster (86 ms
+per case with verification, 13 ms for the classical solve), and the warning loses its power within 5 % of the fold
+(AUROC 0.57), so the solver still runs on every case. The results cover two grids.
 
 ## Credits and licence
 
