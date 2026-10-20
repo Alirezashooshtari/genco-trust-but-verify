@@ -1,0 +1,7 @@
+No checkpoint is stored for this run. Under its selection rule (lowest validation loss among checkpoints whose median
+worst-bus error on held-out ordinary N-2 scenarios stays within 10 % of the released model's), none of the 20 evaluated
+checkpoints qualified, so the run selected the released model (summary.json: selected_step 0, selected_is_released true).
+evaluate_finetuned_replay_seed0 confirms it: every paired difference against the released model is zero.
+
+train_cases.csv is not repeated here: it is identical to results/finetune_seed0/train_cases.csv (same training cases,
+labels and split); replay_cases.csv lists the replayed scenarios.
