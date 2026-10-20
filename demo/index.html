@@ -597,7 +597,7 @@ function renderVerdict(c) {
   const q = ex && ex.q_limits ? `<div class="foot">With generator reactive limits enforced the outcome is the same: ${String(ex.q_limits.note || "").replace(/\.$/, "")}.</div>` : "";
   $("verdict").innerHTML = `<div class="panel-head"><h2>GENCO alone against the check</h2></div>
     <table><thead><tr><th></th><th>GENCO alone</th><th>Verified</th></tr></thead><tbody>${rows}</tbody></table>
-    <div class="foot">GENCO alone means taking its predicted state at face value: a line is overloaded at 100 % of its rating, a bus violates when its voltage is outside its limits Verified decisions come from the converged AC state.</div>${starts}${q}`;
+    <div class="foot">GENCO alone means taking its predicted state at face value: a line is overloaded at 100 % of its rating, a bus violates when its voltage is outside its limits. Verified decisions come from the converged AC state.</div>${starts}${q}`;
 }
 
 // ------------------------------------------------------------------ map
