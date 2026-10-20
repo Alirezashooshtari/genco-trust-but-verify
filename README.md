@@ -5,7 +5,8 @@
 Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC) · a.shooshtari1996@gmail.com
 
 Entry to the [GENCO Challenge](https://huggingface.co/spaces/gridfm/genco-challenge) (GridFM Porto 2026).
-**Start here:** [fine-tuned model and warning](https://huggingface.co/Alirezashooshtari/genco-texas-clustered) ·
+**Start here:** [write-up](https://huggingface.co/spaces/gridfm/genco-challenge/discussions/7) ·
+[fine-tuned model and warning](https://huggingface.co/Alirezashooshtari/genco-texas-clustered) ·
 [case explorer](https://huggingface.co/spaces/Alirezashooshtari/genco-contingency-verifier) ·
 [notebooks and results](notebooks/README.md)
 
