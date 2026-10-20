@@ -39,10 +39,11 @@ alarm:
 On IEEE 118 the model is the one the authors released for that grid, and the operating points come from their test split.
 
 Fine-tuning the released checkpoint on 6,737 solver-labelled contingencies cuts missed decisions on unseen clustered
-outages from 6.13 to 4.79 per case (−22 %; −20 % with a second training seed). The fine-tuned model is a specialist, so a
-rule on the outage alone (at least 5 lines out, spread over at most 11 hops) sends clustered outages to it and leaves
-ordinary ones with the released model. A warning head on GENCO's embeddings flags the cases the solver will not resolve,
-with AUROC 0.96.
+outages from 6.13 to 4.79 per case (−22 %; −20 % with a second training seed). The fine-tuned model is a specialist, so
+a rule on the outage alone (at least 5 lines out, spread over at most 11 hops) sends clustered outages to it and leaves
+ordinary ones with the released model. Replaying ordinary scenarios during fine-tuning did not remove the trade-off:
+none of its 20 checkpoints kept ordinary accuracy within 10 % of the released model (`notebooks/finetune_replay.ipynb`).
+A warning head on GENCO's embeddings flags the cases the solver will not resolve, with AUROC 0.96.
 
 ## Quick start
 
