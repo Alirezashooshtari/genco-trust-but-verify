@@ -250,6 +250,47 @@ claim(
     "evaluate_finetuned_*/endpoint_head.csv",
 )
 
+# ------------------------------------------------------------------ fine-tuning with replay (notebooks/finetune_replay.ipynb)
+rp = json.loads((RES / "finetune_replay_seed0/summary.json").read_text())
+claim(
+    "replay",
+    "replay run: checkpoints within 10 % of the released ordinary error, of those evaluated; selected model",
+    f"{rp['replay']['checkpoints_keeping_ordinary_accuracy']} of {rp['replay']['checkpoints_evaluated']}; "
+    + ("the released model" if rp["replay"]["selected_is_released"] else f"step {rp['selected_step']}"),
+    "finetune_replay_seed0/summary.json",
+)
+logs = {
+    name: pd.read_csv(RES / f"{run}/training_log.csv")
+    for name, run in (("published", "finetune_seed0"), ("replay", "finetune_replay_seed0"))
+}
+u0 = logs["published"].loc[logs["published"].step == 0, "worst_bus_err_median_uniform/base"].item()
+inc = {n: (L[L.step > 0]["worst_bus_err_median_uniform/base"] - u0).mean() for n, L in logs.items()}
+claim(
+    "replay",
+    "validation, random and base cases: mean rise of the median worst-bus error over the released model (p.u.), published / replay",
+    f"{inc['published']:.4f} / {inc['replay']:.4f} ({100 * (inc['replay'] / inc['published'] - 1):+.0f} %)",
+    "finetune_seed0, finetune_replay_seed0/training_log.csv",
+)
+clu = {n: L[L.step > 0].worst_bus_err_median_clustered for n, L in logs.items()}
+claim(
+    "replay",
+    "validation, clustered cases: median worst-bus error (p.u.), released / range over checkpoints, published / replay",
+    f"{logs['published'].loc[logs['published'].step == 0, 'worst_bus_err_median_clustered'].item():.4f} / "
+    f"{clu['published'].min():.4f} to {clu['published'].max():.4f} / {clu['replay'].min():.4f} to {clu['replay'].max():.4f}",
+    "finetune_seed0, finetune_replay_seed0/training_log.csv",
+)
+er = (
+    pd.read_csv(RES / "evaluate_finetuned_replay_seed0/endpoints_cases.csv")
+    .set_index(["group", "metric"])
+    .loc[("clustered (F1)", "missed")]
+)
+claim(
+    "replay",
+    "replay evaluation, clustered outages: change in decisions missed per case (95 % CI)",
+    f"{er.diff_mean:+.2f} ({er.diff_ci_lo:+.2f} to {er.diff_ci_hi:+.2f})",
+    "evaluate_finetuned_replay_seed0/endpoints_cases.csv",
+)
+
 # ------------------------------------------------------------------ the warning
 head = heads[PUBLISHED]
 for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points within 5 % of the fold"):
