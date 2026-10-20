@@ -18,19 +18,23 @@ step that always ends in an AC solution or an explicit alarm, and extends GENCO 
 
 ## Results
 
-Under clustered outages, as storms and wildfires cause them, GENCO's voltage errors grow 4 to 17 times. On 33 of 120 such
-storms no Newton start converges at the actual load, yet GENCO returns a full state for every one. With verification,
-every case ends in an AC decision or an alarm:
+On outages clustered in one area of the grid, of the kind storms and wildfires cause, GENCO's voltage errors grow 4 to
+17 times compared with random outages of the same size. On 33 of 120 clustered N-20 cases no Newton start converges at the
+actual load, yet GENCO returns a full state for every one. With verification, every case ends in an AC decision or an
+alarm:
 
 | Frozen test | Texas 2,000-bus | IEEE 118 |
 |---|---|---|
 | Contingencies | 870 | 708 |
 | Resolved by a classical solver: AC decision from the workflow | 748 of 748 | 679 of 679 |
 | Not resolved: alarm | 122 | 29 |
-| False alarms | 0 | 0 |
+| False alarms¹ | 0 | 0 |
 | GENCO alone: resolved cases with at least one missed decision | 260 (35 %) | 356 (52 %) |
-| GENCO's voltage error on clustered outages, relative to random ones | ×4.0 (N-10), ×16.5 (N-20) | ×2.6 |
-| GENCO's response to system-wide load growth, relative to AC | 0.60 | 0.83 |
+| GENCO's voltage error on clustered outages, relative to random ones² | ×4.0 (N-10), ×16.5 (N-20) | ×2.6 (N-3 and N-6) |
+| GENCO's voltage drop under uniform load growth, relative to the AC drop³ | 0.60 | 0.83 |
+
+¹ Cases the workflow marks unresolved although a classical solver finds an AC solution.
+² Median worst-bus voltage error. ³ Median slope over the operating points.
 
 On IEEE 118 the model is the one the authors released for that grid, and the operating points come from their test split.
 
@@ -72,7 +76,8 @@ result.history            # every start tried: iterations, mismatch, time
 
 `Verifier(case, {"enforce_q_limits": True})` enforces generator reactive limits (pass the generator table to
 `case_from_tables`), and `{"branch_check": True}` runs every start and reports when they reach different AC solutions.
-`policy_name="classical"` runs the same check without GENCO. Newton-Raphson uses lightsim2grid when it is installed
+`policy_name="classical"` runs the same check without GENCO. `notebooks/frozen_test.ipynb` shows how the tables and
+GENCO's state of a released scenario are loaded. Newton-Raphson uses lightsim2grid when it is installed
 (`pip install -e ".[fast]"`) and a SciPy implementation otherwise.
 
 ## Layout
@@ -105,8 +110,9 @@ python scripts/warning_ablation.py --features-dir <folder with features_released
 The check is a steady-state AC power flow; dynamics, protection and remedial actions are outside it. *Unresolved* means
 that none of the tested Newton starts converged, not that no AC solution exists; for the storms, continuation places the
 fold of the AC solution below the actual load in 32 of 33 cases. On Texas, GENCO does not make screening faster (86 ms
-per case with verification, 13 ms for the classical solve), and the warning loses its power within 5 % of the fold
-(AUROC 0.57), so the solver still runs on every case. The results cover two grids.
+per case with verification, 13 ms for the classical solve, on a T4 GPU with a one-thread KLU solver; see
+`results/frozen_test/timing.json`). Within 5 % of the fold the warning's AUROC falls to 0.57, so the solver still runs
+on every case.
 
 ## Credits and licence
 
