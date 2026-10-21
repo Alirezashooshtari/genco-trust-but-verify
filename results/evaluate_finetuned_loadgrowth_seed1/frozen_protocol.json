@@ -1,0 +1,54 @@
+{
+ "purpose": "the test of the fine-tuned GENCO (notebook T1) against the released model, paired on cases neither model was trained or selected on, and of a warning head that flags cases likely to be unresolved by the specified solver; fixed before any fine-tuned output is seen",
+ "models": {
+  "released": "gridfm/genco-pf-contingency/model/training_bs_16",
+  "fine_tuned": "finetune_loadgrowth_seed1/genco_finetuned_state_dict.pt (SHA-256 checked against its summary)",
+  "finetune_seed": 1
+ },
+ "verification": {
+  "policy": {
+   "tol_pu": 1e-08,
+   "max_iter": 30,
+   "order": [
+    "genco",
+    "base",
+    "dc",
+    "flat"
+   ],
+   "line_limit": 1.0,
+   "voltage_buses": "pq",
+   "low_voltage_flag": 0.5,
+   "recovery": {
+    "max_iter": 100,
+    "homotopy_steps": [
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ]
+   },
+   "screen_margin": 0.0454,
+   "enforce_q_limits": false,
+   "q_limit_rounds": 15
+  },
+  "note": "the frozen policy of F1 (no reactive limits, first converged start); every verdict comes from the solver"
+ },
+ "test_sets": {
+  "F1": "the 870 contingencies of the frozen final evaluation (N-2 blocks 6 and 16), rebuilt from their stored base points and removed lines",
+  "footprint": "a soft-footprint N-20 case per F1 base point (174), a construction held out of fine-tuning, seed rule default_rng(SEED*1000003 + base + 11)",
+  "forgetting": "released scenarios with released AC solutions: N-2 block 7 and N-10, N-20 block 0, the first 200 of each",
+  "near_fold": "the 120 K1 storms (N-2 blocks 0-1), their tracked-branch fold recomputed as in K1 and their AC truth along K1's load grid"
+ },
+ "primary_endpoints": [
+  "1. clustered cases (F1 nearest/corridor families and footprint): decisions missed by GENCO alone per verified case, paired difference (fine-tuned - released), mean with a 95 % cluster bootstrap interval over base points; also cases with any missed decision (exact McNemar)",
+  "2. worst-bus voltage error of GENCO alone on the same cases, paired difference, mean and median, cluster bootstrap",
+  "3. forgetting: worst-bus voltage error on the released scenarios, paired difference; non-inferior if the upper 95 % bound of the mean increase is below 0.001 p.u. at each level",
+  "4. near the fold: the lowest voltage at the fold (AC, released, fine-tuned) and GENCO's voltage drop over the last 5 % of load as a share of the AC drop, at the AC solution's weakest bus, medians over storms with a fold; beyond the fold Newton from the fine-tuned state must still converge nowhere",
+  "5. warning head for cases unresolved by the specified solver (baselines: GENCO's lowest voltage, residual and predicted-violation count alone; logistic regression on GENCO's own outputs and embeddings, trained on T1's training cases, threshold fixed on T1's validation cases for 95% recall of unresolved cases): AUROC, recall and false alarms on F1, footprint and the K1 storms"
+ ],
+ "secondary": [
+  "Newton iterations from GENCO's state, verdict agreement with the reference, cases resolved only from the fine-tuned state (checked with PYPOWER), the branch check on the fine-tuned workflow, end-to-end GENCO time (unchanged by construction)"
+ ],
+ "bootstrap": 1000,
+ "seed": 0
+}

@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "results"
 CLUSTERED = ("nearest", "corridor")
 MIN_LINES = 5
-RUNS = ("seed0", "seed1", "as_run")  # seed0 is the published model
+RUNS = ("seed0", "seed1", "as_run", "loadgrowth_seed0", "loadgrowth_seed1")  # seed0 is the published model
 
 
 def build_grid():

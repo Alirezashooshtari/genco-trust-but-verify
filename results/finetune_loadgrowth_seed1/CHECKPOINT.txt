@@ -1,0 +1,5 @@
+A second training run of notebooks/finetune_loadgrowth.ipynb (TRAIN_SEED = 1) on the same cases, kept to measure the
+spread between runs. Its weights are not published; their SHA-256 is
+7bf1ad7b445f7431d7d69e9c7e573cd256e3fad7bd3ce8ebb823761d6130e37c (also in summary.json).
+
+train_cases.csv is not repeated here: it is identical to results/finetune_seed0/train_cases.csv.

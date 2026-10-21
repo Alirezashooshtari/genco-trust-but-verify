@@ -17,6 +17,9 @@ Each notebook is self-contained and runs on a fresh Colab runtime (see `../envir
 | `evaluate_finetuned` | Paired test of a fine-tuned run and the unresolved-case warning (Figure 5) | T4, ~1 h | `evaluate_finetuned_seed0`, `_seed1`, `_as_run` |
 | `finetune_replay` | `finetune` with replay of released N-2 scenarios in every step and selection that keeps ordinary accuracy; decision rule in its header | T4, ~1.7 h | `finetune_replay_seed0` |
 | `evaluate_finetuned_replay` | `evaluate_finetuned` reading the replay run | T4, ~30 min | `evaluate_finetuned_replay_seed0` |
+| `finetune_loadgrowth` | `finetune` with a load-growth response term: each case paired with the same case at 2 % more load; decision rule in its header | T4, ~2.5 h | `finetune_loadgrowth_seed0`, `_seed1` |
+| `evaluate_finetuned_loadgrowth` | `evaluate_finetuned` reading the load-growth runs | T4, ~45 min | `evaluate_finetuned_loadgrowth_seed0`, `_seed1` |
+| `load_response_finetuned` | `load_response`, on its 129 published load-growth scenarios, with a fine-tuned model (Figure 3b) | T4, ~25 min | `load_response_seed0`, `load_response_loadgrowth_seed0`, `_seed1` |
 | `second_grid` | The verified workflow, GENCO alone and the load-growth probe on IEEE 118, with its released GENCO | CPU, ~15 min | `second_grid` |
 | `independent_check` | PYPOWER built from the raw network parameters as an independent check | CPU, ~40 min | `independent_check` |
 

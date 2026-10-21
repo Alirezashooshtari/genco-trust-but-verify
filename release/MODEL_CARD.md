@@ -30,6 +30,8 @@ Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC)
 | `warning/scores.csv` | the score and label of every evaluated case |
 | `data/features_released.npz`, `data/features_finetuned.npz` | features and labels of every training, validation and test case |
 | `training/finetune.ipynb` | the notebook that produced the weights (`TRAIN_SEED = 0`) |
+| `loadgrowth/model.safetensors` | the same fine-tuning plus a load-growth response term (see below) |
+| `training/finetune_loadgrowth.ipynb` | the notebook that produced those weights (`TRAIN_SEED = 0`) |
 
 The `.joblib` heads were saved with scikit-learn 1.6.1 (the Colab version at the time); with other versions use the
 JSON files, which hold the same parameters as plain numbers.
@@ -71,6 +73,31 @@ The warning predicts whether the classical Newton-Raphson policy (pre-contingenc
 30 iterations) will leave a case unresolved. AUROC 0.96 with the base model and 0.98 with the fine-tuned one on the
 870-case frozen test; at its threshold it catches 95 to 98 % of unresolved cases with 10 to 16 % false alarms. It predicts
 solver non-convergence, not the absence of an AC solution, and it is close to chance within 5 % of the fold of the tracked AC solution.
+
+## With a load-growth response term (`loadgrowth/`)
+
+The base model's voltage drops under system-wide load growth are only 0.60 of the AC ones, which is why it glides past
+the fold of the AC solution. `loadgrowth/model.safetensors` is fine-tuned on the same cases with the same objective, plus
+one term: every training case is paired with the same case at 2 % more load (loads only), and the difference between
+GENCO's and the AC voltage change at the PQ buses is penalised. The decision rule was fixed before the run; both seeds
+meet it.
+
+| | Base model | Fine-tuned (`model.safetensors`) | Load-growth, seed 0 (`loadgrowth/`) | Load-growth, seed 1 |
+|---|---|---|---|---|
+| Load-growth response on 129 held-out scenarios (AC = 1) | 0.60 | 0.78 | 0.99 | 1.01 |
+| Decisions missed per case, clustered outages | 6.13 | 4.79 | 4.45 (95 % CI of the difference −2.23 to −1.23) | 4.22 |
+| Decisions missed per case, held-out construction | 2.01 | 1.56 | 1.35 | 1.24 |
+| Decisions missed per case, random outages | 0.14 | 0.14 | 0.21 | 0.14 |
+| Median worst-bus error, released N-2 scenarios (p.u.) | 0.0013 | 0.0036 | 0.0052 | 0.0056 |
+
+It is the stronger specialist and responds to load growth like the AC solution, but it is further from the base model on
+ordinary scenarios, so the same routing rule applies: with it, missed decisions per clustered case fall to 4.45 and those
+on random outages stay at 0.14. Near the fold it still follows only part of the AC collapse (14 % of the AC voltage drop
+over the last 5 % of load, against 5 % for the base model), and Newton never converges beyond a fold from its state.
+
+`loadgrowth/model.safetensors` SHA-256: `584b15d658fa7dd97b606c5d78ade0f40ae6bbbf6d8f5fe631fbe072c40763eb`, converted from
+the notebook's `genco_finetuned_state_dict.pt` (SHA-256 `9d3f671bf4c171b9327b52e9f100b01c140f76f096fdc35e1318aa3b5401c8b6`).
+It loads in the same way as `model.safetensors`.
 
 ## Intended use
 

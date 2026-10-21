@@ -292,6 +292,94 @@ claim(
     "evaluate_finetuned_replay_seed0/endpoints_cases.csv",
 )
 
+# ------------------------------------------------------------------ fine-tuning with a load-growth term (notebooks/finetune_loadgrowth.ipynb)
+LG = {"loadgrowth_seed0": "load-growth seed 0", "loadgrowth_seed1": "load-growth seed 1"}
+probe = {
+    "released": pd.read_csv(RES / "load_response/load_growth_all_buses.csv"),
+    "published fine-tuned": pd.read_csv(RES / "load_response_seed0/load_growth_all_buses.csv"),
+    **{name: pd.read_csv(RES / f"load_response_{run}/load_growth_all_buses.csv") for run, name in LG.items()},
+}
+slopes = pd.DataFrame({k: v.set_index(["k", "scenario"]).slope_all_pq for k, v in probe.items()})
+assert slopes.notna().all().all() and len(slopes) == 129
+claim(
+    "loadgrowth",
+    "load-growth response on the 129 probe scenarios (median slope, AC = 1): " + " / ".join(slopes.columns),
+    " / ".join(f"{slopes[c].median():.2f}" for c in slopes.columns),
+    "load_response*/load_growth_all_buses.csv",
+)
+boot_rng = np.random.default_rng(0)
+draws = [boot_rng.choice(len(slopes), len(slopes)) for _ in range(2000)]
+for name in LG.values():
+    d = [slopes[name].iloc[t].median() - slopes["published fine-tuned"].iloc[t].median() for t in draws]
+    claim(
+        "loadgrowth",
+        f"{name} minus published fine-tuned: median load-growth slope (95 % CI, bootstrap over scenarios)",
+        f"{slopes[name].median() - slopes['published fine-tuned'].median():+.2f} ({np.percentile(d, 2.5):+.2f} to {np.percentile(d, 97.5):+.2f})",
+        "load_response*/load_growth_all_buses.csv",
+    )
+lg_ep = {
+    run: pd.read_csv(RES / f"evaluate_finetuned_{run}/endpoints_cases.csv").set_index(["group", "metric"]) for run in LG
+}
+for grp in ("clustered (F1)", "footprint (held out)", "uniform (F1)"):
+    claim(
+        "loadgrowth",
+        f"{GROUP_NAMES[grp]}: decisions missed per case, released -> "
+        + " / ".join(LG.values())
+        + " (paired 95 % CI of the difference)",
+        " / ".join(
+            f"{e.loc[(grp, 'missed')].released_mean:.2f} -> {e.loc[(grp, 'missed')].fine_tuned_mean:.2f} "
+            f"({100 * e.loc[(grp, 'missed')].diff_mean / e.loc[(grp, 'missed')].released_mean:+.0f} %; "
+            f"{e.loc[(grp, 'missed')].diff_ci_lo:+.2f} to {e.loc[(grp, 'missed')].diff_ci_hi:+.2f})"
+            for e in lg_ep.values()
+        ),
+        "evaluate_finetuned_loadgrowth_*/endpoints_cases.csv",
+    )
+lg_fg = {run: pd.read_csv(RES / f"evaluate_finetuned_{run}/endpoint_forgetting.csv").set_index("level") for run in LG}
+claim(
+    "loadgrowth",
+    "ordinary N-2 scenarios: median worst-bus error (p.u.), " + " / ".join(LG.values()),
+    " / ".join(f"{f.loc['N-2', 'fine_tuned_median_err']:.4f}" for f in lg_fg.values()),
+    "evaluate_finetuned_loadgrowth_*/endpoint_forgetting.csv",
+)
+lg_routing = json.loads((RES / "analysis/routing.json").read_text())
+for grp in ("clustered", "random"):
+    claim(
+        "loadgrowth",
+        f"routing with the load-growth model, {grp} outages: decisions missed per case, routed, "
+        + " / ".join(LG.values()),
+        " / ".join(f"{lg_routing['runs'][run][grp]['routed_missed_mean']:.2f}" for run in LG),
+        "analysis/routing.json",
+    )
+for key, label in (("unresolved_at_actual_load", "unresolved"), ("solved_at_actual_load", "solved")):
+    nfs = {
+        run: json.loads((RES / f"evaluate_finetuned_{run}/endpoint_near_fold.json").read_text())[key]
+        for run in ("seed0", *LG)
+    }
+    claim(
+        "loadgrowth",
+        f"storms {label} at the actual load: GENCO's voltage drop over the last 5 % before the fold, share of AC: released / published / "
+        + " / ".join(LG.values()),
+        " / ".join(
+            [
+                f"{nfs['seed0']['drop_share_of_ac']['released']:.2f}",
+                f"{nfs['seed0']['drop_share_of_ac']['fine_tuned']:.2f}",
+            ]
+            + [f"{nfs[run]['drop_share_of_ac']['fine_tuned']:.2f}" for run in LG]
+        ),
+        "evaluate_finetuned_*/endpoint_near_fold.json",
+    )
+lg_nf = {run: json.loads((RES / f"evaluate_finetuned_{run}/endpoint_near_fold.json").read_text()) for run in LG}
+claim(
+    "loadgrowth",
+    "load points beyond a fold where Newton from the load-growth model's state converged, " + " / ".join(LG.values()),
+    " / ".join(
+        f"{sum(nf[k]['fine_tuned_newton_converged_beyond'] for k in ('unresolved_at_actual_load', 'solved_at_actual_load'))} of "
+        f"{sum(nf[k]['beyond_fold_points'] for k in ('unresolved_at_actual_load', 'solved_at_actual_load'))}"
+        for nf in lg_nf.values()
+    ),
+    "evaluate_finetuned_loadgrowth_*/endpoint_near_fold.json",
+)
+
 # ------------------------------------------------------------------ the warning
 head = heads[PUBLISHED]
 for test in ("F1", "footprint", "K1 storms at the actual load", "K1 points within 5 % of the fold"):

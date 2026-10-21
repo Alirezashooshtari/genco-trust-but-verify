@@ -1,0 +1,10 @@
+These are the weights published as loadgrowth/model.safetensors in
+https://huggingface.co/Alirezashooshtari/genco-texas-clustered
+
+The notebook (notebooks/finetune_loadgrowth.ipynb, TRAIN_SEED = 0) saves them as genco_finetuned_state_dict.pt
+(SHA-256 9d3f671bf4c171b9327b52e9f100b01c140f76f096fdc35e1318aa3b5401c8b6, also in summary.json).
+scripts/publish_huggingface.py --loadgrowth checks this hash before converting the file to safetensors
+(SHA-256 584b15d658fa7dd97b606c5d78ade0f40ae6bbbf6d8f5fe631fbe072c40763eb).
+
+train_cases.csv is not repeated here: it is identical to results/finetune_seed0/train_cases.csv. pair_cases.csv lists,
+for every training target, whether its state at 2 % more load was also a target.
