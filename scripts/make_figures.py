@@ -192,13 +192,15 @@ def figure3():
     C = pd.read_csv(RES / "clustered_outages/storm_cases.csv")
     T = pd.read_csv(RES / "load_response/load_growth_targets.csv")
     B = pd.read_csv(RES / "load_response/load_growth_all_buses.csv")
+    TL = pd.read_csv(RES / "load_response_loadgrowth_seed0/load_growth_targets.csv")
+    BL = pd.read_csv(RES / "load_response_loadgrowth_seed0/load_growth_all_buses.csv")
 
     fig = plt.figure(figsize=(WIDTH, 5.1))
     headline(
         fig,
         "Where GENCO goes wrong, and how its response differs",
-        "Its errors grow when outages cluster in one area, as storms and wildfires do. Under small, realistic changes its\n"
-        "response is closer to AC for several local changes and systematically weaker for system-wide load growth.",
+        "Its errors grow when outages cluster in one area, as storms and wildfires do. Its response to system-wide load\n"
+        "growth is systematically weaker than AC's, until fine-tuning supervises that response.",
     )
     gs = fig.add_gridspec(1, 2, left=0.085, right=0.975, top=0.69, bottom=0.2, wspace=0.3, width_ratios=[1.15, 1])
     a, b = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -236,37 +238,41 @@ def figure3():
     a.set_ylabel("Worst bus-voltage error per case (p.u.)")
     panel_title(a, "a", "Random against clustered outages")
 
-    for problem, color, label in [
-        (False, "#86b6ef", "ordinary buses"),
-        (True, GENCO_DARK, "buses GENCO often gets wrong"),
-    ]:
-        g = T[(T.group == "wrong pattern") == problem]
-        b.scatter(-g.true * 0.01, -g.genco * 0.01, s=10, color=color, alpha=0.4, lw=0, label=label)
+    b.scatter(-T.true * 0.01, -T.genco * 0.01, s=10, color="#86b6ef", alpha=0.45, lw=0, label="released GENCO")
+    b.scatter(
+        -TL.true * 0.01,
+        -TL.genco * 0.01,
+        s=10,
+        color=TUNED,
+        alpha=0.35,
+        lw=0,
+        label="fine-tuned with a load-growth term",
+    )
     hi = float(np.nanmax(-T.true * 0.01)) * 1.05
     slope = float(B.slope_all_pq.median())
-    b.plot([0, hi], [0, hi], color=MUTED, lw=1.2, ls=(0, (2, 3)))
-    b.plot([0, hi], [0, slope * hi], color=INK, lw=1.8)
+    slope_l = float(BL.slope_all_pq.median())
+    b.plot([0, hi], [0, hi], color=MUTED, lw=1.2, ls=(0, (2, 3)), label="equal to AC")
+    b.plot([0, hi], [0, slope * hi], color=GENCO_DARK, lw=1.8)
+    b.plot([0, hi], [0, slope_l * hi], color=TUNED, lw=1.8)
     b.text(
-        hi * 0.70,
-        hi * 0.70 + hi * 0.02,
-        "equal response",
-        ha="center",
-        va="bottom",
-        fontsize=9.5,
-        color=MUTED,
-        rotation=45,
-        rotation_mode="anchor",
-        transform_rotates_text=True,
-    )
-    b.annotate(
-        f"GENCO responds {slope:.2f}×\nas strongly as AC",
-        xy=(hi * 0.66, slope * hi * 0.66),
-        xytext=(hi * 0.04, hi * 0.60),
+        hi * 0.97,
+        slope * hi * 0.97 - hi * 0.10,
+        f"{slope:.2f}× AC",
+        ha="right",
+        va="top",
         fontsize=10.5,
-        color=INK,
+        color=GENCO_DARK,
         fontweight="bold",
-        va="center",
-        arrowprops=dict(arrowstyle="-", color=INK2, lw=1, shrinkA=4, shrinkB=2),
+    )
+    b.text(
+        hi * 0.46,
+        slope_l * hi * 0.46 + hi * 0.05,
+        f"{slope_l:.2f}× AC",
+        ha="right",
+        va="bottom",
+        fontsize=10.5,
+        color=TUNED,
+        fontweight="bold",
     )
     b.set_xlim(0, hi)
     b.set_ylim(0, hi)
@@ -282,8 +288,8 @@ def figure3():
     panel_title(b, "b", "Every load grows by 1 %")
     source(
         fig,
-        "a: notebook `clustered_outages`, 42 to 60 cases per group; bars are medians.   b: notebook `load_response`, 129 scenarios, "
-        "linearised from ±2 % changes; line: median slope.",
+        "a: `clustered_outages`, 42 to 60 cases per group; bars: medians.   b: `load_response`, `load_response_finetuned`, "
+        "129 held-out scenarios, ±2 %; lines: median slopes.",
     )
     save(fig, "fig3_where_and_why")
 
