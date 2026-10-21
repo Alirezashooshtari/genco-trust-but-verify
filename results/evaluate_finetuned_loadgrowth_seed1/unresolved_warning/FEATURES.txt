@@ -1,0 +1,3 @@
+This folder keeps the warning heads fitted in this evaluation (joblib and plain JSON), the feature definitions and the
+score of every case. The feature matrices of this run are not published; those of the published run are in
+https://huggingface.co/Alirezashooshtari/genco-texas-clustered under data/.
