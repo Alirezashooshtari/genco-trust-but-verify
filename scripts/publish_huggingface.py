@@ -3,12 +3,15 @@
     pip install huggingface_hub safetensors torch
     huggingface-cli login
     python scripts/publish_huggingface.py --user <account> \
-        --finetune finetune_seed0.zip --evaluation evaluate_finetuned_seed0.zip
+        --finetune finetune_seed0.zip --evaluation evaluate_finetuned_seed0.zip \
+        --loadgrowth finetune_loadgrowth_seed0.zip
 
 --finetune and --evaluation are the zip files written by notebooks/finetune.ipynb and notebooks/evaluate_finetuned.ipynb
 with TRAIN_SEED = 0, the published run. The weights are checked against the SHA-256 recorded in
 results/finetune_seed0/summary.json and the evaluation against the same hash, then the weights are converted to
 safetensors and uploaded together with the warning heads, the feature matrices, the model card and the training notebook.
+--loadgrowth is the zip written by notebooks/finetune_loadgrowth.ipynb with TRAIN_SEED = 0; its weights are checked the same
+way against results/finetune_loadgrowth_seed0/summary.json and published under loadgrowth/.
 """
 
 import argparse
@@ -28,6 +31,7 @@ BASE_REPO = "gridfm/genco-pf-contingency"
 BASE_REVISION = "5c625b00f5b79c8a7d4d27ecc133d4ecdf573af7"
 GRAPHKIT_COMMIT = "95b90eecc7f5c2c86a9dd776f0c3f40434def22f"
 RUN = "seed0"
+LOADGROWTH_RUN = "loadgrowth_seed0"
 
 WARNING_FILES = {  # file written by the evaluation notebook -> path in the model repository
     "warning_released.joblib": "warning/warning_released.joblib",
@@ -55,7 +59,7 @@ def unzip(path, into):
     return into
 
 
-def build_model_folder(finetune_zip, evaluation_zip, out):
+def build_model_folder(finetune_zip, evaluation_zip, out, loadgrowth_zip=None):
     tmp = Path(tempfile.mkdtemp())
     ft = unzip(finetune_zip, tmp / "finetune")
     ev = unzip(evaluation_zip, tmp / "evaluation")
@@ -82,6 +86,28 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
     (out / "training").mkdir()
     shutil.copy(ROOT / "notebooks/finetune.ipynb", out / "training/finetune.ipynb")
 
+    loadgrowth = None
+    if loadgrowth_zip:
+        lsum = json.loads((ROOT / f"results/finetune_{LOADGROWTH_RUN}/summary.json").read_text())
+        lweights = next(unzip(loadgrowth_zip, tmp / "loadgrowth").rglob("genco_finetuned_state_dict.pt"))
+        if sha256(lweights) != lsum["checkpoint_sha256"]:
+            raise SystemExit(f"{lweights.name}: SHA-256 does not match results/finetune_{LOADGROWTH_RUN}/summary.json")
+        (out / "loadgrowth").mkdir()
+        lstate = torch.load(lweights, map_location="cpu")
+        save_file({k: v.contiguous() for k, v in lstate.items()}, out / "loadgrowth/model.safetensors")
+        shutil.copy(ROOT / "notebooks/finetune_loadgrowth.ipynb", out / "training/finetune_loadgrowth.ipynb")
+        loadgrowth = {
+            "what": "fine-tuned as model.safetensors, plus a load-growth response term (notebooks/finetune_loadgrowth.ipynb)",
+            "train_seed": lsum["frozen_protocol"]["train_seed"],
+            "optimizer_steps": lsum["optimizer_steps"],
+            "selected_step": lsum["selected_step"],
+            "minutes_on_t4": round(lsum["training_minutes"]),
+            "sha256": {
+                "genco_finetuned_state_dict.pt": lsum["checkpoint_sha256"],
+                "loadgrowth/model.safetensors": sha256(out / "loadgrowth/model.safetensors"),
+            },
+        }
+
     protocol = summary["frozen_protocol"]
     config = {
         "base_model": {"repo": BASE_REPO, "revision": BASE_REVISION, "checkpoint": "model/training_bs_16"},
@@ -106,9 +132,16 @@ def build_model_folder(finetune_zip, evaluation_zip, out):
             "model.safetensors": sha256(out / "model.safetensors"),
         },
     }
+    if loadgrowth:
+        config["loadgrowth"] = loadgrowth
     (out / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     if config["sha256"]["model.safetensors"] not in (ROOT / "release/MODEL_CARD.md").read_text():
         raise SystemExit("release/MODEL_CARD.md does not state the SHA-256 of the converted model.safetensors")
+    if (
+        loadgrowth
+        and loadgrowth["sha256"]["loadgrowth/model.safetensors"] not in (ROOT / "release/MODEL_CARD.md").read_text()
+    ):
+        raise SystemExit("release/MODEL_CARD.md does not state the SHA-256 of loadgrowth/model.safetensors")
     card = (
         (ROOT / "release/MODEL_CARD.md")
         .read_text()
@@ -123,6 +156,7 @@ def main():
     ap.add_argument("--user", required=True, help="Hugging Face account")
     ap.add_argument("--finetune", required=True, help="zip written by notebooks/finetune.ipynb")
     ap.add_argument("--evaluation", required=True, help="zip written by notebooks/evaluate_finetuned.ipynb")
+    ap.add_argument("--loadgrowth", help="zip written by notebooks/finetune_loadgrowth.ipynb (optional)")
     ap.add_argument("--model-name", default="genco-texas-clustered")
     ap.add_argument("--space-name", default="genco-contingency-verifier")
     ap.add_argument("--public", action="store_true", help="create public repositories (default: private)")
@@ -134,7 +168,7 @@ def main():
     space_repo = f"{args.user}/{args.space_name}"
 
     model_dir = Path(tempfile.mkdtemp())
-    build_model_folder(args.finetune, args.evaluation, model_dir)
+    build_model_folder(args.finetune, args.evaluation, model_dir, args.loadgrowth)
     api.create_repo(model_repo, repo_type="model", private=private, exist_ok=True)
     api.upload_folder(
         folder_path=str(model_dir),
