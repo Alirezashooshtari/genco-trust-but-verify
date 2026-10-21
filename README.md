@@ -44,6 +44,11 @@ outages from 6.13 to 4.79 per case (−22 %; −20 % with a second training seed
 a rule on the outage alone (at least 5 lines out, spread over at most 11 hops) sends clustered outages to it and leaves
 ordinary ones with the released model. Replaying ordinary scenarios during fine-tuning did not remove the trade-off:
 none of its 20 checkpoints kept ordinary accuracy within 10 % of the released model (`notebooks/finetune_replay.ipynb`).
+Supervising the response GENCO gets wrong does pay: with a load-growth term (`notebooks/finetune_loadgrowth.ipynb`), its
+response to system-wide load growth on held-out scenarios goes from 0.60 to 0.99 of the AC response (1.01 with a second
+seed; 0.78 for the fine-tuning above), and missed decisions on clustered outages fall to 4.45 per case (−27 %; −31 %
+with the second seed). It is further from the released model on ordinary scenarios, so the same routing applies.
+
 A warning head on GENCO's embeddings flags the cases the solver will not resolve, with AUROC 0.96; with the queue
 ordered by it, 95 % of them are in the first 24 % of cases, against 92 % for GENCO's lowest predicted voltage.
 
