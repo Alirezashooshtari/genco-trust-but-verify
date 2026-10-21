@@ -7,6 +7,7 @@ import csv
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 
@@ -367,6 +368,53 @@ claim(
     " / ".join(f"{100 * routing['random_outages_routed_to_fine_tuned'][k]:.0f} %" for k in ("N-2", "N-10", "N-20")),
     "analysis/routing.json",
 )
+# ------------------------------------------------------------------ triage: the queue ordered by the warning
+pcs = pd.read_csv(RES / "evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv")
+f1 = pcs[(pcs.model == "released") & (pcs.test == "F1")]
+
+
+def opened_for(score, label, share):
+    """Cases an engineer opens, in score order, before finding `share` of the unresolved ones."""
+    found = label.to_numpy()[np.argsort(-score.to_numpy(), kind="stable")].cumsum()
+    return int(np.argmax(found >= share * label.sum())) + 1
+
+
+triage = {
+    "the warning": f1.score,
+    "power-mismatch p99 alone": f1.genco_resP_p99_MW,
+    "lowest predicted voltage alone": -f1.genco_lowest_voltage,
+}
+claim(
+    "triage",
+    "frozen test, queue ordered by: " + " / ".join(triage) + ": share opened to find 95 % of the unresolved cases",
+    " / ".join(f"{100 * opened_for(v, f1.label_unresolved, 0.95) / len(f1):.0f} %" for v in triage.values()),
+    "evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv",
+)
+claim(
+    "triage",
+    "frozen test: unresolved cases / cases (the share an ideal ordering opens)",
+    f"{int(f1.label_unresolved.sum())} / {len(f1)} ({100 * f1.label_unresolved.mean():.0f} %)",
+    "evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv",
+)
+nfw = json.loads((RES / "near_fold_warning/summary.json").read_text())
+nfa = pd.read_csv(RES / "near_fold_warning/auroc.csv").set_index("model")
+claim(
+    "near_fold",
+    "warning trained near the fold, storms held out: AUROC (95 % CI); published warning; rule met",
+    f"{nfw['primary_auroc']:.2f} ({nfw['primary_ci95'][0]:.2f} to {nfw['primary_ci95'][1]:.2f}); "
+    f"{nfa.loc['published warning (unchanged)', 'auroc']:.2f}; {'yes' if nfw['rule_met'] else 'no (rule: at least 0.70)'}",
+    "near_fold_warning/summary.json",
+)
+claim(
+    "near_fold",
+    "trained near the fold: AUROC, embeddings only / GENCO outputs only / load factor only",
+    " / ".join(
+        f"{nfa.loc[f'trained near the fold: {k}', 'auroc']:.2f}"
+        for k in ("embeddings only", "outputs only", "load factor only")
+    ),
+    "near_fold_warning/auroc.csv",
+)
+
 # ------------------------------------------------------------------ a second grid (IEEE 118, its released GENCO)
 g2 = json.loads((RES / "second_grid/summary.json").read_text())
 g2c = pd.read_csv(RES / "second_grid/cases.csv")
