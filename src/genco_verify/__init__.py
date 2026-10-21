@@ -4,7 +4,7 @@ from .cases import case_from_tables, synthetic_case
 from .powerflow import HAVE_KLU, build_ybus, newton_solve
 from .verifier import DEFAULT_POLICY, STATUSES, StartAttempt, Verifier, VerifyResult
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 __all__ = [
     "Verifier",
     "VerifyResult",

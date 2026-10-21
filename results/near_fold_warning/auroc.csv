@@ -1,0 +1,6 @@
+model,auroc,ci_lo,ci_hi,diff_vs_primary,diff_ci_lo,diff_ci_hi
+published warning (unchanged),0.5717,0.5392,0.6059,-0.0596,-0.1029,-0.0188
+trained near the fold: outputs + embeddings (primary),0.6313,0.6049,0.6661,0.0000,0.0000,0.0000
+trained near the fold: outputs only,0.5848,0.5584,0.6175,-0.0465,-0.0764,-0.0176
+trained near the fold: embeddings only,0.6253,0.5997,0.6590,-0.0060,-0.0140,0.0028
+trained near the fold: load factor only,0.5694,0.5597,0.5913,-0.0619,-0.0894,-0.0329

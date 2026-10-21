@@ -1,0 +1,21 @@
+{
+ "protocol": "results/near_fold_warning/protocol.json",
+ "feature_file_sha256": "1c81f6a397d4874f70fe4fb52819f8f5ee291e3c57c722c699e3b6b0537a90f8",
+ "points": 1226,
+ "storms": 111,
+ "unresolved": 558,
+ "bootstrap_resamples_used": 2000,
+ "primary_auroc": 0.6313019123044235,
+ "primary_ci95": [
+  0.6049080948829105,
+  0.6661269361776269
+ ],
+ "published_auroc": 0.572,
+ "success_rule": "primary AUROC >= 0.70 and the lower end of its 95 % interval above 0.572",
+ "rule_met": false,
+ "versions": {
+  "python": "3.13.16",
+  "numpy": "2.4.6",
+  "sklearn": "1.9.1"
+ }
+}

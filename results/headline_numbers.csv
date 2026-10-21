@@ -54,6 +54,10 @@ routing,"frozen test, random outages: routed to fine-tuned; decisions missed per
 routing,"held-out construction outages: routed to fine-tuned; decisions missed per case, released -> routed (95 % CI)",111 of 153; 2.01 -> 1.61 (-0.61 to -0.20),analysis/routing.json
 runs,"routing, clustered outages: decisions missed per case, routed, seed 0 / seed 1 / first run",4.79 / 4.88 / 4.70,analysis/routing.json
 routing,random N-2 / N-10 / N-20 outages routed to the fine-tuned model,0 % / 0 % / 0 %,analysis/routing.json
+triage,"frozen test, queue ordered by: the warning / power-mismatch p99 alone / lowest predicted voltage alone: share opened to find 95 % of the unresolved cases",24 % / 53 % / 92 %,evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv
+triage,frozen test: unresolved cases / cases (the share an ideal ordering opens),122 / 870 (14 %),evaluate_finetuned_seed0/unresolved_warning/per_case_scores.csv
+near_fold,"warning trained near the fold, storms held out: AUROC (95 % CI); published warning; rule met",0.63 (0.60 to 0.67); 0.57; no (rule: at least 0.70),near_fold_warning/summary.json
+near_fold,"trained near the fold: AUROC, embeddings only / GENCO outputs only / load factor only",0.63 / 0.58 / 0.57,near_fold_warning/auroc.csv
 grid2,operating points from the authors' test split / contingencies / resolved by the classical solver / unresolved,118 / 708 / 679 / 29,second_grid/summary.json
 grid2,"model check: GENCO's RMSE of Vm at PQ buses, ours / the authors' (p.u.)",0.00031 / 0.00028,second_grid/summary.json
 grid2,verified workflow: AC decisions / false alarms / unresolved cases passed / decisions differing from the classical solution,679 / 0 / 0 / 0,second_grid/summary.json
