@@ -44,7 +44,8 @@ outages from 6.13 to 4.79 per case (−22 %; −20 % with a second training seed
 a rule on the outage alone (at least 5 lines out, spread over at most 11 hops) sends clustered outages to it and leaves
 ordinary ones with the released model. Replaying ordinary scenarios during fine-tuning did not remove the trade-off:
 none of its 20 checkpoints kept ordinary accuracy within 10 % of the released model (`notebooks/finetune_replay.ipynb`).
-A warning head on GENCO's embeddings flags the cases the solver will not resolve, with AUROC 0.96.
+A warning head on GENCO's embeddings flags the cases the solver will not resolve, with AUROC 0.96; with the queue
+ordered by it, 95 % of them are in the first 24 % of cases, against 92 % for GENCO's lowest predicted voltage.
 
 ## Quick start
 
@@ -89,7 +90,7 @@ src/genco_verify/   the verification workflow (numpy, scipy; lightsim2grid optio
 tests/              tests of every outcome and option on a three-bus grid
 notebooks/          the Colab notebooks that produced the results (see notebooks/README.md)
 results/            what the numbers and figures need from each notebook run, plus the analyses in results/analysis/
-scripts/            headline numbers, figures, demo, warning ablation, Hugging Face upload
+scripts/            headline numbers, figures, demo, warning ablation, near-fold warning, Hugging Face upload
 figures/            the five figures of the write-up (figure 1 is a draw.io file)
 demo/               the case explorer (also the Hugging Face Space)
 environment/        Colab setup, pinned upstream revisions, data and checkpoint hashes
@@ -100,11 +101,12 @@ release/            the model card of the fine-tuned model
 
 Each notebook runs on a fresh Colab runtime from the public data and checkpoint, with gridfm-graphkit pinned to commit
 `95b90ee` and `gridfm/genco-pf-contingency` to revision `5c625b0`. `environment/colab.md` describes the setup and what
-reproduces exactly; `notebooks/README.md` maps each notebook to its results folder and figure. The warning ablation also
-needs the feature matrices published with the model:
+reproduces exactly; `notebooks/README.md` maps each notebook to its results folder and figure. The warning ablation and
+the near-fold warning also need the feature matrices published with the model:
 
 ```bash
 python scripts/warning_ablation.py --features-dir <folder with features_released.npz and features_finetuned.npz>
+python scripts/near_fold_warning.py --features-dir <folder with features_released.npz>
 ```
 
 ## Scope
@@ -113,8 +115,9 @@ The check is a steady-state AC power flow; dynamics, protection and remedial act
 that none of the tested Newton starts converged, not that no AC solution exists; for the storms, continuation places the
 fold of the AC solution below the actual load in 32 of 33 cases. On Texas, GENCO does not make screening faster (86 ms
 per case with verification, 13 ms for the classical solve, on a T4 GPU with a one-thread KLU solver; see
-`results/frozen_test/timing.json`). Within 5 % of the fold the warning's AUROC falls to 0.57, so the solver still runs
-on every case.
+`results/frozen_test/timing.json`). Within 5 % of the fold the warning's AUROC falls to 0.57 (0.63 when trained on
+points near the fold, short of the 0.70 set in advance in `results/near_fold_warning/protocol.json`), so the solver
+still runs on every case.
 
 ## Credits and licence
 
