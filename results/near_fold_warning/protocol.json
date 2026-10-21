@@ -1,0 +1,21 @@
+{
+ "written": "before any result of this analysis was computed",
+ "question": "Can a warning trained on load points near the fold (continuation data) tell, on storms it has never seen, the points where no tested Newton start converges from those where one does, better than the published warning (AUROC 0.572 on these points)?",
+ "data": {
+  "file": "data/features_released.npz of huggingface.co/Alirezashooshtari/genco-texas-clustered (released GENCO)",
+  "sha256": "1c81f6a397d4874f70fe4fb52819f8f5ee291e3c57c722c699e3b6b0537a90f8",
+  "set": "K1 points within 5 % of the fold: 1226 load points of 111 storms, 558 with no converging start",
+  "label": "1 if none of the tested Newton starts converges at that load point (as in the published warning)"
+ },
+ "features": "the published warning's 777: 9 from GENCO's predicted state and 768 bus-embedding dimensions",
+ "model": "StandardScaler + LogisticRegression(C=0.05, class_weight='balanced', max_iter=5000): the published warning's settings, not tuned",
+ "evaluation": "5-fold GroupKFold with the storm as the group, so every storm is scored by a model that never saw it; out-of-fold scores pooled; AUROC with a 95 % interval from 2000 bootstrap resamples of storms (seed 0)",
+ "baseline": "the published warning, unchanged, on the same points: AUROC 0.572",
+ "secondary": [
+  "the same model on the 9 output features only, and on the 768 embedding dimensions only",
+  "the load factor of the point alone (a logistic regression on it, same folds)",
+  "paired AUROC differences against the primary model, by the same storm bootstrap"
+ ],
+ "success": "primary AUROC >= 0.70 and the lower end of its 95 % interval above 0.572",
+ "reporting": "the result is written to results/near_fold_warning/ and reported in the write-up whether or not it meets the rule"
+}
