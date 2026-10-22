@@ -10,7 +10,7 @@ The released GENCO checkpoint (`gridfm/genco-pf-contingency`, `model/training_bs
 its own training objective (gridfm-graphkit `MixedLoss`) on 6,737 contingencies of the Texas 2,000-bus grid labelled by a
 verified AC solver: random, nearest-line and corridor outages from N-5 to N-20, at the actual load and with loads scaled by
 0.85 to 1.35. One outage construction was held out for testing. These are the weights of training seed 0. A second seed
-was trained on the same cases; an earlier run, made before a fix to gradient accumulation, is kept for the record.
+was trained on the same cases (its weights are in `seed1/`); an earlier run, made before a fix to gradient accumulation, is kept for the record.
 
 Code, notebooks and results: [github.com/Alirezashooshtari/genco-trust-but-verify](https://github.com/Alirezashooshtari/genco-trust-but-verify) ·
 Demo: [genco-contingency-verifier](https://huggingface.co/spaces/Alirezashooshtari/genco-contingency-verifier)
@@ -32,6 +32,7 @@ Alireza Shooshtari, Institut de Recerca en Energia de Catalunya (IREC)
 | `training/finetune.ipynb` | the notebook that produced the weights (`TRAIN_SEED = 0`) |
 | `loadgrowth/model.safetensors` | the same fine-tuning plus a load-growth response term (see below) |
 | `training/finetune_loadgrowth.ipynb` | the notebook that produced those weights (`TRAIN_SEED = 0`) |
+| `seed1/model.safetensors`, `loadgrowth/seed1/model.safetensors` | the second training seed (`TRAIN_SEED = 1`) of each, with the results reported below |
 
 The `.joblib` heads were saved with scikit-learn 1.6.1 (the Colab version at the time); with other versions use the
 JSON files, which hold the same parameters as plain numbers.
@@ -98,6 +99,11 @@ over the last 5 % of load, against 5 % for the base model), and Newton never con
 `loadgrowth/model.safetensors` SHA-256: `584b15d658fa7dd97b606c5d78ade0f40ae6bbbf6d8f5fe631fbe072c40763eb`, converted from
 the notebook's `genco_finetuned_state_dict.pt` (SHA-256 `9d3f671bf4c171b9327b52e9f100b01c140f76f096fdc35e1318aa3b5401c8b6`).
 It loads in the same way as `model.safetensors`.
+
+The second seeds load in the same way: `seed1/model.safetensors` SHA-256
+`20143b739aef9dca29733a7f92ec6362dd048450adfe53d0d4793463d33552c3` (from `544185154b000f39bbfa53cf7ed1ac6e92fdebf47092f4b864973e418c38d14b`),
+`loadgrowth/seed1/model.safetensors` SHA-256 `cc855f15be3f90257d9850f621ca8b81867a7ed5cc960e414de9d92505b81a09`
+(from `7bf1ad7b445f7431d7d69e9c7e573cd256e3fad7bd3ce8ebb823761d6130e37c`).
 
 ## Intended use
 
