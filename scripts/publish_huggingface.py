@@ -11,7 +11,9 @@ with TRAIN_SEED = 0, the published run. The weights are checked against the SHA-
 results/finetune_seed0/summary.json and the evaluation against the same hash, then the weights are converted to
 safetensors and uploaded together with the warning heads, the feature matrices, the model card and the training notebook.
 --loadgrowth is the zip written by notebooks/finetune_loadgrowth.ipynb with TRAIN_SEED = 0; its weights are checked the same
-way against results/finetune_loadgrowth_seed0/summary.json and published under loadgrowth/.
+way against results/finetune_loadgrowth_seed0/summary.json and published under loadgrowth/. --finetune-seed1 and
+--loadgrowth-seed1 are the TRAIN_SEED = 1 runs of the two notebooks, checked against results/finetune_seed1 and
+results/finetune_loadgrowth_seed1 and published under seed1/ and loadgrowth/seed1/.
 """
 
 import argparse
@@ -59,7 +61,28 @@ def unzip(path, into):
     return into
 
 
-def build_model_folder(finetune_zip, evaluation_zip, out, loadgrowth_zip=None):
+def second_seed(zip_path, run, dst, tmp, out):
+    """Checks a TRAIN_SEED = 1 checkpoint against results/<run>/summary.json and converts it to out/<dst>."""
+    lsum = json.loads((ROOT / f"results/{run}/summary.json").read_text())
+    weights = next(unzip(zip_path, tmp / run).rglob("genco_finetuned_state_dict.pt"))
+    if sha256(weights) != lsum["checkpoint_sha256"]:
+        raise SystemExit(f"{zip_path}: SHA-256 does not match results/{run}/summary.json")
+    if lsum["frozen_protocol"]["train_seed"] != 1:
+        raise SystemExit(f"{zip_path} is not a TRAIN_SEED = 1 run")
+    (out / dst).parent.mkdir(parents=True, exist_ok=True)
+    state = torch.load(weights, map_location="cpu")
+    save_file({k: v.contiguous() for k, v in state.items()}, out / dst)
+    return {
+        "run": run,
+        "train_seed": 1,
+        "genco_finetuned_state_dict.pt": lsum["checkpoint_sha256"],
+        dst: sha256(out / dst),
+    }
+
+
+def build_model_folder(
+    finetune_zip, evaluation_zip, out, loadgrowth_zip=None, finetune_seed1=None, loadgrowth_seed1=None
+):
     tmp = Path(tempfile.mkdtemp())
     ft = unzip(finetune_zip, tmp / "finetune")
     ev = unzip(evaluation_zip, tmp / "evaluation")
@@ -134,6 +157,15 @@ def build_model_folder(finetune_zip, evaluation_zip, out, loadgrowth_zip=None):
     }
     if loadgrowth:
         config["loadgrowth"] = loadgrowth
+    seeds = []
+    if finetune_seed1:
+        seeds.append(second_seed(finetune_seed1, "finetune_seed1", "seed1/model.safetensors", tmp, out))
+    if loadgrowth_seed1:
+        seeds.append(
+            second_seed(loadgrowth_seed1, "finetune_loadgrowth_seed1", "loadgrowth/seed1/model.safetensors", tmp, out)
+        )
+    if seeds:
+        config["second_seeds"] = seeds
     (out / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     if config["sha256"]["model.safetensors"] not in (ROOT / "release/MODEL_CARD.md").read_text():
         raise SystemExit("release/MODEL_CARD.md does not state the SHA-256 of the converted model.safetensors")
@@ -142,6 +174,10 @@ def build_model_folder(finetune_zip, evaluation_zip, out, loadgrowth_zip=None):
         and loadgrowth["sha256"]["loadgrowth/model.safetensors"] not in (ROOT / "release/MODEL_CARD.md").read_text()
     ):
         raise SystemExit("release/MODEL_CARD.md does not state the SHA-256 of loadgrowth/model.safetensors")
+    for sd in seeds:
+        dst = next(k for k in sd if k.endswith(".safetensors"))
+        if sd[dst] not in (ROOT / "release/MODEL_CARD.md").read_text():
+            raise SystemExit(f"release/MODEL_CARD.md does not state the SHA-256 of {dst}")
     card = (
         (ROOT / "release/MODEL_CARD.md")
         .read_text()
@@ -157,6 +193,10 @@ def main():
     ap.add_argument("--finetune", required=True, help="zip written by notebooks/finetune.ipynb")
     ap.add_argument("--evaluation", required=True, help="zip written by notebooks/evaluate_finetuned.ipynb")
     ap.add_argument("--loadgrowth", help="zip written by notebooks/finetune_loadgrowth.ipynb (optional)")
+    ap.add_argument("--finetune-seed1", help="zip written by notebooks/finetune.ipynb with TRAIN_SEED = 1 (optional)")
+    ap.add_argument(
+        "--loadgrowth-seed1", help="zip written by notebooks/finetune_loadgrowth.ipynb with TRAIN_SEED = 1 (optional)"
+    )
     ap.add_argument("--model-name", default="genco-texas-clustered")
     ap.add_argument("--space-name", default="genco-contingency-verifier")
     ap.add_argument("--public", action="store_true", help="create public repositories (default: private)")
@@ -168,7 +208,9 @@ def main():
     space_repo = f"{args.user}/{args.space_name}"
 
     model_dir = Path(tempfile.mkdtemp())
-    build_model_folder(args.finetune, args.evaluation, model_dir, args.loadgrowth)
+    build_model_folder(
+        args.finetune, args.evaluation, model_dir, args.loadgrowth, args.finetune_seed1, args.loadgrowth_seed1
+    )
     api.create_repo(model_repo, repo_type="model", private=private, exist_ok=True)
     api.upload_folder(
         folder_path=str(model_dir),
